@@ -1,9 +1,10 @@
 package com.tibs.Ergon;
 
 import java.util.List;
+import java.util.Objects;
 
-import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -34,7 +35,7 @@ public class SpringConfiguration implements WebMvcConfigurer{
                 @Override
                 public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain){ 
                     Resource resource = super.resolveResource(request, location, locations, chain);
-                    if(nonNull(resource)){
+                    if(Objects.nonNull(resource)){ 
                         return resource; 
                     }
 
