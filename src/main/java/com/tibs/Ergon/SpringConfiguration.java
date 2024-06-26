@@ -22,26 +22,26 @@ public class SpringConfiguration implements WebMvcConfigurer{
     }
     
 
-    private void serveDirectory(ResourceHandlerRegistry registry, String endpoint, String location){ 
-        String[] endpointPatterns = endpoint.endsWith("/") 
-        ? new String[]{endpoint.substring(0, endpoint.length()-1), endpoint, endpoint+ "**"} 
-        : new String[]{ endpoint, endpoint + "/", endpoint + "/**"}; 
-
+    private void serveDirectory(ResourceHandlerRegistry registry, String endpoint, String location) {
+        // 1
+        String[] endpointPatterns = endpoint.endsWith("/")
+                ? new String[]{endpoint.substring(0, endpoint.length() - 1), endpoint, endpoint + "**"}
+                : new String[]{endpoint, endpoint + "/", endpoint + "/**"};
         registry
-            .addResourceHandler(endpointPatterns)
-            .addResourceLocations(location.endsWith("/") ? location : location+ "/")
-            .resourceChain(false)
-            .addResolver(new PathResourceResolver() {
-                @Override
-                public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain){ 
-                    Resource resource = super.resolveResource(request, location, locations, chain);
-                    if(Objects.nonNull(resource)){ 
-                        return resource; 
+                // 2
+                .addResourceHandler(endpointPatterns)
+                .addResourceLocations(location.endsWith("/") ? location : location + "/")
+                .resourceChain(false)
+                // 3
+                .addResolver(new PathResourceResolver() {
+                    @Override
+                    public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
+                        Resource resource = super.resolveResource(request, requestPath, locations, chain);
+                        if (Objects.nonNull(resource)) {
+                            return resource;
+                        }
+                        return super.resolveResource(request, "/index.html", locations, chain);
                     }
-
-                    return super.resolveResource(request, "/index.html", locations, chain); 
-                }
-            });
-
+                });
     }
 }
