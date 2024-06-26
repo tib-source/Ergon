@@ -20,7 +20,6 @@ jobs:
       packages: write
 
     steps:
-    - uses: actions/checkout@v4
     - name: 'Setup :: Checkout'
       uses: 'actions/checkout@v4'
 
