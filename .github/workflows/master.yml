@@ -10,6 +10,11 @@ on:
     branches:
       - 'master'
 
+env:
+  JAVA_DISTRO: 'microsoft'
+  JAVA_MAJOR_VERSION: '17.0.8'
+  NODE_MAJOR_VERSION: '20.14.0'
+
 
 jobs:
   build:
@@ -20,6 +25,7 @@ jobs:
       packages: write
 
     steps:
+    - uses: actions/checkout@v4
     - name: 'Setup :: Checkout'
       uses: 'actions/checkout@v4'
 
