@@ -2,10 +2,23 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { Env } from './Env';
+
+
+
+
 
 function App() {
   const [count, setCount] = useState(0)
 
+
+  const handleClick = () => { 
+    setCount((count) => count + 1)
+    fetch(Env.BASE_URL + "/ping").then(response => response.text()).then(body => console.log(body))
+  }
+  
+
+  
   return (
     <>
       <div>
@@ -18,7 +31,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={handleClick}>
           count is {count}
         </button>
         <p>
