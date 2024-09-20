@@ -1,26 +1,20 @@
 package com.tibs.Ergon.web;
 
-import com.sun.source.tree.LambdaExpressionTree;
-import com.tibs.Ergon.model.BookingRepository;
+import com.tibs.Ergon.repository.BookingRepository;
 import com.tibs.Ergon.model.Booking;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import javax.swing.*;
-import java.awt.print.Book;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
-@RestController("/api")
+@RequestMapping("/api")
+@RestController
 public class BookingController {
     private final Logger log = LoggerFactory.getLogger(BookingController.class);
     private final BookingRepository bookingRepository;

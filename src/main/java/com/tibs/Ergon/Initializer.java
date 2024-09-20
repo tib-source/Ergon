@@ -1,6 +1,6 @@
 package com.tibs.Ergon;
 
-import com.tibs.Ergon.model.BookingRepository;
+import com.tibs.Ergon.repository.BookingRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
