@@ -6,7 +6,6 @@ import com.tibs.Ergon.request.UserRegistrationRequest;
 import com.tibs.Ergon.response.AuthResponse;
 import com.tibs.Ergon.security.JwtUtil;
 import com.tibs.Ergon.service.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

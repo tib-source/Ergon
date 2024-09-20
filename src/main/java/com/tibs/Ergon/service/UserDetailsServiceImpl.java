@@ -50,7 +50,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return authorities;
     }
 
-    public User registerUser(UserRegistrationRequest newUser) throws UserAlreadyExists, RoleNotFound, RuntimeException {
+    public User registerUser(UserRegistrationRequest newUser) throws UserAlreadyExists, RoleNotFound {
         if (userRepository.existsByEmail(newUser.getEmail()) || userRepository.existsByUsername(newUser.getUsername())) {
             throw new UserAlreadyExists();
         }
