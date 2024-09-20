@@ -1,20 +1,22 @@
 package com.tibs.Ergon.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import java.time.LocalDate;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Entity
-@Table(name = "equipment")
+@Table(name = "equipments")
 public class Equipment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NonNull
     private String name;
@@ -25,9 +27,6 @@ public class Equipment {
     private LocalDate last_audit;
     private String comment;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private User user;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @OneToOne (cascade = CascadeType.ALL)
     private Booking booking;
 }
