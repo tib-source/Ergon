@@ -1,7 +1,7 @@
-const { VITE_API_BASE_URL, ...otherViteConfig } = import.meta.env;
+const { ...otherViteConfig } = import.meta.env;
 
 export const Env = { 
-  BASE_URL : VITE_API_BASE_URL,
+  BASE_URL : "https://localhost:8080",
   __vite__ : otherViteConfig
 }
 

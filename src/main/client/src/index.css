@@ -13,6 +13,25 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: "Montserrat", "Saira", sans-serif;
+  --primary-bg: #2e2e48;
+  --bright: #794bff;
+  --gray: #666666;
+  --gray-light: #66666680;
+  --button: #373771;
+  --error: #d15757;
+  --accent: #57c2d1;
+  --success: #61d295;
+  --white: #ffffff;
+  --sidebar: 350px;
+}
+
+
+
 a {
   font-weight: 500;
   color: #646cff;

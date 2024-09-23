@@ -28,6 +28,6 @@ src/main/resources/static
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
-
+lint/
 ### VS Code ###
 .vscode/
