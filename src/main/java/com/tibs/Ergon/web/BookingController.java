@@ -13,7 +13,7 @@ import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Optional;
 
-@RequestMapping("/api")
+@RequestMapping("/api/bookings")
 @RestController
 public class BookingController {
     private final Logger log = LoggerFactory.getLogger(BookingController.class);
@@ -23,32 +23,32 @@ public class BookingController {
         this.bookingRepository = bookingRepository;
     }
 
-    @GetMapping("/bookings")
+    @GetMapping("/")
     public Collection<Booking> bookings(){
         return bookingRepository.findAll();
     }
 
-    @GetMapping("/bookings/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getBooking(@PathVariable Long id){
         Optional<Booking> found = bookingRepository.findById(id);
         return found.map(response -> ResponseEntity.ok().body(response)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/bookings")
+    @PostMapping("/")
     public ResponseEntity<?> createBooking(@Valid @RequestBody Booking booking) throws URISyntaxException {
         log.info("Requesting to create a new Booking: {}", booking);
         Booking created = bookingRepository.save(booking);
         return ResponseEntity.created(new URI("/api/bookings/" + created.getId())).body(created);
     }
 
-    @DeleteMapping("/bookings/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBooking(@PathVariable Long id){
         log.info("Requesting to delete booking: {}", id);
         bookingRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/booking/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Booking> updateBooking(@Valid @RequestBody Booking booking){
         log.info("Requesting to update Booking: {}", booking);
         Booking update = bookingRepository.save(booking);

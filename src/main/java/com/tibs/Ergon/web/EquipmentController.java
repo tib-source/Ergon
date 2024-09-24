@@ -16,7 +16,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/equipments")
 public class EquipmentController {
 
     private final Logger log = LoggerFactory.getLogger(EquipmentController.class);
@@ -27,32 +27,32 @@ public class EquipmentController {
     }
 
     // return all Equipments
-    @GetMapping("/equipments")
+    @GetMapping("/")
     public Collection<Equipment> equipments(){
         return equipmentRepository.findAll();
     }
     // return Equipment by Id
-    @GetMapping("/equipment/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getEquipment(@PathVariable Long id){
         Optional<Equipment> found = equipmentRepository.findById(id);
         return found.map(response -> ResponseEntity.ok().body(response)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     // create Equipment
-    @PostMapping("/equipments")
+    @PostMapping("/")
     public ResponseEntity<Equipment> createEquipment(@Valid @RequestBody Equipment equipment) throws URISyntaxException {
         log.info("Request to create Equipment: {}", equipment);
         Equipment result = equipmentRepository.save(equipment);
         return ResponseEntity.created(new URI("/api/equipment/" + result.getId())).body(result);
     }
     // Update Equipment
-    @PutMapping("/equipments/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Equipment> updateEquipment(@Valid @RequestBody Equipment equipment){
         log.info("Requesting to update Equipment: {}", equipment);
         Equipment update = equipmentRepository.save(equipment);
         return ResponseEntity.ok().body(update);
     }
     // Delete Equipment
-    @DeleteMapping("/equipment/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEquipment(@PathVariable Long id){
         log.info("Requesting to delete equipment: {}", id);
         equipmentRepository.deleteById(id);

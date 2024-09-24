@@ -1,13 +1,25 @@
 import profilePic from "../assets/react.svg"
 import "./navigation.css"
 import {useState, useRef} from "react";
+import {NavLink} from "react-router-dom";
 const Sidebar = () => {
-    const [closed, setClosed] = useState<boolean>(false)
+    const [user, setUser] = useState<object>({
+        name: "Tibebe Demissie",
+        profilePic: profilePic,
+        isAdmin: false,
+    })
     const sideBarHtml = useRef<HTMLDivElement>(null)
     const handleHamburger = () => {
-        setClosed(!closed)
         sideBarHtml.current?.classList.toggle("navigation__hidden")
-
+    }
+    const renderAdminPages = (isAdmin: Boolean) => {
+        if (isAdmin){
+            return <>
+                <NavLink to="/report">Report</NavLink>
+                <NavLink to="/approvals">Approvals</NavLink>
+                <NavLink to="/users">Users</NavLink>
+            </>
+        }
 
     }
     return (
@@ -17,18 +29,16 @@ const Sidebar = () => {
                     X
                 </div>
                 <div className=" navigation__profile">
-                    <img src={profilePic} className="navigation__pic" alt="Profile Picture"/>
-                    Tibebe Demissie
+                    <img src={user.profilePic} className="navigation__pic" alt="Profile Picture"/>
+                    {user.name}
                 </div>
 
                 <div className="navigation__pages">
-                    <a href="/dashboard">Dashboard</a>
-                    <a href="/booking_history">Bookings</a>
-                    <a href="/notifications">Notifications</a>
-                    <a href="/approvals">Approvals</a>
-                    <a href="/report">Report</a>
-                    <a href="/users">Users</a>
-                    <a href="/profile">Account</a>
+                    <NavLink to="/dashboard">Dashboard</NavLink>
+                    <NavLink to="/booking_history">Bookings</NavLink>
+                    <NavLink to="/notifications">Notifications</NavLink>
+                    { renderAdminPages(user.isAdmin) }
+                    <NavLink to="/profile">Account</NavLink>
                 </div>
 
                 <button> Logout</button>

@@ -7,7 +7,7 @@ body{
 .navigation__hidden{
     transform: translateX(-100%);
     .navigation__hamburger{
-        transform: translateX(130%);
+        transform: translateX(150%);
     }
 }
 .navigation{
@@ -19,6 +19,7 @@ body{
     align-items: center;
     flex-direction: column;
     position: relative;
+    transition: 100ms ease-in;
 
 
 
@@ -28,8 +29,10 @@ body{
         right: 20px;
         cursor: pointer;
         background: var(--primary-bg);
-        padding: 1rem 1.5rem;
-        border-radius: 0 15px 15px 0;
+        padding: 1rem 1.75rem;
+        border-radius: 10px;
+        transition: 100ms;
+
     }
     .navigation__profile{
         display: flex;
@@ -47,7 +50,7 @@ body{
 
     .navigation__pages{
         display: grid;
-        gap: 1rem;
+        gap: .5rem;
 
         a{
             text-decoration: none;
