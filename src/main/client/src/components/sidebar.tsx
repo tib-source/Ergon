@@ -10,11 +10,13 @@ type UserObject = {
 }
 
 const Sidebar = () => {
-    const [user, setUser] = useState<UserObject>({
+    const [user, setUser] = useState<UserObject>({isAdmin: false, name: "", profilePic: ""})
+    setUser({
         name: "Tibebe Demissie",
         profilePic: profilePic,
         isAdmin: false,
     })
+
     const sideBarHtml = useRef<HTMLDivElement>(null)
     const handleHamburger = () => {
         sideBarHtml.current?.classList.toggle("navigation__hidden")
