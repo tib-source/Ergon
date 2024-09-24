@@ -20,7 +20,7 @@ import java.util.Optional;
 public class EquipmentController {
 
     private final Logger log = LoggerFactory.getLogger(EquipmentController.class);
-    private EquipmentRepository equipmentRepository;
+    private final EquipmentRepository equipmentRepository;
 
     public EquipmentController(EquipmentRepository equipmentRepository){
         this.equipmentRepository = equipmentRepository;
