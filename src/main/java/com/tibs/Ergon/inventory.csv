@@ -1,0 +1,112 @@
+Device Name,Device Type,Quantity,Audit,Location,Status,Comments
+Laptop w/ 2070 GPU,PC/Laptop,1,2022-05-20,Other,On_loan,
+Laptop w/ 2070,PC/Laptop,3,2023-03-24,XRLab Blue Cabinet,Repairing,
+Valve Index,VR Headset,3,2022-04-14,XRLab,Available,
+Vive Pro Eye,VR Headset,1,2022-04-14,XRLab,,
+Base Station 2,Camera/Sensors,6,2022-04-14,XRLab,,
+PC w/ 1080,PC/Laptop,4,2022-04-14,XRLab,,
+PC w/ 1060,PC/Laptop,1,2022-04-14,XRLab,,
+Windows AIO PC,PC/Laptop,1,2022-04-14,XRLab,Decommisioned ,
+Mac Mini (Intel),PC/Laptop,1,2022-04-14,XRLab Blue Cabinet,Repairing,Repurpose into linux project pc
+HP Omen Ultrawide ,PC Peripherals,4,2022-04-14,XRLab,,
+Monitor 16:9 ,PC Peripherals,1,2022-04-14,XRLab,,
+Keyboard,PC Peripherals,7,2022-04-14,XRLab,,
+Mouse,PC Peripherals,7,2022-04-14,XRLab,,
+Samsung smart TV 55 Inch,PC Peripherals,3,2022-04-14,XRLab,,
+Movable TVs ,PC Peripherals,1,2022-04-14,XRLab,,
+Clevertouch Screen,PC Peripherals,1,2022-04-14,XRLab,,
+Desk,Furniture,5,2022-04-14,XRLab,,
+Lectern,Furniture,1,2022-04-14,XRLab,,
+Chair ,Furniture,6,2022-04-14,XRLab,,
+Chair w/ Armrest,Furniture,5,2022-04-14,XRLab,,
+Stool,Furniture,1,2022-04-14,XRLab,,
+Table,Furniture,1,2022-04-14,XRLab,,
+Chair w/o backrest,Furniture,2,2022-04-14,XRLab,,
+Leap motion Mount,Camera/Sensors,1,2022-04-14,XRLab,,
+VRGo Egg Chair,PC Peripherals,1,2022-04-14,XRLab,,
+Generic Tripod,Tripod,1,2022-04-14,XRLab,,
+Manfroto Tripod,Tripod,2,2022-04-14,XRLab,,
+Green screen,Other,1,2022-04-14,XRLab,,
+Linx Vision Gaming Tablet,PC/Laptop,1,2022-04-14,XRLab Blue Cabinet,,only runs 32bit OS and super low specs (end of life) 
+Insta 360 Pro,Camera/Sensors,1,2022-09-22,XRLab Blue Cabinet Large,,
+Insta 360 Pro 2,Camera/Sensors,1,2022-09-22,XRLab Blue Cabinet Large,,
+Samsung Gear 360 Camera,Camera/Sensors,1,2022-04-14,XRLab Blue Cabinet,,Remove if S6 is decommisioned
+Insta 360 Pro Battery,Power/Cable,2,2022-04-14,XRLab Blue Cabinet,,
+Insta 360 Pro Charger x 1,Power/Cable,2,2022-04-14,XRLab Blue Cabinet,,
+Structure sensor,Camera/Sensors,1,2022-04-14,XRLab Blue Cabinet,,
+Leap Motion,Camera/Sensors,1,2022-04-14,XRLab Blue Cabinet,,
+Leap Motion,Camera/Sensors,1,2022-05-20,Other,,
+Laptop w/ 1070,PC/Laptop,1,2022-05-20,XRLab Blue Cabinet,,
+Pico 4,VR Headset,2,2023-09-18,XRLab Blue Cabinet Large,,
+Pico 4 Enterprise,VR Headset,1,2023-09-18,XRLab Blue Cabinet Large,,
+Oculus Quest w/ Controllers,VR Headset,3,2022-09-22,XRLab Blue Cabinet Large,,
+Hololens 1,VR Headset,1,2022-09-22,XRLab Blue Cabinet Large,,Need repairs
+Hololens 2,VR Headset,1,2022-09-22,XRLab Blue Cabinet Large,,Need repairs
+Vive Pro Controller Pair,VR Controller,1,2022-04-14,XRLab Blue Cabinet,,
+Valve Knuckles Controller Pair,VR Controller,3,2022-04-14,XRLab Blue Cabinet,,
+Emotiv EEG,Other,1,2022-04-14,XRLab Blue Cabinet,,Broken and never used (spare parts no longer available)
+Neewer 480 LED Lights,Other,1,2022-04-14,XRLab Blue Cabinet,,
+BeBox Router,Other,1,2022-04-14,XRLab Blue Cabinet,,Decommision if we replace it with 5ghz router for wireless VR
+Generic Tripod,Tripod,1,2022-04-14,XRLab Blue Cabinet,,
+GearVR Headset,VR Headset,2,2022-04-14,XRLab Blue Cabinet,,
+GearVR Controller,VR Controller,2,2022-04-14,XRLab Blue Cabinet,,
+IPad Air Gen3 2019,Phones/Tablets,1,2022-04-14,XRLab Blue Cabinet,,
+Anker 10 port USB charger,Power/Cable,3,2022-04-14,XRLab Blue Cabinet,,
+Anker Power Bank 10000MAH,Power/Cable,2,2022-04-14,XRLab Blue Cabinet,,
+HTC Power Bank 5700MAH,Power/Cable,2,2022-04-14,XRLab Blue Cabinet,,
+Vive Wireless Adapter,Other,1,2022-04-14,XRLab Blue Cabinet,,
+Vive Trackers & Dongles,VR Controller,4,2022-04-14,XRLab Blue Cabinet,,
+Samsung Galaxy S6,Phones/Tablets,1,2022-04-14,XRLab Blue Cabinet,,End of life and only used for gearVR/360
+Google Pixel 2,Phones/Tablets,1,2022-04-14,XRLab Blue Cabinet,,Authenticators on this phone
+Xbox One Controller ,PC Peripherals,5,2022-04-14,XRLab Medium Wooden Cabinet,,
+Xbox One Dongle,PC Peripherals,5,2022-04-14,XRLab Medium Wooden Cabinet,,
+Xbox 360 Controller,PC Peripherals,1,2022-04-14,XRLab Medium Wooden Cabinet,,
+Kinect 1,Camera/Sensors,1,2022-04-14,XRLab Medium Wooden Cabinet,,
+Keyboard,PC Peripherals,5,2022-04-14,XRLab Medium Wooden Cabinet,,
+Mouse,PC Peripherals,5,2022-04-14,XRLab Medium Wooden Cabinet,,
+OSVR Dev Kit,VR Headset,1,2022-04-14,XRLab Blue Cabinet Large,,Severe end of life (website and documentation gone)
+Yost Labs PrioVR,Other,1,2022-04-14,XRLab Medium Wooden Cabinet,,
+Wacom Intuos Small,PC Peripherals,1,2023-02-24,XRLab Blue Cabinet,,
+Wacom Intuos,PC Peripherals,1,2023-04-04,XRLab Blue Cabinet,,
+Oculus Rift w/ Controller Pair,VR Headset,1,2022-09-22,XRLab Blue Cabinet Large,,Only used for external events and barely functions
+Oculus Quest 2 w/ Controller Pair,VR Headset,2,2022-09-22,XRLab Blue Cabinet Large,,
+Vive Focus 3 w/ Controller Pair,VR Headset,5,2022-09-22,XRLab Blue Cabinet Large,,
+Oculus Quest 2 w/ Controller Pair,VR Headset,1,2023-03-24,Other,,
+Vive 2 ,VR Headset,1,9/18/23,XRLab,,
+USB C 3.2 Expansion cards x3,Other,3,10/19/23,XRLab,,"In index workstation 1,2 & 3"
+Mac Mini (Intel),PC/Laptop,1,10/19/23,XRLab,,
+Raspberry pi 4,PC/Laptop,1,19-Oct,XRLab Blue Cabinet,,Frequently used in other parts of lab
+iPad pro gen6,Phones/Tablets,1,10/19/23,XRLab Blue Cabinet,,
+vive tracker 2,VR Controller,5,10/19/23,XRLab Blue Cabinet Large,,
+
+
+Device Name,Device Type,Device Serial (need alo internal id),CPU,GPU,RAM
+Gigabyte Aero15 1070 (E-N5110-PC-A1),Laptop,GHSBC0211A0002,I7-7700HQ,GTX 1070,16GB
+Gigabyte Aero15-X9 2070 (E-N5110-PC-A3),Laptop,SN19040J001539,I7-8750H,RTX 2070,32GB
+Gigabyte Aero15-X9 2070 (E-N5110-PC-A6),Laptop,SN19040J001547,I7-8750H,RTX 2070,32GB
+Gigabyte Aero15-X9 2070 (E-N5110-PC-A5),Laptop,SN19040J001542,I7-8750H,RTX 2070,32GB
+Gigabyte Aero15-X9 2070 (E-N5110-PC-A4),Laptop,SN19040J001548,I7-8750H,RTX 2070,32GB
+Google Pixel 2 G011A,Mobile Device,FA79MA05608,,,
+Samsung Galaxy S6 SM-G920F,Mobile Device,R58HB63GNCV,,,
+iPad Air Gen3,Mobile Device,F9FYNNQULMPD,,,
+iPad Pro Gen6,Mobile Device,QGJF42P99K,,,
+Mac Mini M2 A2816,Non-Portable PC,MV634YGNWF,M2 10C,N/A,16GB
+Gigabyte Aorus15X 4070,Laptop,SN23080J000369,,,
+Oculus Quest 1,Standalone Headset,1PAVR2C0D29193,,,
+Oculus Quest 1,Standalone Headset,1PAVR2C0CN9193,,,
+Oculus Quest 1,Standalone Headset,1PAVR2C0CU9194,,,
+Pico 4,Standalone Headset,PA82E0MGG9070251G,,,
+Pico 4,Standalone Headset,PA82E0MGG9080239G,,,
+Pico 4 Enterprise,Standalone Headset,PA8E50MGH1110185D,,,
+Oculus Quest 2,Standalone Headset,1WMVR4M06Q1491,,,
+Oculus Quest 2,Standalone Headset,1WMVR4M2S61491,,,
+Oculus Quest 2,Standalone Headset,1WMVR4M0XX1491,,,
+Vive Focus 3,Standalone Headset,FA21L2Z00366,,,
+Vive Focus 3,Standalone Headset,FA21L2Z00354,,,
+Vive Focus 3,Standalone Headset,FA21L2Z00364,,,
+Vive Focus 3,Standalone Headset,FA21L2Z00336,,,
+Vive Focus 3,Standalone Headset,FA21L2Z00365,,,
+Hololens 1,Standalone Headset,133765056,,,
+Hololens 2,Standalone Headset,16261594656,,,
+Raspberry Pi 4 (BCM2711C0 Variant),Non-Portable PC,100000002e9cd67,BCM2711C0,N/A,4GB
+Mac Mini Intel A1993,Non-Portable PC,C07YT27FJYW0,"""6-Core Intel Core I5""",N/A,16GB
