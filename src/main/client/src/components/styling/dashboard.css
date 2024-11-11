@@ -59,15 +59,12 @@
         text-align: left;
     }
 
-    tr {
-        width: 10px;
-
-    }
 
     thead tr {
         border-bottom: 1px solid #ddd;
         border-top: 1px solid #ddd;
-        height: 1px;
+        max-width: 10%;
+
     }
 
     td:not(:first-of-type) {
@@ -85,29 +82,19 @@
 
     }
 
-    th {
-        text-align: center;
-        min-width: 100px;
-    }
-
     tbody tr>*{
         font-size: 0.85rem;
 
     }
 
-    th:last-child {
-        padding: 1rem
-    }
-
     th button {
+        min-width: fit-content;
         background-color: transparent;
         border: none;
         cursor: pointer;
         font: inherit;
-        height: 100%;
-        margin: 0;
         position: relative;
-        width: 100%;
+        padding: 1rem 1.25rem;
     }
 
     th button::after {
@@ -128,8 +115,6 @@
         display: flex;
         gap: 0 ;
         margin: 1rem 0;
-
-
 
         .input__field{
             height: 2.5rem;
@@ -152,7 +137,8 @@
                 align-items: center;
             }
             select{
-                margin-left:0.5rem ;
+                margin-left:.5rem ;
+                padding: 0.5rem;
             }
         }
 
@@ -299,12 +285,12 @@
     background-color: #fee5e5;
     color: #cd0000;
 }
-.status__repairing {
+.status__repair {
     background-color: #d6f6f4;
     color: #3bd2c8;
 }
 
-.status__decommisioned {
+.status__decommissioned {
     background-color: #fef2e5;
     color: #cd6200;
 }

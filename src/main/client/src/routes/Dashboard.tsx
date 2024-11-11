@@ -1,5 +1,6 @@
 import "../components/styling/dashboard.css"
 import Table from "../components/Table.tsx";
+import data from '../assets/test_data.json'
 
 
 const Dashboard = () => {
@@ -56,7 +57,7 @@ const Dashboard = () => {
                 {/*</button>*/}
                 {/*) }*/}
             </form>
-            <Table/>
+            <Table content={data} />
         </div>
     );
 };

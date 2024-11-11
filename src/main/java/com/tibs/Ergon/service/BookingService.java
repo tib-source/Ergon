@@ -42,6 +42,8 @@ public class BookingService {
             .build();
             bookingRepo.save(newBooking);
             return true;
+//            TODO: Create a way to notify admins.
+//            TODO: Create an approval request alongside this
         }else{
             throw new EquipmentNotAvailable();
         }
@@ -56,6 +58,8 @@ public class BookingService {
     public void approveBooking(GeneralBookingRequest request){
         Booking booking = bookingRepo.findById(request.getBookingId()).orElseThrow(BookingNotFound::new);
         User user = userRepo.findById(request.getUserId()).orElseThrow(UserNotFound::new);
+        // TODO: FINISH THIS FUNCTION
+        // TODO: Booking should have approved status and User should be notified
     }
     public boolean isEquipmentAvailable(Equipment equipment){
         if (equipment.getBooking() != null){
