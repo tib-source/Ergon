@@ -23,7 +23,7 @@ const Dashboard = () => {
         }
     }
 
-    const handleFilter = (e: ChangeEvent<HTMLInputElement>, type: string) => {
+    const handleFilter = (e: ChangeEvent<HTMLSelectElement>, type: string) => {
         let statusFilter = "";
         let typeFilter = "";
 
