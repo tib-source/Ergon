@@ -1,9 +1,28 @@
 import "../components/styling/dashboard.css"
 import Table from "../components/Table.tsx";
 import data from '../assets/test_data.json'
+import { MouseEvent, useRef, useState} from "react";
 
 
 const Dashboard = () => {
+
+
+    const [content, setContent] = useState(data);
+
+    const searchBar = useRef<HTMLInputElement>(null);
+
+    function handleSearch(e: MouseEvent<HTMLButtonElement> ) {
+        e.preventDefault();
+        const searchTerm = searchBar.current?.value;
+        if (searchTerm === "" || searchTerm === undefined) {
+            setContent(data);
+        }else{
+            let searchResult = data.filter((item) =>
+                    item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+            setContent(searchResult);
+        }
+    }
+
     return (
         <div className="dashboard">
             <h1>Equipment List</h1>
@@ -16,8 +35,9 @@ const Dashboard = () => {
                             name="searchInput"
                             maxLength={150}
                             id="search_input"
+                            ref={searchBar}
                         />
-                        <button className="styled__button" id="search_button">Search</button>
+                        <button onClick={handleSearch} className="styled__button" id="search_button">Search</button>
                     </section>
                     <div className="input__container">
                         <div className="input__label">
@@ -57,7 +77,7 @@ const Dashboard = () => {
                 {/*</button>*/}
                 {/*) }*/}
             </form>
-            <Table content={data} />
+            <Table content={content} />
         </div>
     );
 };
