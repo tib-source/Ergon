@@ -5,7 +5,7 @@ const Table = ({content}: any) => {
         "ID", "Name", "Quantity", "Type", "Location", "Status", "Comment",
     ]
 
-    const [data, setData] = useState(content);
+    const [data] = useState(content);
     const [processed, setProcessed] = useState(content);
     const buttonRefs = useRef<Array<HTMLButtonElement>>([]);
     const sortTable = (row: string, direction: string): any => {
@@ -13,16 +13,17 @@ const Table = ({content}: any) => {
         console.log(row, data)
         if (direction === "asc") {
             setProcessed([...data].sort((a, b) => {
-                if(a[row] > b[row]) return -1;
-                else if(a[row] < b[row]) return 1;
+                if (a[row] > b[row]) return -1;
+                else if (a[row] < b[row]) return 1;
                 else return 0;
             }));
-        }else{
-            setProcessed(() =>  [...data].sort((a, b) => {
-                if(a[row] < b[row]) return -1;
-                else if(a[row] > b[row]) return 1;
+        } else {
+            setProcessed(() => [...data].sort((a, b) => {
+                if (a[row] < b[row]) return -1;
+                else if (a[row] > b[row]) return 1;
                 else return 0;
-            }))}
+            }))
+        }
     }
 
     const resetButtons = (current: HTMLButtonElement) => {
@@ -52,7 +53,8 @@ const Table = ({content}: any) => {
                 {
                     rows.map((row, index) => (
                         <th key={index}>
-                            <button ref={(el) => (buttonRefs.current[index] = el as HTMLButtonElement)} onClick={(e) => handleSort(e, row)}
+                            <button ref={(el) => (buttonRefs.current[index] = el as HTMLButtonElement)}
+                                    onClick={(e) => handleSort(e, row)}
                                     className='table__row'>{row}</button>
                         </th>
                     ))
@@ -71,7 +73,7 @@ const Table = ({content}: any) => {
                     <td>{row.type}</td>
                     <td>{row.location}</td>
                     <td><span className={`status status__${row.status.toLowerCase()}`}>{row.status}</span></td>
-                    <td>{row.comment == 'nan' ? "" :  row.comment}</td>
+                    <td>{row.comment == 'nan' ? "" : row.comment}</td>
                     <td>
                         <button className="styled__button">Book</button>
                     </td>
