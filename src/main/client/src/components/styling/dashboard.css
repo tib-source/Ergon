@@ -42,6 +42,13 @@
     }
 
 
+    .empty{
+        position: absolute;
+        background: var(--error);
+        width: 100%;
+        text-align: center;
+    }
+
 
     h1 {
         font-size: 3rem;
@@ -64,7 +71,6 @@
         border-bottom: 1px solid #ddd;
         border-top: 1px solid #ddd;
         max-width: 10%;
-
     }
 
     td:not(:first-of-type) {
@@ -74,6 +80,10 @@
     td {
         padding: 0.75rem 1rem;
         text-align: left;
+    }
+
+    tbody{
+        position: relative;
     }
 
     tbody tr {
@@ -86,7 +96,9 @@
         font-size: 0.85rem;
 
     }
-
+    th {
+        width: 150px;
+    }
     th button {
         min-width: fit-content;
         background-color: transparent;

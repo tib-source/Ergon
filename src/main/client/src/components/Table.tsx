@@ -1,24 +1,24 @@
-import {MouseEvent, useRef, useState} from "react";
+import {MouseEvent, useEffect, useRef, useState} from "react";
 
 const Table = ({content}: any) => {
     const rows = [
         "ID", "Name", "Quantity", "Type", "Location", "Status", "Comment",
     ]
 
-    const [data] = useState(content);
+
     const [processed, setProcessed] = useState(content);
+
     const buttonRefs = useRef<Array<HTMLButtonElement>>([]);
     const sortTable = (row: string, direction: string): any => {
         row = row.toLowerCase()
-        console.log(row, data)
         if (direction === "asc") {
-            setProcessed([...data].sort((a, b) => {
+            setProcessed([...content].sort((a, b) => {
                 if (a[row] > b[row]) return -1;
                 else if (a[row] < b[row]) return 1;
                 else return 0;
             }));
         } else {
-            setProcessed(() => [...data].sort((a, b) => {
+            setProcessed(() => [...content].sort((a, b) => {
                 if (a[row] < b[row]) return -1;
                 else if (a[row] > b[row]) return 1;
                 else return 0;
@@ -46,6 +46,10 @@ const Table = ({content}: any) => {
             curr.setAttribute("data-dir", "desc")
         }
     }
+
+    useEffect(() => {
+        setProcessed([...content]);
+    }, [content]);
     return (
         <table id="dashboard_table">
             <thead>
@@ -65,6 +69,7 @@ const Table = ({content}: any) => {
             </tr>
             </thead>
             <tbody id="table_content">
+            { processed.length === 0 && <tr><td className="empty"> No Results Found</td></tr>}
             {processed.map((row: any, index: number) => (
                 <tr key={index}>
                     <td>{row.id}</td>
