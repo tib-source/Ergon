@@ -64,7 +64,7 @@ const Dashboard = () => {
                             <option value=" ">Status</option>
                             <option value="Avail">Available</option>
                             <option value="Pend">Pending</option>
-                            <option value="Decom">Decommisioned</option>
+                            <option value="Decom">Decommissioned</option>
                             <option value="Unavail">Unavailable</option>
                             <option value="Loan">On Loan</option>
                             <option value="Repair">Repairing</option>
