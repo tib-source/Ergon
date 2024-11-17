@@ -11,7 +11,7 @@ Ergon is a basic equipment management tool designed for university environments.
 
 ### For Admins
 - Add, delete, and modify equipment details.
-- Aprove/Reject borrow request
+- Approve/Reject borrow request
 - Manage student accounts
 - Generate detailed reports on equipment usage and inventory.
 - Manage notifications for borrowing and returning processes.
