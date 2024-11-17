@@ -88,7 +88,6 @@ const Table = ({content}: {content: Equipment[]}) => {
             </tbody>
         </table>
     );
-};
-
+// };
 
 export default Table;

@@ -3,6 +3,7 @@ import Table from "../components/Table.tsx";
 import {ChangeEvent, MouseEvent, useEffect, useRef, useState} from "react";
 import Loading from "../components/Loader.tsx";
 import { Env } from "../Env.ts";
+import {Equipment} from "../types.spec.ts";
 const Dashboard = () => {
 
     const [loading, setLoading] = useState(true);

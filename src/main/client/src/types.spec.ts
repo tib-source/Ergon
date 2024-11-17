@@ -1,4 +1,4 @@
-interface Equipment {
+export interface Equipment {
     id: number;
     name: string;
     location: string;
@@ -6,4 +6,7 @@ interface Equipment {
     status: string;
     comment: string;
     type: string;
+    quantity: number;
+
+    get(row: string): (number | string | object);
 }
