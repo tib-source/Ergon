@@ -1,4 +1,4 @@
-import profilePic from "../assets/react.svg"
+import profilePic from "../assets/profile.jpeg"
 import "./styling/navigation.css"
 import {useState, useEffect} from "react";
 import {NavLink} from "react-router-dom";
@@ -20,7 +20,7 @@ const Sidebar = () => {
         })
 
     },[])
-    const renderAdminPages = (isAdmin: Boolean) => {
+    const renderAdminPages = (isAdmin: boolean) => {
         if (isAdmin){
             return <>
                 <NavLink to={"/report"}>Report</NavLink>

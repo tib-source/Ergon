@@ -1,4 +1,4 @@
-Device Name,Device Type,Quantity,Audit,Location,Status,Comments
+name,type,quantity,audit,location,status,comments
 Laptop w/ 2070 GPU,PC/Laptop,1,2022-05-20,Other,On_loan,
 Laptop w/ 2070,PC/Laptop,3,2023-03-24,XRLab Blue Cabinet,Repairing,
 Valve Index,VR Headset,3,2022-04-14,XRLab,Available,
@@ -72,41 +72,3 @@ Oculus Rift w/ Controller Pair,VR Headset,1,2022-09-22,XRLab Blue Cabinet Large,
 Oculus Quest 2 w/ Controller Pair,VR Headset,2,2022-09-22,XRLab Blue Cabinet Large,,
 Vive Focus 3 w/ Controller Pair,VR Headset,5,2022-09-22,XRLab Blue Cabinet Large,,
 Oculus Quest 2 w/ Controller Pair,VR Headset,1,2023-03-24,Other,,
-Vive 2 ,VR Headset,1,9/18/23,XRLab,,
-USB C 3.2 Expansion cards x3,Other,3,10/19/23,XRLab,,"In index workstation 1,2 & 3"
-Mac Mini (Intel),PC/Laptop,1,10/19/23,XRLab,,
-Raspberry pi 4,PC/Laptop,1,19-Oct,XRLab Blue Cabinet,,Frequently used in other parts of lab
-iPad pro gen6,Phones/Tablets,1,10/19/23,XRLab Blue Cabinet,,
-vive tracker 2,VR Controller,5,10/19/23,XRLab Blue Cabinet Large,,
-
-
-Device Name,Device Type,Device Serial (need alo internal id),CPU,GPU,RAM
-Gigabyte Aero15 1070 (E-N5110-PC-A1),Laptop,GHSBC0211A0002,I7-7700HQ,GTX 1070,16GB
-Gigabyte Aero15-X9 2070 (E-N5110-PC-A3),Laptop,SN19040J001539,I7-8750H,RTX 2070,32GB
-Gigabyte Aero15-X9 2070 (E-N5110-PC-A6),Laptop,SN19040J001547,I7-8750H,RTX 2070,32GB
-Gigabyte Aero15-X9 2070 (E-N5110-PC-A5),Laptop,SN19040J001542,I7-8750H,RTX 2070,32GB
-Gigabyte Aero15-X9 2070 (E-N5110-PC-A4),Laptop,SN19040J001548,I7-8750H,RTX 2070,32GB
-Google Pixel 2 G011A,Mobile Device,FA79MA05608,,,
-Samsung Galaxy S6 SM-G920F,Mobile Device,R58HB63GNCV,,,
-iPad Air Gen3,Mobile Device,F9FYNNQULMPD,,,
-iPad Pro Gen6,Mobile Device,QGJF42P99K,,,
-Mac Mini M2 A2816,Non-Portable PC,MV634YGNWF,M2 10C,N/A,16GB
-Gigabyte Aorus15X 4070,Laptop,SN23080J000369,,,
-Oculus Quest 1,Standalone Headset,1PAVR2C0D29193,,,
-Oculus Quest 1,Standalone Headset,1PAVR2C0CN9193,,,
-Oculus Quest 1,Standalone Headset,1PAVR2C0CU9194,,,
-Pico 4,Standalone Headset,PA82E0MGG9070251G,,,
-Pico 4,Standalone Headset,PA82E0MGG9080239G,,,
-Pico 4 Enterprise,Standalone Headset,PA8E50MGH1110185D,,,
-Oculus Quest 2,Standalone Headset,1WMVR4M06Q1491,,,
-Oculus Quest 2,Standalone Headset,1WMVR4M2S61491,,,
-Oculus Quest 2,Standalone Headset,1WMVR4M0XX1491,,,
-Vive Focus 3,Standalone Headset,FA21L2Z00366,,,
-Vive Focus 3,Standalone Headset,FA21L2Z00354,,,
-Vive Focus 3,Standalone Headset,FA21L2Z00364,,,
-Vive Focus 3,Standalone Headset,FA21L2Z00336,,,
-Vive Focus 3,Standalone Headset,FA21L2Z00365,,,
-Hololens 1,Standalone Headset,133765056,,,
-Hololens 2,Standalone Headset,16261594656,,,
-Raspberry Pi 4 (BCM2711C0 Variant),Non-Portable PC,100000002e9cd67,BCM2711C0,N/A,4GB
-Mac Mini Intel A1993,Non-Portable PC,C07YT27FJYW0,"""6-Core Intel Core I5""",N/A,16GB

@@ -1,10 +1,9 @@
 import {MouseEvent, useEffect, useRef, useState} from "react";
 
-const Table = ({content}: any) => {
+const Table = ({content}: {content: Equipment[]}) => {
     const rows = [
         "ID", "Name", "Quantity", "Type", "Location", "Status", "Comment",
     ]
-
 
     const [processed, setProcessed] = useState(content);
 
@@ -12,7 +11,7 @@ const Table = ({content}: any) => {
     const sortTable = (row: string, direction: string): any => {
         row = row.toLowerCase()
         if (direction === "asc") {
-            setProcessed([...content].sort((a, b) => {
+            setProcessed([...content].sort((a: Equipment, b:Equipment) => {
                 if (a[row] > b[row]) return -1;
                 else if (a[row] < b[row]) return 1;
                 else return 0;
