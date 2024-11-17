@@ -28,7 +28,7 @@ class Initializer implements CommandLineRunner {
 
 
     private String getValidStringValue(CSVRecord record, String key) {
-
+        if(key.equals("location")) System.out.println(record.get("location"));
         String value = record.get(key);
         if (value == null || value.equals("null") || value.isEmpty()) {
             if (key.equals("status")) {
@@ -70,10 +70,10 @@ class Initializer implements CommandLineRunner {
 
     public String setStatus(String value) {
         return switch (value) {
-            case "On_loan" -> EquipmentStatusEnum.loaned.name();
-            case "Repairing" -> EquipmentStatusEnum.repairing.name();
-            case "Decommisioned" -> EquipmentStatusEnum.decommissioned.name();
-            default -> EquipmentStatusEnum.available.name();
+            case "On_loan" -> EquipmentStatusEnum.Loaned.name();
+            case "repairing" -> EquipmentStatusEnum.Repairing.name();
+            case "Decommisioned" -> EquipmentStatusEnum.Decommissioned.name();
+            default -> EquipmentStatusEnum.Available.name();
         };
     }
 }

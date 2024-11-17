@@ -1,13 +1,34 @@
 import "../components/styling/dashboard.css"
 import Table from "../components/Table.tsx";
-import data from '../assets/test_data.json'
-import {ChangeEvent, MouseEvent, useRef, useState} from "react";
-
-
+import {ChangeEvent, MouseEvent, useEffect, useRef, useState} from "react";
+import Loading from "../components/Loader.tsx";
+import { Env } from "../Env.ts";
 const Dashboard = () => {
 
+    const [loading, setLoading] = useState(true);
+    const data = useRef<Equipment[]>([])
+    const [content, setContent] = useState<Equipment[]>([]);
 
-    const [content, setContent] = useState(data);
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${Env.BASE_URL}/equipments/`);
+            const equipment = await response.json();
+            data.current = equipment;
+            setContent(equipment); // Directly set content with fetched data
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false); // Hide loading indicator
+        }
+    };
+
+    useEffect(() => {
+        if(loading){
+            setTimeout(fetchData, 500);
+        }
+    }, []);
+
+    console.log(data)
 
     const searchBar = useRef<HTMLInputElement>(null);
 
@@ -15,9 +36,9 @@ const Dashboard = () => {
         e.preventDefault();
         const searchTerm = searchBar.current?.value;
         if (searchTerm === "" || searchTerm === undefined) {
-            setContent(data);
+            setContent(data.current);
         } else {
-            let searchResult = data.filter((item) =>
+            let searchResult = data.current.filter((item) =>
                 item.name.toLowerCase().includes(searchTerm.toLowerCase()))
             setContent(searchResult);
         }
@@ -34,7 +55,7 @@ const Dashboard = () => {
         }
 
         setContent(() => {
-            return data.filter((item) => {
+            return data.current.filter((item) => {
                 return item.status.toLowerCase().includes(statusFilter.trim().toLowerCase()) &&
                     item.type.toLowerCase().includes(typeFilter.toLowerCase())
             })
@@ -47,6 +68,7 @@ const Dashboard = () => {
                 <section className="equipment__filter__input">
                     <section className="input__container search">
                         <input
+                            disabled={loading}
                             className="input__field"
                             type="text"
                             name="searchInput"
@@ -54,13 +76,13 @@ const Dashboard = () => {
                             id="search_input"
                             ref={searchBar}
                         />
-                        <button onClick={handleSearch} className="styled__button" id="search_button">Search</button>
+                        <button disabled={loading} onClick={handleSearch} className="styled__button" id="search_button">Search</button>
                     </section>
                     <div className="input__container">
                         <div className="input__label">
                             <p>Filter:</p>
                         </div>
-                        <select onChange={(e) => handleFilter(e, "status")} name="status" id="filter__status">
+                        <select disabled={loading} onChange={(e) => handleFilter(e, "status")} name="status" id="filter__status">
                             <option value=" ">Status</option>
                             <option value="Avail">Available</option>
                             <option value="Pend">Pending</option>
@@ -70,7 +92,7 @@ const Dashboard = () => {
                             <option value="Repair">Repairing</option>
                         </select>
 
-                        <select onChange={(e) => handleFilter(e, "type")} name="type" id="filter__type">
+                        <select disabled={loading} onChange={(e) => handleFilter(e, "type")} name="type" id="filter__type">
                             <option value="">Type</option>
                             <option value="PC">PC/Laptop</option>
                             <option value="VRH">VR Headset</option>
@@ -95,7 +117,8 @@ const Dashboard = () => {
                 {/*</button>*/}
                 {/*) }*/}
             </form>
-            <Table content={content}/>
+            {loading ? (<Loading />) : (<Table content={content}/>)}
+
         </div>
     );
 };

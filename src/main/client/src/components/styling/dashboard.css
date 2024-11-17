@@ -31,7 +31,6 @@
     padding: 3rem;
     width: 90%;
 
-
     .multiple_tables{
         display: grid;
         padding: 3rem ;
@@ -293,11 +292,11 @@
     color: #73cd00;
 }
 
-.status__loan {
+.status__loaned {
     background-color: #fee5e5;
     color: #cd0000;
 }
-.status__repair {
+.status__repairing {
     background-color: #d6f6f4;
     color: #3bd2c8;
 }
