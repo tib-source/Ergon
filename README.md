@@ -14,7 +14,6 @@ Ergon is a basic equipment management tool designed for university environments.
 - Generate detailed reports on equipment usage and inventory.
 - Manage notifications for borrowing and returning processes.
 
-Dasboard sneakpeak
 ![](docs/dashboard.png)
 ---
 ## Getting Started
