@@ -1,4 +1,4 @@
-import profilePic from "../assets/react.svg"
+import profilePic from "../assets/profile.jpeg"
 import "./styling/navigation.css"
 import {useState, useEffect} from "react";
 import {NavLink} from "react-router-dom";
