@@ -3,13 +3,6 @@ body{
     display: flex;
 }
 
-
-.navigation__hidden{
-    transform: translateX(-100%);
-    .navigation__hamburger{
-        transform: translateX(150%);
-    }
-}
 .navigation{
     height: 100vh;
     width: var(--sidebar);
@@ -21,22 +14,6 @@ body{
     position: relative;
     transition: 100ms ease-in;
 
-
-
-    .navigation__hamburger{
-        position: absolute;
-        top: 15px;
-        right: 10px;
-        cursor: pointer;
-        background: var(--primary-bg);
-        padding: .3rem .5rem;
-        border-radius: 10px;
-        transition: 100ms;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-    }
     .navigation__profile{
         display: flex;
         flex-direction: column;

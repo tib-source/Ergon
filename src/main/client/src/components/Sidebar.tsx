@@ -1,8 +1,7 @@
 import profilePic from "../assets/react.svg"
 import "./styling/navigation.css"
-import {useState, useRef, useEffect} from "react";
+import {useState, useEffect} from "react";
 import {NavLink} from "react-router-dom";
-import {Hamburger} from "./Hamburger.tsx";
 
 type UserObject = {
     name: string,
@@ -12,7 +11,6 @@ type UserObject = {
 
 const Sidebar = () => {
     const [user, setUser] = useState<UserObject>({isAdmin: false, name: "", profilePic: ""})
-    const [open, setOpen] = useState<boolean>(true)
 
     useEffect(()=>{
         setUser({
@@ -22,7 +20,6 @@ const Sidebar = () => {
         })
 
     },[])
-    const sideBarHtml = useRef<HTMLDivElement>(null)
     const renderAdminPages = (isAdmin: Boolean) => {
         if (isAdmin){
             return <>
@@ -35,10 +32,7 @@ const Sidebar = () => {
     }
     return (
         <>
-            <div className={
-                open ? "navigation" : "navigation navigation__hidden"
-            } ref={sideBarHtml}>
-                <Hamburger open={open} setOpen={setOpen} />
+            <div className="navigation">
                 <div className="navigation__profile">
                     <img src={user.profilePic} className="navigation__pic" alt="Profile Picture"/>
                     {user.name}
