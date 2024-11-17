@@ -1,4 +1,5 @@
 import {MouseEvent, useEffect, useRef, useState} from "react";
+import {Equipment} from "../types.spec.ts";
 
 const Table = ({content}: {content: Equipment[]}) => {
     const rows = [
@@ -70,7 +71,7 @@ const Table = ({content}: {content: Equipment[]}) => {
             </thead>
             <tbody id="table_content">
             { processed.length === 0 && <tr><td className="empty"> No Results Found</td></tr>}
-            {processed.map((row: any, index: number) => (
+            {processed.map((row: Equipment, index: number) => (
                 <tr key={index}>
                     <td>{row.id}</td>
                     <td>{row.name}</td>
