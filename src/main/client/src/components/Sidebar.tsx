@@ -20,7 +20,7 @@ const Sidebar = () => {
         })
 
     },[])
-    const renderAdminPages = (isAdmin: Boolean) => {
+    const renderAdminPages = (isAdmin: boolean) => {
         if (isAdmin){
             return <>
                 <NavLink to={"/report"}>Report</NavLink>
