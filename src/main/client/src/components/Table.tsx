@@ -1,4 +1,5 @@
 import {MouseEvent, useEffect, useRef, useState} from "react";
+import {Equipment} from "../types.spec.ts";
 
 const Table = ({content}: {content: Equipment[]}) => {
     const rows = [
@@ -8,18 +9,19 @@ const Table = ({content}: {content: Equipment[]}) => {
     const [processed, setProcessed] = useState(content);
 
     const buttonRefs = useRef<Array<HTMLButtonElement>>([]);
-    const sortTable = (row: string, direction: string): any => {
+
+    const sortTable = (row: string, direction: string): void => {
         row = row.toLowerCase()
         if (direction === "asc") {
             setProcessed([...content].sort((a: Equipment, b:Equipment) => {
-                if (a[row] > b[row]) return -1;
-                else if (a[row] < b[row]) return 1;
+                if (a.get(row) > b.get(row)) return -1;
+                else if (a.get(row) < b.get(row)) return 1;
                 else return 0;
             }));
         } else {
             setProcessed(() => [...content].sort((a, b) => {
-                if (a[row] < b[row]) return -1;
-                else if (a[row] > b[row]) return 1;
+                if (a.get(row) < b.get(row)) return -1;
+                else if (a.get(row) > b.get(row)) return 1;
                 else return 0;
             }))
         }
@@ -69,7 +71,7 @@ const Table = ({content}: {content: Equipment[]}) => {
             </thead>
             <tbody id="table_content">
             { processed.length === 0 && <tr><td className="empty"> No Results Found</td></tr>}
-            {processed.map((row: any, index: number) => (
+            {processed.map((row: Equipment, index: number) => (
                 <tr key={index}>
                     <td>{row.id}</td>
                     <td>{row.name}</td>
@@ -87,6 +89,5 @@ const Table = ({content}: {content: Equipment[]}) => {
         </table>
     );
 };
-
 
 export default Table;
