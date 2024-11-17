@@ -28,7 +28,7 @@ class Initializer implements CommandLineRunner {
 
 
     private String getValidStringValue(CSVRecord record, String key) {
-        if(key.equals("location")) System.out.println(record.get("location"));
+
         String value = record.get(key);
         if (value == null || value.equals("null") || value.isEmpty()) {
             if (key.equals("status")) {
