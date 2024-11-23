@@ -16,16 +16,16 @@ const Sidebar = () => {
         setUser({
             name: "Tibebe Demissie",
             profilePic: profilePic,
-            isAdmin: false,
+            isAdmin: true,
         })
 
     },[])
     const renderAdminPages = (isAdmin: boolean) => {
         if (isAdmin){
             return <>
-                <NavLink to={"/report"}>Report</NavLink>
-                <NavLink to={"/approvals"}>Approvals</NavLink>
-                <NavLink to={"/users"}>Users</NavLink>
+                <NavLink className={({ isActive}) => isActive ? "active" : ""} to={"/report"}>Report</NavLink>
+                <NavLink className={({ isActive}) => isActive ? "approvals" : ""} to={"/report"}>Approvals</NavLink>
+                <NavLink className={({ isActive}) => isActive ? "users" : ""} to={"/report"}>Users</NavLink>
             </>
         }
 
@@ -39,11 +39,11 @@ const Sidebar = () => {
                 </div>
 
                 <div className="navigation__pages">
-                    <NavLink   className={({ isActive}) => isActive ? "active" : ""} to={"/dashboard"}>Dashboard</NavLink>
-                    <NavLink   className={({ isActive}) => isActive ? "active" : ""} to={"/booking_history"}>Bookings</NavLink>
-                    <NavLink   className={({ isActive}) => isActive ? "active" : ""} to={"/notifications"}>Notifications</NavLink>
+                    <NavLink className={({ isActive}) => isActive ? "active" : ""} to={"/dashboard"}>Dashboard</NavLink>
+                    <NavLink className={({ isActive}) => isActive ? "active" : ""} to={"/booking_history"}>Bookings</NavLink>
+                    <NavLink className={({ isActive}) => isActive ? "active" : ""} to={"/notifications"}>Notifications</NavLink>
                     { renderAdminPages(user.isAdmin) }
-                    <NavLink   className={({ isActive}) => isActive ? "active" : ""} to={"/profile"}>Account</NavLink>
+                    <NavLink className={({ isActive}) => isActive ? "active" : ""} to={"/profile"}>Account</NavLink>
                 </div>
 
                 <button> Logout</button>
