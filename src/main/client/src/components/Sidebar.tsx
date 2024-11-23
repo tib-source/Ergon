@@ -39,11 +39,11 @@ const Sidebar = () => {
                 </div>
 
                 <div className="navigation__pages">
-                    <NavLink to={"/dashboard"}>Dashboard</NavLink>
-                    <NavLink to={"/booking_history"}>Bookings</NavLink>
-                    <NavLink to={"/notifications"}>Notifications</NavLink>
+                    <NavLink   className={({ isActive}) => isActive ? "active" : ""} to={"/dashboard"}>Dashboard</NavLink>
+                    <NavLink   className={({ isActive}) => isActive ? "active" : ""} to={"/booking_history"}>Bookings</NavLink>
+                    <NavLink   className={({ isActive}) => isActive ? "active" : ""} to={"/notifications"}>Notifications</NavLink>
                     { renderAdminPages(user.isAdmin) }
-                    <NavLink to={"/profile"}>Account</NavLink>
+                    <NavLink   className={({ isActive}) => isActive ? "active" : ""} to={"/profile"}>Account</NavLink>
                 </div>
 
                 <button> Logout</button>

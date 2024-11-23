@@ -37,15 +37,20 @@ body{
             text-decoration: none;
             color: white;
             padding: .55rem 5rem;
-            background-color: var(--button);
             text-align: center;
             transition: 100ms;
+            border: 1px solid var(--gray-light);
 
         }
 
         a:hover{
             background-color: white;
             color: black;
+        }
+
+        .active{
+            background-color: var(--active);
+            border: 1px solid var(--active);
         }
     }
 
