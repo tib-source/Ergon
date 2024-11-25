@@ -1,16 +1,3 @@
-:root {
-    --primary-bg: #2e2e48;
-    --bright: #794bff;
-    --gray: #666666;
-    --gray-light: #66666680;
-    --button: #373771;
-    --error: #d15757;
-    --accent: #57c2d1;
-    --success: #61d295;
-    --white: #ffffff;
-    --sidebar: 350px;
-}
-
 .styled__button {
     text-decoration: none;
     color: white;
@@ -233,22 +220,25 @@
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
     z-index: 10; /* Ensure the overlay appears above other content */
     pointer-events: auto; /* Enable pointer events on the overlay */
-}
+    backdrop-filter: blur(5px);
 
+}
 
 .modal{
     position: absolute;
-    width: 600px;
-    background-color: var(--primary-bg);
-    backdrop-filter: blur(10px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(600px, 70%);
+    background-color: var(--white);
+    border: 1px solid var(--primary-bg);
     display: flex;
-    border-radius: 1rem;
-    box-shadow: .2rem .2rem var(--bright);
-    flex-flow: column nowrap;
-    padding: 4rem;
+    border-radius: .2rem;
+    padding: 4rem 2rem;
     gap: 1rem;
-    color: var(--white);
-    z-index: 1200;
+    z-index: 1000;
+
+
     section{
         width: 100%;
         display: grid;

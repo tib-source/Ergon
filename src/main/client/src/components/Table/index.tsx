@@ -1,5 +1,5 @@
 import {MouseEvent, useEffect, useRef, useState} from "react";
-import {Equipment} from "../types.spec.ts";
+import {Equipment} from "../../types.spec.ts";
 
 const Table = ({content}: {content: Equipment[]}) => {
     const rows = [
