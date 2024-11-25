@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar.tsx";
+import Sidebar from "../../components/Sidebar";
 import {Outlet} from "react-router-dom";
 
 const RootRoute = () => {

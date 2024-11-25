@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "./styling/loading.css";
+import "../styling/loading.css";
 
 const Loading = () => {
     const [durationSec] = useState(1);

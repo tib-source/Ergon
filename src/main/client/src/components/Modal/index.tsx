@@ -1,6 +1,6 @@
-import "./styling/dashboard.css"
+import "../styling/dashboard.css"
 
-interface ModalProps {
+export interface ModalProps {
     open: boolean
     children: React.ReactNode
 }

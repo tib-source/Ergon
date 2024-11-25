@@ -1,9 +1,10 @@
-import "../components/styling/dashboard.css"
-import Table from "../components/Table.tsx";
 import {ChangeEvent, MouseEvent, useEffect, useRef, useState} from "react";
-import Loading from "../components/Loader.tsx";
-import { Env } from "../Env.ts";
-import {Equipment} from "../types.spec.ts";
+import "../../components/styling/dashboard.css"
+import { Env } from "../../Env.ts";
+import {Equipment} from "../../types.spec.ts";
+import Table from "../../components/Table";
+import Loading from "../../components/Loader";
+
 const Dashboard = () => {
 
     const [loading, setLoading] = useState(true);

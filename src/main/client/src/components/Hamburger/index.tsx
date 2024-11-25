@@ -1,6 +1,6 @@
-import "./styling/navigation.css"
-import hamburgerIcon from "../assets/hamburger.svg"
-import closeIcon from "../assets/close.svg"
+import "../styling/navigation.css"
+import hamburgerIcon from "../../assets/hamburger.svg"
+import closeIcon from "../../assets/close.svg"
 
 interface Props {
     open: boolean;
