@@ -27,7 +27,7 @@ const Dashboard = () => {
         if(loading){
             setTimeout(fetchData, 500);
         }
-    }, []);
+    }, [loading]);
 
     const searchBar = useRef<HTMLInputElement>(null);
 
@@ -37,7 +37,7 @@ const Dashboard = () => {
         if (searchTerm === "" || searchTerm === undefined) {
             setContent(data.current);
         } else {
-            let searchResult = data.current.filter((item) =>
+            const searchResult = data.current.filter((item) =>
                 item.name.toLowerCase().includes(searchTerm.toLowerCase()))
             setContent(searchResult);
         }
