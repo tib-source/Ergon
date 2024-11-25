@@ -14,14 +14,14 @@ const Table = ({content}: {content: Equipment[]}) => {
         row = row.toLowerCase()
         if (direction === "asc") {
             setProcessed([...content].sort((a: Equipment, b:Equipment) => {
-                if (a.get(row) > b.get(row)) return -1;
-                else if (a.get(row) < b.get(row)) return 1;
+                if (a[row]> b[row]) return -1;
+                else if (a[row] < b[row]) return 1;
                 else return 0;
             }));
         } else {
             setProcessed(() => [...content].sort((a, b) => {
-                if (a.get(row) < b.get(row)) return -1;
-                else if (a.get(row) > b.get(row)) return 1;
+                if (a[row] < b[row]) return -1;
+                else if (a[row]> b[row]) return 1;
                 else return 0;
             }))
         }

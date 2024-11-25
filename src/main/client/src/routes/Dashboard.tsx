@@ -29,8 +29,6 @@ const Dashboard = () => {
         }
     }, []);
 
-    console.log(data)
-
     const searchBar = useRef<HTMLInputElement>(null);
 
     function handleSearch(e: MouseEvent<HTMLButtonElement>) {

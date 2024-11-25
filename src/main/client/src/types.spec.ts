@@ -7,6 +7,5 @@ export interface Equipment {
     comment: string;
     type: string;
     quantity: number;
-
-    get(row: string): (number | string | object);
+    [key: string]: (number | string | object);
 }
