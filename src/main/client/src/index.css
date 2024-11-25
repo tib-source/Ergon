@@ -15,7 +15,7 @@
   font-family: "Montserrat", "Saira", sans-serif;
   --primary-bg: #181833;
   --bright: #794bff;
-  --gray: #666666;
+  --gray: #a5a5a5;
   --gray-light: #66666680;
   --button: #464667;
   --error: #d15757;
@@ -24,4 +24,8 @@
   --white: #ffffff;
   --active: #373771;
   --sidebar: 400px;
+}
+
+body{
+  position: relative;
 }
