@@ -18,6 +18,13 @@
     padding: 3rem;
     width: 90%;
 
+
+    .dashboard__title {
+        font-size: 3rem;
+        font-weight: 500;
+        margin-bottom: 2rem;
+    }
+
     .multiple_tables{
         display: grid;
         padding: 3rem ;
@@ -33,13 +40,6 @@
         background: var(--error);
         width: 100%;
         text-align: center;
-    }
-
-
-    h1 {
-        font-size: 3rem;
-        font-weight: 500;
-        margin-bottom: 2rem;
     }
 
     table {
@@ -109,22 +109,24 @@
     }
 
 
-    .input__container{
-        display: flex;
-        gap: 0 ;
-        margin: 1rem 0;
-
-        .input__field{
-            height: 2.5rem;
-            border-radius: 0.25rem 0 0  0.25rem ;
-            padding: .5rem;
-        }
-    }
 
     .equipment__filter{
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .input__container{
+            display: flex;
+            gap: 0 ;
+            margin: 1rem 0;
+
+            .input__field{
+                height: 2.5rem;
+                border-radius: 0.25rem 0 0  0.25rem ;
+                padding: .5rem;
+            }
+        }
+
 
         .equipment__filter__input{
             display: flex;
@@ -232,12 +234,30 @@
     width: min(600px, 70%);
     background-color: var(--white);
     border: 1px solid var(--primary-bg);
-    display: flex;
     border-radius: .2rem;
-    padding: 4rem 2rem;
-    gap: 1rem;
+    padding: 3rem 2rem;
     z-index: 1000;
+    display: grid;
+    gap: 1rem;
+    .modal__title{
+        font-size: 2.5rem;
+        text-align: center;
+        font-weight: 500;
+        color: var(--primary-bg);
+    }
 
+    .modal__content {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .full_width{
+        width: 100%;
+        grid-column: span 2;
+    }
 
     section{
         width: 100%;

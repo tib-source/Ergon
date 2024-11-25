@@ -4,13 +4,15 @@ import { Env } from "../../Env.ts";
 import {Equipment} from "../../types.spec.ts";
 import Table from "../../components/Table";
 import Loading from "../../components/Loader";
+import BookingModal from "../../components/BookingModal";
 
 const Dashboard = () => {
 
     const [loading, setLoading] = useState(true);
     const data = useRef<Equipment[]>([])
     const [content, setContent] = useState<Equipment[]>([]);
-
+    const [bookingModal, setBookingModal] = useState<boolean>(true)
+    const [currentEquipment, setCurrentEquipment] = useState<number>();
     const fetchData = async () => {
         try {
             const response = await fetch(`${Env.BASE_URL}/equipments/`);
@@ -61,9 +63,14 @@ const Dashboard = () => {
             })
         });
     }
+
+    const openBookingModal = (id: number) => {
+        setCurrentEquipment(id);
+        setBookingModal(true);
+    }
     return (
         <div className="dashboard">
-            <h1>Equipment List</h1>
+            <h1 className="dashboard__title">Equipment List</h1>
             <form className="equipment__filter">
                 <section className="equipment__filter__input">
                     <section className="input__container search">
@@ -117,7 +124,8 @@ const Dashboard = () => {
                 {/*</button>*/}
                 {/*) }*/}
             </form>
-            {loading ? (<Loading />) : (<Table content={content}/>)}
+            <BookingModal equipmentList={content} current={currentEquipment} toggleModal={() => setBookingModal(!bookingModal)} open={bookingModal}/>
+            {loading ? (<Loading />) : (<Table openModal={openBookingModal} content={content}/>)}
 
         </div>
     );

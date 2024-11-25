@@ -1,7 +1,7 @@
 import {MouseEvent, useEffect, useRef, useState} from "react";
 import {Equipment} from "../../types.spec.ts";
 
-const Table = ({content}: {content: Equipment[]}) => {
+const Table = ({content, openModal}: {content: Equipment[]; openModal: (id : number) => void}) => {
     const rows = [
         "ID", "Name", "Quantity", "Type", "Location", "Status", "Comment",
     ]
@@ -81,7 +81,7 @@ const Table = ({content}: {content: Equipment[]}) => {
                     <td><span className={`status status__${row.status.toLowerCase()}`}>{row.status}</span></td>
                     <td>{row.comment == 'nan' ? "" : row.comment}</td>
                     <td>
-                        <button className="styled__button">Book</button>
+                        <button onClick={()=>openModal(row.id)} className="styled__button">Book</button>
                     </td>
                 </tr>
             ))}

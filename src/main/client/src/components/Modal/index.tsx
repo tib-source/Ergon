@@ -2,7 +2,8 @@ import "../styling/dashboard.css"
 
 export interface ModalProps {
     open: boolean
-    children: React.ReactNode
+    children?: React.ReactNode
+
 }
 const Modal = ({ open, children } : ModalProps) => {
 
