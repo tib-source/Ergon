@@ -3,6 +3,7 @@ import com.tibs.Ergon.expception.BookingNotFound;
 import com.tibs.Ergon.expception.EquipmentNotAvailable;
 import com.tibs.Ergon.request.GeneralBookingRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import com.tibs.Ergon.expception.EquipmentNotFound;
 import com.tibs.Ergon.expception.UserNotFound;

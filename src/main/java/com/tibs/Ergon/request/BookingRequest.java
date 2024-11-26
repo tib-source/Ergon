@@ -1,8 +1,6 @@
 package com.tibs.Ergon.request;
 
 import java.sql.Date;
-
-import com.tibs.Ergon.model.Equipment;
 import com.tibs.Ergon.model.User;
 
 import lombok.Data;
