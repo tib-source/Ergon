@@ -1,77 +1,73 @@
-body{
-    height: 100vh;
-    display: flex;
+body {
+  height: 100vh;
+  display: flex;
 }
 
-.navigation{
-    height: 100vh;
-    width: var(--sidebar);
-    background-color: var(--primary-bg);
+.navigation {
+  height: 100vh;
+  width: var(--sidebar);
+  background-color: var(--primary-bg);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  transition: 100ms ease-in;
+
+  .navigation__profile {
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
     flex-direction: column;
-    position: relative;
-    transition: 100ms ease-in;
+    gap: 1rem;
+    align-items: center;
+    color: var(--white);
+  }
+  .navigation__pic {
+    width: 150px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background-color: white;
+    border-radius: 50%;
+  }
 
-    .navigation__profile{
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-        color: var(--white);
-    }
-    .navigation__pic{
-        width: 150px;
-        aspect-ratio: 1;
-        object-fit: cover;
-        background-color: white;
-        border-radius: 50%;
-    }
+  .navigation__pages {
+    display: grid;
+    gap: 0.5rem;
 
-    .navigation__pages{
-        display: grid;
-        gap: .5rem;
-
-        a{
-            text-decoration: none;
-            color: white;
-            padding: .55rem 5rem;
-            text-align: center;
-            transition: 100ms;
-            border: 1px solid var(--gray-light);
-
-        }
-
-        a:hover{
-            background-color: white;
-            color: black;
-        }
-
-        .active{
-            background-color: var(--active);
-            border: 1px solid var(--active);
-        }
+    a {
+      text-decoration: none;
+      color: white;
+      padding: 0.55rem 5rem;
+      text-align: center;
+      transition: 100ms;
+      border: 1px solid var(--gray-light);
     }
 
-    button{
-        padding: .75rem 3rem;
-        background-color: red;
-
+    a:hover {
+      background-color: white;
+      color: black;
     }
 
+    .active {
+      background-color: var(--active);
+      border: 1px solid var(--active);
+    }
+  }
+
+  button {
+    padding: 0.75rem 3rem;
+    background-color: red;
+  }
 }
 
-.home{
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    overflow: hidden;
+.home {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
 }
-.home__container{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    overflow-y: scroll;
-
+.home__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
 }
