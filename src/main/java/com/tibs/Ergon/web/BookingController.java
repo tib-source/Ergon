@@ -2,6 +2,8 @@ package com.tibs.Ergon.web;
 
 import com.tibs.Ergon.repository.BookingRepository;
 import com.tibs.Ergon.model.Booking;
+import com.tibs.Ergon.request.BookingRequest;
+import com.tibs.Ergon.service.BookingService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +20,11 @@ import java.util.Optional;
 public class BookingController {
     private final Logger log = LoggerFactory.getLogger(BookingController.class);
     private final BookingRepository bookingRepository;
+    private final BookingService bookingService;
 
-    public BookingController(BookingRepository bookingRepository){
+    public BookingController(BookingRepository bookingRepository, BookingService bookingService){
         this.bookingRepository = bookingRepository;
+        this.bookingService = bookingService;
     }
 
     @GetMapping("/")
@@ -35,9 +39,9 @@ public class BookingController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createBooking(@Valid @RequestBody Booking booking) throws URISyntaxException {
-        log.info("Requesting to create a new Booking: {}", booking);
-        Booking created = bookingRepository.save(booking);
+    public ResponseEntity<?> createBooking(@Valid @RequestBody BookingRequest request) throws URISyntaxException {
+        log.info("Requesting to create a new Booking: {}", request);
+        Booking created = bookingService.createBooking(request);
         return ResponseEntity.created(new URI("/api/bookings/" + created.getId())).body(created);
     }
 
