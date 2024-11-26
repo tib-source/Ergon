@@ -1,6 +1,6 @@
 import Modal, {ModalProps} from "../Modal";
 import {Equipment} from "../../types.spec.ts";
-
+import Env from "../../Env.ts";
 interface BookingModalProps extends ModalProps {
     equipmentList: Equipment[];
     toggleModal: () => void;
@@ -8,9 +8,23 @@ interface BookingModalProps extends ModalProps {
 }
 const BookingModal = ({open, equipmentList, toggleModal, current} : BookingModalProps) => {
     function handleBooking() {
-        return;
+        sendBookingRequest()
+        toggleModal()
     }
 
+
+    const sendBookingRequest = () => {
+        fetch( Env.BASE_URL + "/booking", {
+            method: "POST",
+            body: JSON.stringify({
+                "equipmentId" : 1,
+                "from" : "10/11/2025",
+                "to" : "12/11/2025",
+                "reason" : "Testing this"
+            })
+            // TODO: CREATE THAT TOASTIFY NOTIFICATION THINGIE WHEN THIS ERRORS OUT :P
+        }).then( async res => console.log( await res.json()))
+    }
     return (
         <Modal open={open}>
             <h1 className="modal__title">Book Equipment</h1>

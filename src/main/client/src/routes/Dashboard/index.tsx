@@ -1,6 +1,6 @@
 import {ChangeEvent, MouseEvent, useEffect, useRef, useState} from "react";
 import "../../components/styling/dashboard.css"
-import { Env } from "../../Env.ts";
+import Env  from "../../Env.ts";
 import {Equipment} from "../../types.spec.ts";
 import Table from "../../components/Table";
 import Loading from "../../components/Loader";

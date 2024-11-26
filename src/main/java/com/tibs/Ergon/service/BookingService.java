@@ -27,21 +27,21 @@ public class BookingService {
     UserRepository userRepo;
 
 
-    public boolean createBooking(BookingRequest request){
+    public Booking createBooking(BookingRequest request){
         Equipment equipment = equipmentRepo.findById(request.getEquipmentId()).orElseThrow(EquipmentNotFound::new);
-        User user = userRepo.findById(request.getUserId()).orElseThrow(UserNotFound::new);
+//        User user = userRepo.findById(request.getUserId()).orElseThrow(UserNotFound::new);
         if(isEquipmentAvailable(equipment)){ 
             Booking newBooking =  Booking.builder()
             .equipment(equipment)
             .booked_from(request.getFrom())
             .booked_to(request.getTo())
             .reason(request.getReason())
-            .user(user)
+//            .user(user)
             .returned(false)
             .approved(false)
             .build();
             bookingRepo.save(newBooking);
-            return true;
+            return newBooking;
 //            TODO: Create a way to notify admins.
 //            TODO: Create an approval request alongside this
         }else{
