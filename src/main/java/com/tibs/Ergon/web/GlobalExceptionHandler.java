@@ -12,7 +12,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<GenericErrorResponse> handleGenericException(Exception e){
         GenericErrorResponse response = GenericErrorResponse.builder()
-        .status(HttpStatus.INTERNAL_SERVER_ERROR)
         .message(e.getMessage())
         .build();
 
