@@ -24,7 +24,7 @@ public class UserController {
     }
 
 //    @PreAuthorize(value = "ADMIN")
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok(userRepository.findAll());
     }

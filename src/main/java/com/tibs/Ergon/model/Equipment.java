@@ -29,6 +29,4 @@ public class Equipment {
     private LocalDate last_audit;
     private String comment;
 
-    @OneToOne (cascade = CascadeType.ALL)
-    private Booking booking;
 }

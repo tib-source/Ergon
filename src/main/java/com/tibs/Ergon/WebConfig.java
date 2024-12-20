@@ -14,7 +14,7 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // Mapping all endpoints
+                registry.addMapping("/api/**") // Mapping all endpoints
                         .allowedOrigins("*") // Allow all origins
                         .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow specific methods (optional)
                         .allowedHeaders("*"); // Allow all headers (optional)

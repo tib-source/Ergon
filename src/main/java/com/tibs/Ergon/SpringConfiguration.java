@@ -14,12 +14,10 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
 public class SpringConfiguration implements WebMvcConfigurer{
-    
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry){ 
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
         this.serveDirectory(registry, "/", "classpath:/static/");
     }
-    
 
     private void serveDirectory(ResourceHandlerRegistry registry, String endpoint, String location) {
         // 1
@@ -36,6 +34,9 @@ public class SpringConfiguration implements WebMvcConfigurer{
                     @Override
                     public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
                         Resource resource = super.resolveResource(request, requestPath, locations, chain);
+                        
+
+                        System.out.println(requestPath);
                         if (Objects.nonNull(resource)) {
                             return resource;
                         }
