@@ -1,7 +1,7 @@
 import Modal, { ModalProps } from "../Modal";
 import { Equipment } from "../../types.spec.ts";
 import Env from "../../Env.ts";
-import { MouseEventHandler, useEffect } from "react";
+import { FormEventHandler, useEffect } from "react";
 
 interface BookingModalProps extends ModalProps {
   equipmentList: Equipment[];
@@ -20,27 +20,34 @@ const BookingModal = ({
     const today = new Date().toISOString().split('T')[0]
     const fromDateElement = document.getElementById("fromDate")
     fromDateElement?.setAttribute('min', today) 
-
   }, [])
-  const handleBooking: MouseEventHandler = (e) => {
+  const handleBooking: FormEventHandler = (e) => {
     e.preventDefault()
-    console.log(e)
-    sendBookingRequest();
+    const form = e.target as HTMLFormElement
+
+    const equipmentValue = form.elements['equipment'].value;
+    const fromDateValue = form.elements['fromDate'].value;
+    const untilDateValue = form.elements['untilDate'].value;
+    const reason = form.elements["reason"].value;
+
+
+    const jsonPayload = { 
+      equipmentId : equipmentValue,
+      from : fromDateValue, 
+      to : untilDateValue, 
+      reason
+    }
+    sendBookingRequest(jsonPayload);
     toggleModal();
   }
 
-  const sendBookingRequest = () => {
+  const sendBookingRequest = (data: object) => {
     fetch(Env.BASE_URL + "/bookings", {
       headers: {
         "Content-Type": "application/json"
       },
       method: "POST",
-      body: JSON.stringify({
-        equipmentId: 20,
-        from: "2010-11-20",
-        to: "2012-11-20",
-        reason: "Testing this",
-      }),
+      body: JSON.stringify(data),
       // TODO: CREATE THAT TOASTIFY NOTIFICATION THINGIE WHEN THIS ERRORS OUT :P
     }).then(async (res) => console.log(await res.json()));
   };
@@ -50,12 +57,12 @@ const BookingModal = ({
   return (
     <Modal open={open}>
       <h1 className="modal__title">Book Equipment</h1>
-      <form className="modal__content">
+      <form className="modal__content" onSubmit={handleBooking}>
         <div className="input__container full_width">
           <div className="input__label">
             <p>Item :</p>
           </div>
-          <select className="input__field " defaultValue={current || 1}>
+          <select className="input__field " defaultValue={current || 1} name="equipment" required>
             {equipmentList.map((equipment) => (
               <option key={equipment.id} value={equipment.id}>
                 {" "}
@@ -69,14 +76,14 @@ const BookingModal = ({
             <div className="input__label">
               <p>From:</p>
             </div>
-            <input type="date" className="input__field" id="fromDate" />
+            <input type="date" className="input__field" id="fromDate" name="fromDate" required/>
           </div>
 
           <div className="input__container">
             <div className="input__label">
               <p>Until:</p>
             </div>
-            <input type="date" className="input__field" id="untilDate" />
+            <input type="date" className="input__field" id="untilDate" name="untillDate" required />
           </div>
         </section>
 
@@ -87,7 +94,7 @@ const BookingModal = ({
           <input
             className="input__field"
             type="text"
-            name="bookingReason"
+            name="reason"
             id="bookingReason"
           />
         </div>
@@ -103,7 +110,6 @@ const BookingModal = ({
           <button
             type="submit"
             className="styled__button"
-            onClick={handleBooking}
           >
             Book
           </button>

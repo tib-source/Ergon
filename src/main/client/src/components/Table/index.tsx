@@ -22,6 +22,7 @@ const Table = ({
 
   const buttonRefs = useRef<Array<HTMLButtonElement>>([]);
 
+
   const sortTable = (row: string, direction: string): void => {
     row = row.toLowerCase();
     if (direction === "asc") {

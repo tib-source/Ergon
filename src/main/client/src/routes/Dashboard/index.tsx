@@ -11,7 +11,8 @@ const Dashboard = () => {
   const data = useRef<Equipment[]>([]);
   const [content, setContent] = useState<Equipment[]>([]);
   const [bookingModal, setBookingModal] = useState<boolean>(false);
-  const [currentEquipment, setCurrentEquipment] = useState<number>();
+  const [currentEquipment, setCurrentEquipment] = useState<number>(1);
+
   const fetchData = async () => {
     try {
       const response = await fetch(`${Env.BASE_URL}/equipments`);
@@ -72,6 +73,8 @@ const Dashboard = () => {
     setCurrentEquipment(id);
     setBookingModal(true);
   };
+
+  
   return (
     <div className="dashboard">
       <h1 className="dashboard__title">Equipment List</h1>
@@ -145,16 +148,18 @@ const Dashboard = () => {
         {/*</button>*/}
         {/*) }*/}
       </form>
-      <BookingModal
+      { bookingModal &&
+        <BookingModal
         equipmentList={content}
         current={currentEquipment}
         toggleModal={() => setBookingModal(!bookingModal)}
         open={bookingModal}
-      />
+      /> }
+
       {loading ? (
         <Loading />
       ) : (
-        <Table openModal={openBookingModal} content={content} />
+        <Table openModal={openBookingModal}  content={content} />
       )}
     </div>
   );
