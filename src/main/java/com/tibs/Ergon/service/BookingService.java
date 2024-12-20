@@ -4,12 +4,12 @@ import com.tibs.Ergon.expception.EquipmentNotAvailable;
 import com.tibs.Ergon.request.GeneralBookingRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.tibs.Ergon.expception.EquipmentNotFound;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.tibs.Ergon.expception.UserNotFound;
 import com.tibs.Ergon.model.Booking;
 import com.tibs.Ergon.repository.BookingRepository;
 import com.tibs.Ergon.model.Equipment;
-import com.tibs.Ergon.repository.EquipmentRepository;
 import com.tibs.Ergon.model.User;
 import com.tibs.Ergon.repository.UserRepository;
 import com.tibs.Ergon.request.BookingRequest;
@@ -21,16 +21,16 @@ public class BookingService {
     BookingRepository bookingRepo; 
 
     @Autowired
-    EquipmentRepository equipmentRepo;
+    EquipmentService equipmentService;
 
     @Autowired
     UserRepository userRepo;
 
-
+    @Transactional
     public Booking createBooking(BookingRequest request){
-        Equipment equipment = equipmentRepo.findById(request.getEquipmentId()).orElseThrow(EquipmentNotFound::new);
+        Equipment equipment = equipmentService.findById(request.getEquipmentId());
 //        User user = userRepo.findById(request.getUserId()).orElseThrow(UserNotFound::new);
-        if(isEquipmentAvailable(equipment)){ 
+        if(equipmentService.isAvailable(equipment)){ 
             Booking newBooking =  Booking.builder()
             .equipment(equipment)
             .booked_from(request.getFrom())
@@ -40,9 +40,10 @@ public class BookingService {
             .returned(false)
             .approved(false)
             .build();
-            bookingRepo.save(newBooking);
 
-            equipment.setBooking(newBooking);
+            Booking booking = bookingRepo.save(newBooking);
+            equipmentService.linkToBooking(booking, equipment);
+
 
             return newBooking;
 //            TODO: Create a way to notify admins.
@@ -64,12 +65,5 @@ public class BookingService {
         // TODO: FINISH THIS FUNCTION
         // TODO: Booking should have approved status and User should be notified
     }
-    public boolean isEquipmentAvailable(Equipment equipment){
-
-        
-
-        return equipment.getStatus().equals("Available");
-    }
-
 
 }

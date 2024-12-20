@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -30,9 +28,5 @@ public class Equipment {
     private int quantity;
     private LocalDate last_audit;
     private String comment;
-
-    @OneToOne(mappedBy = "equipment")
-    @JsonBackReference
-    private Booking booking;
 
 }
