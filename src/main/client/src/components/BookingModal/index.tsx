@@ -1,6 +1,7 @@
 import Modal, { ModalProps } from "../Modal";
 import { Equipment } from "../../types.spec.ts";
 import Env from "../../Env.ts";
+import { MouseEventHandler, useEffect } from "react";
 
 interface BookingModalProps extends ModalProps {
   equipmentList: Equipment[];
@@ -14,27 +15,42 @@ const BookingModal = ({
   toggleModal,
   current,
 }: BookingModalProps) => {
-  function handleBooking() {
+
+  useEffect(()=>{
+    const today = new Date().toISOString().split('T')[0]
+    const fromDateElement = document.getElementById("fromDate")
+    fromDateElement?.setAttribute('min', today) 
+
+  }, [])
+  const handleBooking: MouseEventHandler = (e) => {
+    e.preventDefault()
+    console.log(e)
     sendBookingRequest();
     toggleModal();
   }
 
   const sendBookingRequest = () => {
-    fetch(Env.BASE_URL + "/booking", {
+    fetch(Env.BASE_URL + "/bookings", {
+      headers: {
+        "Content-Type": "application/json"
+      },
       method: "POST",
       body: JSON.stringify({
-        equipmentId: 1,
-        from: "10/11/2025",
-        to: "12/11/2025",
+        equipmentId: 20,
+        from: "2010-11-20",
+        to: "2012-11-20",
         reason: "Testing this",
       }),
       // TODO: CREATE THAT TOASTIFY NOTIFICATION THINGIE WHEN THIS ERRORS OUT :P
     }).then(async (res) => console.log(await res.json()));
   };
+
+
+
   return (
     <Modal open={open}>
       <h1 className="modal__title">Book Equipment</h1>
-      <div className="modal__content">
+      <form className="modal__content">
         <div className="input__container full_width">
           <div className="input__label">
             <p>Item :</p>
@@ -85,14 +101,14 @@ const BookingModal = ({
             Cancel
           </button>
           <button
-            type="button"
+            type="submit"
             className="styled__button"
             onClick={handleBooking}
           >
             Book
           </button>
         </section>
-      </div>
+      </form>
     </Modal>
   );
 };

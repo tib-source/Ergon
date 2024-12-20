@@ -31,3 +31,5 @@ build/
 lint/
 ### VS Code ###
 .vscode/
+
+**DS_Store

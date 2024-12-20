@@ -9,6 +9,9 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Data
 @Builder
 @AllArgsConstructor
@@ -33,8 +36,12 @@ public class Booking {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private User approver;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    @OneToOne( cascade = CascadeType.ALL)
+    @JoinColumn(name = "equipment_id", nullable = true)
     private Equipment equipment;
+
+    
 
 
 }

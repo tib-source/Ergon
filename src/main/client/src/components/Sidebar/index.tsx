@@ -34,14 +34,14 @@ const Sidebar = () => {
             Report
           </NavLink>
           <NavLink
-            className={({ isActive }) => (isActive ? "approvals" : "")}
-            to={"/report"}
+            className={({ isActive }) => (isActive ? "active" : "")}
+            to={"/approvals"}
           >
             Approvals
           </NavLink>
           <NavLink
-            className={({ isActive }) => (isActive ? "users" : "")}
-            to={"/report"}
+            className={({ isActive }) => (isActive ? "active" : "")}
+            to={"/users"}
           >
             Users
           </NavLink>
@@ -70,9 +70,9 @@ const Sidebar = () => {
           </NavLink>
           <NavLink
             className={({ isActive }) => (isActive ? "active" : "")}
-            to={"/booking_history"}
+            to={"/history"}
           >
-            Bookings
+            History
           </NavLink>
           <NavLink
             className={({ isActive }) => (isActive ? "active" : "")}

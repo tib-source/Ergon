@@ -27,7 +27,7 @@ public class EquipmentController {
     }
 
     // return all Equipments
-    @GetMapping("/")
+    @GetMapping("")
     public Collection<Equipment> equipments(){
         return equipmentRepository.findAll();
     }
@@ -38,7 +38,7 @@ public class EquipmentController {
         return found.map(response -> ResponseEntity.ok().body(response)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     // create Equipment
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Equipment> createEquipment(@Valid @RequestBody Equipment equipment) throws URISyntaxException {
         log.info("Request to create Equipment: {}", equipment);
         Equipment result = equipmentRepository.save(equipment);

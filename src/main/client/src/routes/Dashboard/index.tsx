@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [currentEquipment, setCurrentEquipment] = useState<number>();
   const fetchData = async () => {
     try {
-      const response = await fetch(`${Env.BASE_URL}/equipments/`);
+      const response = await fetch(`${Env.BASE_URL}/equipments`);
       const equipment = await response.json();
       data.current = equipment;
       setContent(equipment); // Directly set content with fetched data

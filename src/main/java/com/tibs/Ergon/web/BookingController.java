@@ -27,7 +27,7 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public Collection<Booking> bookings(){
         return bookingRepository.findAll();
     }
@@ -38,7 +38,7 @@ public class BookingController {
         return found.map(response -> ResponseEntity.ok().body(response)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<?> createBooking(@Valid @RequestBody BookingRequest request) throws URISyntaxException {
         log.info("Requesting to create a new Booking: {}", request);
         Booking created = bookingService.createBooking(request);

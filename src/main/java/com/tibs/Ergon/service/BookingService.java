@@ -41,6 +41,9 @@ public class BookingService {
             .approved(false)
             .build();
             bookingRepo.save(newBooking);
+
+            equipment.setBooking(newBooking);
+
             return newBooking;
 //            TODO: Create a way to notify admins.
 //            TODO: Create an approval request alongside this
@@ -62,10 +65,10 @@ public class BookingService {
         // TODO: Booking should have approved status and User should be notified
     }
     public boolean isEquipmentAvailable(Equipment equipment){
-        if (equipment.getBooking() != null){
-            return equipment.getStatus().equals("Available");
-        }
-        return false;
+
+        
+
+        return equipment.getStatus().equals("Available");
     }
 
 
