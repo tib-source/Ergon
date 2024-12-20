@@ -21,6 +21,7 @@ const BookingModal = ({
   useEffect(()=>{
     const today = new Date().toISOString().split('T')[0]
     const fromDateElement = document.getElementById("fromDate")
+    fromDateElement.value = today;
     fromDateElement?.setAttribute('min', today) 
   }, [])
   const handleBooking: FormEventHandler = (e) => {
