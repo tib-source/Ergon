@@ -67,6 +67,7 @@ const Table = ({
 
   useEffect(() => {
     setProcessed([...content]);
+    sortTable('ID', "des")
   }, [content]);
   return (
     <table id="dashboard_table">

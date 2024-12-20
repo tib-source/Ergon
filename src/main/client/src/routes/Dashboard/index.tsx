@@ -154,6 +154,7 @@ const Dashboard = () => {
         current={currentEquipment}
         toggleModal={() => setBookingModal(!bookingModal)}
         open={bookingModal}
+        refresh={setLoading}
       /> }
 
       {loading ? (

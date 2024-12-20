@@ -1,12 +1,13 @@
 import Modal, { ModalProps } from "../Modal";
 import { Equipment } from "../../types.spec.ts";
 import Env from "../../Env.ts";
-import { FormEventHandler, useEffect } from "react";
+import { Dispatch, FormEventHandler, SetStateAction, useEffect } from "react";
 
 interface BookingModalProps extends ModalProps {
   equipmentList: Equipment[];
   toggleModal: () => void;
   current?: number;
+  refresh: Dispatch<SetStateAction<boolean>>;
 }
 
 const BookingModal = ({
@@ -14,6 +15,7 @@ const BookingModal = ({
   equipmentList,
   toggleModal,
   current,
+  refresh,
 }: BookingModalProps) => {
 
   useEffect(()=>{
@@ -39,6 +41,7 @@ const BookingModal = ({
     }
     sendBookingRequest(jsonPayload);
     toggleModal();
+    refresh(true)
   }
 
   const sendBookingRequest = (data: object) => {
