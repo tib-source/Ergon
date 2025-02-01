@@ -8,7 +8,7 @@ import Loader from '../../components/Loader';
 
 const History: React.FC = () => {
 
-    const rows = ["ID", "Name", "Request Date", "Status", "Action"];
+    const rows = ["ID", "Name", "Request Date", "Action"];
     interface Booking {
         id: string;
         equipment: {
@@ -23,6 +23,7 @@ const History: React.FC = () => {
     const [data, setData] = useState<Booking[]>([]);
     const [filtered, setFiltered] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
+    const [currentTab, setCurrentTab] = useState('Pending');
     const tabRows = ['Pending', 'Approved', 'Returned'];
 
     const fetchData = async () => {
@@ -56,25 +57,28 @@ const History: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        filterData('Pending'); // Set initial tab data
-    }, [data]);
+        filterData(currentTab); 
+    }, [data, currentTab]);
 
-
-    function getStatus(approved: boolean) {
-        if (approved) {
-            return 'Approved';
-        } else {   
-            return 'Pending';
+        // TODO: Implement the cancel booking functionality
+    const cancelBooking = async (id: string) => {
+        try {
+            const response = await fetch(`${Env.BASE_URL}/bookings/${id}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                setData(data.filter(booking => booking.id !== id));
+            }
+        } catch (error) {
+            console.error(error);
         }
     }
-
-    // TODO: Implement the cancel booking functionality
 
     return (
         <div className='history'>
             <h1 className="history__title">History</h1>
             { loading ? <Loader/> : 
-            <Tabs handleFilter={filterData}>
+            <Tabs handleFilter={setCurrentTab}>
                 {tabRows.map((tabName, index) => (
                     <Tab  key={index} label={tabName}>
                         <CardTable rows={rows}>
@@ -85,14 +89,18 @@ const History: React.FC = () => {
                             )}
                         {filtered.map((booking: Booking, index: Key ) => (
                                 <Card key={index} rows={[booking.id, booking.equipment.name, booking.booked_from]}>
-                                    <td>
-                                        <span className={`status status__${getStatus(booking.approved).toLocaleLowerCase()}`}>
-                                            {getStatus(booking.approved)}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button className='styled__button'>Cancel</button>
-                                    </td>
+                                    {
+                                        currentTab === 'Pending' ? (
+                                            <button className='styled__button' onClick={() => cancelBooking(booking.id)}>Cancel</button>
+                                        )
+                                        : currentTab === 'Approved' ? (
+                                            <button className='styled__button'>Return</button>
+                                        )
+                                        : (
+                                            <button className='styled__button'>Rebook</button>
+                                        )
+
+                                    }
                                 </Card>
                             ))}
                         </CardTable>
