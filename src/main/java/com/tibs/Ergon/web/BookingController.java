@@ -48,8 +48,12 @@ public class BookingController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBooking(@PathVariable Long id){
         log.info("Requesting to delete booking: {}", id);
-        bookingRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        Optional<Booking> booking = bookingRepository.findById(id);
+        if (booking.isPresent()) {
+            bookingRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}")
