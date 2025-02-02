@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -24,8 +24,8 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NonNull
-    private Date booked_from;
-    private Date booked_to;
+    private LocalDate booked_from;
+    private LocalDate booked_to;
     private Boolean approved;
     private Boolean returned;
     private String reason;

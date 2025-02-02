@@ -40,5 +40,12 @@ public class NotificationController {
         notificationService.addEmitter(userId, emitter);
         return emitter;
     }
+
+    @PostMapping("/check-bookings")
+    public ResponseEntity<?> checkBookings(){
+        logging.info("Checking bookings and sending notifications");
+        notificationService.checkBookingsAndNotify();
+        return ResponseEntity.ok().build();
+    }
 }
 

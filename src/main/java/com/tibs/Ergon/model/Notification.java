@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import jakarta.persistence.Table;
@@ -24,6 +25,7 @@ import jakarta.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "user")
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
