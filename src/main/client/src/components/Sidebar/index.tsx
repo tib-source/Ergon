@@ -21,14 +21,14 @@ const Sidebar = () => {
 
   const notifications = useNotifications(1);
 
-  const getCountOfUnreadNotifications = () => {
-    console.log(notifications);
-    return notifications.filter((notification: Notification) => { 
-      return notification.read === false;
-    }).length; 
-  }; 
-
   useEffect(() => {
+    const getCountOfUnreadNotifications = () => {
+      console.log(notifications);
+      return notifications.filter((notification: Notification) => { 
+        return notification.read === false;
+      }).length; 
+    }; 
+
     setNotificationCount(getCountOfUnreadNotifications());
   }, [notifications]);
 

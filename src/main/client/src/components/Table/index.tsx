@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useRef, useState } from "react";
+import { MouseEvent, useCallback, useEffect, useRef, useState } from "react";
 import { Equipment } from "../../types.spec.ts";
 
 const Table = ({
@@ -23,7 +23,7 @@ const Table = ({
   const buttonRefs = useRef<Array<HTMLButtonElement>>([]);
 
 
-  const sortTable = (row: string, direction: string): void => {
+  const sortTable = useCallback((row: string, direction: string): void => {
     row = row.toLowerCase();
     if (direction === "asc") {
       setProcessed(
@@ -42,7 +42,7 @@ const Table = ({
         }),
       );
     }
-  };
+  }, [content]);
 
   const resetButtons = (current: HTMLButtonElement) => {
     buttonRefs.current.map((button) => {
@@ -68,7 +68,7 @@ const Table = ({
   useEffect(() => {
     setProcessed([...content]);
     sortTable('ID', "des")
-  }, [content]);
+  }, [content, sortTable]);
   return (
     <table id="dashboard_table">
       <thead>
