@@ -1,6 +1,6 @@
 import "../styling/generic_table.css"
 
-const CardTable = ({ rows , children}: { rows: string[], children: React.ReactNode }) => {
+const TableCardContainer = ({ rows , children}: { rows: string[], children: React.ReactNode }) => {
     return (
         <table className="card-table">
             <thead>
@@ -21,4 +21,4 @@ const CardTable = ({ rows , children}: { rows: string[], children: React.ReactNo
 };
 
 
-export default CardTable;
+export default TableCardContainer;

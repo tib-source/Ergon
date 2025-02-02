@@ -50,7 +50,7 @@ public class BookingController {
         log.info("Requesting to delete booking: {}", id);
         Optional<Booking> booking = bookingRepository.findById(id);
         if (booking.isPresent()) {
-            bookingRepository.deleteById(id);
+            bookingService.cancelBooking(booking.get());
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

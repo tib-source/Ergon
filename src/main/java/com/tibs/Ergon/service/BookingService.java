@@ -48,7 +48,7 @@ public class BookingService {
             Booking booking = bookingRepo.save(newBooking);
             equipmentService.linkToBooking(booking, equipment);
 
-            notificationService.createNotification(NotificationTypeEnum.BOOKING_REQUEST, user.getId(), "Booking request created for " + equipment.getName());
+            notificationService.createNotification(NotificationTypeEnum.REQUEST_CREATED, user.getId(), "Booking request created for " + equipment.getName());
 
             return newBooking;
 //            TODO: Create an approval request alongside this
@@ -57,10 +57,10 @@ public class BookingService {
         }
     }
 
-    public void cancelBooking(GeneralBookingRequest request){
-        User user = userRepo.findById(request.getUserId()).orElseThrow(UserNotFound::new);
-        Booking currentBooking = bookingRepo.findById(request.getBookingId()).orElseThrow(BookingNotFound::new);
-        bookingRepo.delete(currentBooking);
+    public void cancelBooking(Booking booking){
+        bookingRepo.delete(booking);
+        notificationService.createNotification(NotificationTypeEnum.REQUEST_CREATED, booking.getUser().getId(), "Booking request cancelled for " + booking.getEquipment().getName());
+
     }
 
     public void approveBooking(GeneralBookingRequest request){

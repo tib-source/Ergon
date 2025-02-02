@@ -27,6 +27,12 @@
   --white: #ffffff;
   --active: #373771;
   --sidebar: 400px;
+  --request-created: #FFEB80;      /* Soft Gold - Warm and inviting */
+  --request-approved: #6BCB77;     /* Mint Green - Positive and fresh */
+  --request-rejected: #FF6B6B;     /* Soft Red - Noticeable but not harsh */
+  --outstanding-return: #FFB347;   /* Warm Orange - Attention-grabbing but soft */
+  --return-completed: #6A9DFE;     /* Soft Blue - Calm and reassuring */
+  --upcoming-return: #A3C4F3;      /* Light Sky Blue - Subtle but clear */
 }
 
 body {

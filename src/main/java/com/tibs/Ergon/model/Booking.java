@@ -38,7 +38,7 @@ public class Booking {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private User approver;
 
-    @ManyToOne( cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Equipment equipment;
 
     

@@ -1,21 +1,18 @@
-import React from 'react';
-
+import React, { ReactNode } from 'react';
+import '../styling/generic_table.css'
 interface CardProps {
-    rows?: string[];
-    children?: React.ReactNode;
+    children: ReactNode;
+    footer?: string;
+    onClick?: () => void;
     style?: React.CSSProperties;
-    fontSize?: number;
     className?: string;
 }
 
-const Card: React.FC<CardProps> = ({ rows, children, style, fontSize, className}) => {
+const Card: React.FC<CardProps> = ({ children, onClick, style, className}) => {
     return (
-        <tr className={className ? className : 'card'} style={style}>
-        {rows && rows.map((row, index) => (
-            <td style={{fontSize: `${fontSize}rem`}} key={index}>{row}</td>
-        ))}
-        {children}
-        </tr>
+        <div className={`card-grid-item ${className}`} style={style} onClick={onClick}>
+            {children}
+        </div>
     );
 };
 

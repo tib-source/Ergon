@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Env from '../../Env';
 
 export interface Notification {
-    id: string;
+    id: number;
     message: string;
     read: boolean;
     createdAt: Date;

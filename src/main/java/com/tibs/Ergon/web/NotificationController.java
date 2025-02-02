@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,15 @@ public class NotificationController {
     public NotificationService notificationService;
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<?> getNotifications(@PathVariable Long id){
         return ResponseEntity.ok(notificationService.getNotifications(id));
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<?> markAsRead(@PathVariable Long id){
+        notificationService.markAsRead(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/stream")

@@ -44,6 +44,6 @@ public class User  {
     )   
         private Collection<Role> roles;
 
-        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+        @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
         private List<Booking> bookings;
 }
