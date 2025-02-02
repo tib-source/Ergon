@@ -16,14 +16,13 @@
     gap: 1rem;
     box-shadow: 0 0 10px rgba(0,0,0,.1);
     transition: 0.3s;
-    cursor: pointer;
 
 }
 
 
 .card-grid-item:hover{
     box-shadow: 0 0 10px rgba(0,0,0,.2);
-    scale: 1.02;
+    scale: 1.01;
 }
 
 .card-grid-item-read{
@@ -38,6 +37,17 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
+}
+.notification__tick{
+    color: var(--pending-dark);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.notification__tick:hover{
+    color: var(--active);
+    border-radius: 50%;
+    scale: 1.4;
 }
 
 .card-table {

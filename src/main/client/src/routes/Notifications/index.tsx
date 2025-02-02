@@ -72,7 +72,7 @@ const Notifications = () => {
                         {iconForType(notification.type)}
                         <span>{notification.message}</span>
                     </div>
-                    { !notification.read && <Check onClick={()=>markAsRead(notification.id)}/>}
+                    { !notification.read && <Check className="notification__tick" onClick={()=>markAsRead(notification.id)}/>}
                 </Card>          
         );
     };
