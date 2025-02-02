@@ -1,6 +1,6 @@
 import { Key, useEffect, useState } from 'react';
-import Card from '../../components/Card';
-import CardTable from '../../components/CardTable';
+import TableCard from '../../components/TableCard';
+import TableCardContainer from '../../components/TableCardContainer';
 import '../../components/styling/history.css';
 import { Tab, Tabs } from '../../components/Tabs';
 import Env from '../../Env';
@@ -40,23 +40,26 @@ const History: React.FC = () => {
 
 
 
-    const filterData = (tabName: string) => {
-        if (tabName === 'Pending') {
-            setFiltered(data.filter(booking => !booking.approved));
-        } else if (tabName === 'Approved') {
-            setFiltered(data.filter(booking => booking.approved));
-        } else {
-            setFiltered(data.filter(booking => booking.returned));
-        }
-    }
+
 
     useEffect(() => {
         if (loading) {
             setTimeout(fetchData, 500);
         }
-    }, []);
+    }, [loading]);
 
     useEffect(() => {
+
+        const filterData = (tabName: string) => {
+            if (tabName === 'Pending') {
+                setFiltered(data.filter(booking => !booking.approved));
+            } else if (tabName === 'Approved') {
+                setFiltered(data.filter(booking => booking.approved));
+            } else {
+                setFiltered(data.filter(booking => booking.returned));
+            }
+        }
+
         filterData(currentTab); 
     }, [data, currentTab]);
 
@@ -81,14 +84,14 @@ const History: React.FC = () => {
             <Tabs handleFilter={setCurrentTab}>
                 {tabRows.map((tabName, index) => (
                     <Tab  key={index} label={tabName}>
-                        <CardTable rows={rows}>
+                        <TableCardContainer rows={rows}>
                         {filtered.length === 0 && (
-                            <div className='card-error'>
-                                <span> No Results Found </span>
-                            </div>
+                               <TableCard rows={[`No ${currentTab.toLowerCase()} bookings found.`]} fontSize={1.2} className={"card-empty"} />
+
                             )}
                         {filtered.map((booking: Booking, index: Key ) => (
-                                <Card key={index} rows={[booking.id, booking.equipment.name, booking.booked_from]}>
+                                <TableCard key={index} rows={[booking.id, booking.equipment.name, booking.booked_from]}>
+                                    <td>
                                     {
                                         currentTab === 'Pending' ? (
                                             <button className='styled__button' onClick={() => cancelBooking(booking.id)}>Cancel</button>
@@ -101,9 +104,10 @@ const History: React.FC = () => {
                                         )
 
                                     }
-                                </Card>
+                                    </td>
+                                </TableCard>
                             ))}
-                        </CardTable>
+                        </TableCardContainer>
                     </Tab>
 
                 ))}

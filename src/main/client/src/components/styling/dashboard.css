@@ -36,7 +36,8 @@
 
   .empty {
     position: absolute;
-    background: var(--error);
+    background: var(--error-light);
+    color: var(--error-dark);
     width: 100%;
     text-align: center;
   }
@@ -248,8 +249,8 @@
   }
 
   .cancel {
-    background-color: var(--error);
-    border: 1px solid var(--error);
+    background-color: var(--error-dark);
+    border: 1px solid var(--error-light);
   }
 
   .modal__buttons {
@@ -275,8 +276,8 @@
 }
 
 .status__loaned {
-  background-color: #fee5e5;
-  color: #cd0000;
+  background-color: var(--error-light);
+  color: var(--error-dark);
 }
 .status__repairing {
   background-color: #d6f6f4;
@@ -284,8 +285,8 @@
 }
 
 .status__pending {
-  background-color: #d6f6f4;
-  color: #29a89f;
+  background-color: var(--pending-light);
+  color: var(--pending-dark);
 }
 
 

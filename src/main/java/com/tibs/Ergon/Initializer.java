@@ -2,7 +2,10 @@ package com.tibs.Ergon;
 
 import com.tibs.Ergon.enums.EquipmentStatusEnum;
 import com.tibs.Ergon.model.Equipment;
+import com.tibs.Ergon.model.User;
 import com.tibs.Ergon.repository.EquipmentRepository;
+import com.tibs.Ergon.repository.UserRepository;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -26,6 +29,8 @@ class Initializer implements CommandLineRunner {
     @Autowired
     private EquipmentRepository equipmentRepository;
 
+    @Autowired
+    private UserRepository userRepository;
 
     private String getValidStringValue(CSVRecord record, String key) {
 
@@ -62,6 +67,15 @@ class Initializer implements CommandLineRunner {
 
                 equipmentRepository.save(equipment);
             }
+
+            User user = User.builder()
+                    .firstName("John")
+                    .lastName("Doe")
+                    .username("jdoe")
+                    .email("j.doe@example.com")
+                    .build();
+
+            userRepository.save(user);
 
         } catch (IOException e) {
             logger.error(e.getMessage());

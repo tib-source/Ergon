@@ -21,23 +21,25 @@ const BookingModal = ({
   useEffect(()=>{
     const today = new Date().toISOString().split('T')[0]
     const fromDateElement = document.getElementById("fromDate")
+    if (fromDateElement ) {
     fromDateElement.value = today;
     fromDateElement?.setAttribute('min', today) 
-  }, [])
+    }}, [])
   const handleBooking: FormEventHandler = (e) => {
     e.preventDefault()
     const form = e.target as HTMLFormElement
 
-    const equipmentValue = form.elements['equipment'].value;
-    const fromDateValue = form.elements['fromDate'].value;
-    const untilDateValue = form.elements['untilDate'].value;
-    const reason = form.elements["reason"].value;
+    const equipmentValue = (form.elements.namedItem('equipment') as HTMLSelectElement).value;
+    const fromDateValue = (form.elements.namedItem('fromDate') as HTMLInputElement).value;
+    const untilDateValue = (form.elements.namedItem('untilDate') as HTMLInputElement).value;
+    const reason = (form.elements.namedItem('reason') as HTMLInputElement).value;
 
 
     const jsonPayload = { 
       equipmentId : equipmentValue,
       from : fromDateValue, 
       to : untilDateValue, 
+      userId : 1, // TODO: Get the user id from the session
       reason
     }
     sendBookingRequest(jsonPayload);

@@ -1,3 +1,55 @@
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    margin: 1rem 0;
+    position: relative;
+}
+
+.card-grid-item{
+    border-radius: 1rem;
+    overflow: hidden;
+    --border-radius: .25rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    transition: 0.3s;
+
+}
+
+
+.card-grid-item:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    scale: 1.01;
+}
+
+.card-grid-item-read{
+    opacity: .5;
+}
+.notification__item{
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+.notification__content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.notification__tick{
+    color: var(--pending-dark);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.notification__tick:hover{
+    color: var(--active);
+    border-radius: 50%;
+    scale: 1.4;
+}
+
 .card-table {
     width: 100%;
     border-collapse: separate;
@@ -17,18 +69,38 @@
 }
 .card-error{
     position: absolute;
-    background: var(--error);
+    background: var(--error-light);
+    color: var(--error-dark);
     width: 100%;
     text-align: center;
     padding: 1rem;
+    display: flex;
+    justify-content: center;
 }
+
+
+.card-empty{
+    position: absolute;
+    background: var(--pending-light);
+    color: var(--pending-dark);
+    width: 100%;
+    padding: .7rem;
+    display: flex;
+    justify-content: center;
+}
+
+
+.card-empty td{
+    width: 100%;
+    text-align: center;
+}
+
 
 .card {
     background-color: var(--super-light);
     border-radius: 1rem;
     overflow: hidden;
     --border-radius: .25rem;
-
 
     span{
         font-size: 1rem;
