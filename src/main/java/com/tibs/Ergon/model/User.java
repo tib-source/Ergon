@@ -41,9 +41,9 @@ public class User  {
     @JoinTable(name="user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name ="role_id")
-    )
-    private Collection<Role> roles;
+    )   
+        private Collection<Role> roles;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Booking> bookings;
+        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+        private List<Booking> bookings;
 }

@@ -55,7 +55,9 @@ body {
 
   button {
     padding: 0.75rem 3rem;
-    background-color: red;
+    background-color: var(--error-light);
+    color: var(--error-dark);
+    cursor: pointer;
   }
 }
 

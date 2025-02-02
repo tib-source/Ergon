@@ -22,7 +22,7 @@ public class BookingController {
     private final BookingRepository bookingRepository;
     private final BookingService bookingService;
 
-    public BookingController(BookingRepository bookingRepository, BookingService bookingService){
+    public BookingController(BookingRepository bookingRepository, BookingService bookingService) { 
         this.bookingRepository = bookingRepository;
         this.bookingService = bookingService;
     }

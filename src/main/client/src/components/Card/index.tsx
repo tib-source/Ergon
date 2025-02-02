@@ -3,13 +3,16 @@ import React from 'react';
 interface CardProps {
     rows?: string[];
     children?: React.ReactNode;
+    style?: React.CSSProperties;
+    fontSize?: number;
+    className?: string;
 }
 
-const Card: React.FC<CardProps> = ({ rows, children }) => {
+const Card: React.FC<CardProps> = ({ rows, children, style, fontSize, className}) => {
     return (
-        <tr className='card'>
+        <tr className={className ? className : 'card'} style={style}>
         {rows && rows.map((row, index) => (
-            <td key={index}>{row}</td>
+            <td style={{fontSize: `${fontSize}rem`}} key={index}>{row}</td>
         ))}
         {children}
         </tr>

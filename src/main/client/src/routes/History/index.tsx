@@ -83,9 +83,8 @@ const History: React.FC = () => {
                     <Tab  key={index} label={tabName}>
                         <CardTable rows={rows}>
                         {filtered.length === 0 && (
-                            <div className='card-error'>
-                                <span> No Results Found </span>
-                            </div>
+                               <Card rows={[`No ${currentTab.toLowerCase()} bookings found.`]} fontSize={1.2} className={"card-empty"} />
+
                             )}
                         {filtered.map((booking: Booking, index: Key ) => (
                                 <Card key={index} rows={[booking.id, booking.equipment.name, booking.booked_from]}>

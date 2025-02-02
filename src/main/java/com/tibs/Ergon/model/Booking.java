@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.sql.Date;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Data
 @Builder
@@ -31,6 +31,8 @@ public class Booking {
     private String reason;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

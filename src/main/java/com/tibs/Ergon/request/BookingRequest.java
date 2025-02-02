@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class BookingRequest {
     private Long equipmentId;
-//    private Long userId;
+    private Long userId;
     private Date from; 
     private Date to; 
     private String reason;

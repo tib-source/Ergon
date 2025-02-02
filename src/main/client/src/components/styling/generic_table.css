@@ -17,18 +17,38 @@
 }
 .card-error{
     position: absolute;
-    background: var(--error);
+    background: var(--error-light);
+    color: var(--error-dark);
     width: 100%;
     text-align: center;
     padding: 1rem;
+    display: flex;
+    justify-content: center;
 }
+
+
+.card-empty{
+    position: absolute;
+    background: var(--pending-light);
+    color: var(--pending-dark);
+    width: 100%;
+    padding: .7rem;
+    display: flex;
+    justify-content: center;
+}
+
+
+.card-empty td{
+    width: 100%;
+    text-align: center;
+}
+
 
 .card {
     background-color: var(--super-light);
     border-radius: 1rem;
     overflow: hidden;
     --border-radius: .25rem;
-
 
     span{
         font-size: 1rem;
