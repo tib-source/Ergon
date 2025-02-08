@@ -1,5 +1,6 @@
 import profilePic from "../../assets/profile.jpeg";
-import useNotifications, { Notification } from "../../hooks/useNotifications";
+import Env from "../../Env";
+import useNotifications from "../../hooks/useNotifications";
 import "../styling/navigation.css";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -22,14 +23,11 @@ const Sidebar = () => {
   const notifications = useNotifications(1);
 
   useEffect(() => {
-    const getCountOfUnreadNotifications = () => {
-      console.log(notifications);
-      return notifications.filter((notification: Notification) => { 
-        return notification.read === false;
-      }).length; 
-    }; 
-
-    setNotificationCount(getCountOfUnreadNotifications());
+    fetch(`${Env.BASE_URL}/notifications/unread/1`)
+      .then((response) => response.json())
+      .then((data) => {
+        setNotificationCount(data.length);
+      });
   }, [notifications]);
 
   useEffect(() => {

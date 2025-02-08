@@ -55,12 +55,14 @@ body {
 
 
     .notification__count{
-      position: absolute;
-      padding: .3rem;
-      background-color: var(--error-dark);
-      border-radius: .5rem;
       right: -0.2rem;
       top: -.2rem;
+      position: absolute;
+      width: 1rem;
+      height: 1rem;
+      font-size: 0.75rem;
+      background-color: var(--error-dark);
+      border-radius: 50%;
     }
   }
 

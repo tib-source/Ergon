@@ -112,5 +112,10 @@ public class NotificationService {
             }
         }
     }
+
+
+    public List<Notification> getUnreadNotifications(Long userId) {
+        return notificationRepository.findByUserIdAndReadFalse(userId);
+    }
     
 }

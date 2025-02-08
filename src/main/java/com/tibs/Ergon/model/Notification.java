@@ -41,7 +41,7 @@ public class Notification {
 
     private NotificationTypeEnum type;
 
-    private boolean isRead;
+    private boolean read;
 
     @PrePersist
     public void onCreate() {

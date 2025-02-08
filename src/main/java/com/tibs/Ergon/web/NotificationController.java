@@ -47,5 +47,10 @@ public class NotificationController {
         notificationService.checkBookingsAndNotify();
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/unread/{id}")
+    public ResponseEntity<?> getUnreadNotification(@PathVariable Long id){
+        return ResponseEntity.ok(notificationService.getUnreadNotifications(id));
+    }
 }
 
