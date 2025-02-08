@@ -1,4 +1,6 @@
 import profilePic from "../../assets/profile.jpeg";
+import Env from "../../Env";
+import useNotifications from "../../hooks/useNotifications";
 import "../styling/navigation.css";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -10,11 +12,23 @@ type UserObject = {
 };
 
 const Sidebar = () => {
+  const [notificationCount, setNotificationCount] = useState(0);
+
   const [user, setUser] = useState<UserObject>({
     isAdmin: false,
     name: "",
     profilePic: "",
   });
+
+  const notifications = useNotifications(1);
+
+  useEffect(() => {
+    fetch(`${Env.BASE_URL}/notifications/unread/1`)
+      .then((response) => response.json())
+      .then((data) => {
+        setNotificationCount(data.length);
+      });
+  }, [notifications]);
 
   useEffect(() => {
     setUser({
@@ -77,8 +91,10 @@ const Sidebar = () => {
           <NavLink
             className={({ isActive }) => (isActive ? "active" : "")}
             to={"/notifications"}
+            onClick={() => setNotificationCount(0)}
           >
             Notifications
+            { notificationCount > 0 && <span className="notification__count">{notificationCount}</span>}
           </NavLink>
           {renderAdminPages(user.isAdmin)}
           <NavLink

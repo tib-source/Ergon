@@ -1,4 +1,5 @@
 package com.tibs.Ergon.service;
+import com.tibs.Ergon.enums.NotificationTypeEnum;
 import com.tibs.Ergon.expception.BookingNotFound;
 import com.tibs.Ergon.expception.EquipmentNotAvailable;
 import com.tibs.Ergon.request.GeneralBookingRequest;
@@ -24,19 +25,22 @@ public class BookingService {
     EquipmentService equipmentService;
 
     @Autowired
+    NotificationService notificationService;
+
+    @Autowired
     UserRepository userRepo;
 
     @Transactional
     public Booking createBooking(BookingRequest request){
         Equipment equipment = equipmentService.findById(request.getEquipmentId());
-//        User user = userRepo.findById(request.getUserId()).orElseThrow(UserNotFound::new);
+        User user = userRepo.findById(request.getUserId()).orElseThrow(UserNotFound::new);
         if(equipmentService.isAvailable(equipment)){ 
             Booking newBooking =  Booking.builder()
             .equipment(equipment)
             .booked_from(request.getFrom())
             .booked_to(request.getTo())
             .reason(request.getReason())
-//            .user(user)
+            .user(user)
             .returned(false)
             .approved(false)
             .build();
@@ -44,19 +48,19 @@ public class BookingService {
             Booking booking = bookingRepo.save(newBooking);
             equipmentService.linkToBooking(booking, equipment);
 
+            notificationService.createNotification(NotificationTypeEnum.REQUEST_CREATED, user.getId(), "Booking request created for " + equipment.getName());
 
             return newBooking;
-//            TODO: Create a way to notify admins.
 //            TODO: Create an approval request alongside this
         }else{
             throw new EquipmentNotAvailable();
         }
     }
 
-    public void cancelBooking(GeneralBookingRequest request){
-        User user = userRepo.findById(request.getUserId()).orElseThrow(UserNotFound::new);
-        Booking currentBooking = bookingRepo.findById(request.getBookingId()).orElseThrow(BookingNotFound::new);
-        bookingRepo.delete(currentBooking);
+    public void cancelBooking(Booking booking){
+        bookingRepo.delete(booking);
+        notificationService.createNotification(NotificationTypeEnum.REQUEST_CREATED, booking.getUser().getId(), "Booking request cancelled for " + booking.getEquipment().getName());
+
     }
 
     public void approveBooking(GeneralBookingRequest request){

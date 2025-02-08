@@ -40,6 +40,7 @@ body {
       text-align: center;
       transition: 100ms;
       border: 1px solid var(--super-light);
+      position: relative;
     }
 
     a:hover {
@@ -51,11 +52,25 @@ body {
       background-color: var(--active);
       border: 1px solid var(--active);
     }
+
+
+    .notification__count{
+      right: -0.2rem;
+      top: -.2rem;
+      position: absolute;
+      width: 1rem;
+      height: 1rem;
+      font-size: 0.75rem;
+      background-color: var(--error-dark);
+      border-radius: 50%;
+    }
   }
 
   button {
     padding: 0.75rem 3rem;
-    background-color: red;
+    background-color: var(--error-light);
+    color: var(--error-dark);
+    cursor: pointer;
   }
 }
 

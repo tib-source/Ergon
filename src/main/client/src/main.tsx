@@ -7,6 +7,7 @@ import ErrorPage from "./components/ErrorPage";
 import Dashboard from "./routes/Dashboard";
 import History
  from "./routes/History";
+import Notifications from "./routes/Notifications";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/history",
         element: <History />,
+      },
+      {
+        path: "/notifications",
+        element: <Notifications />,
       },
       {
         path: "*",

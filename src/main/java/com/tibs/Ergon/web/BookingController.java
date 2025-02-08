@@ -22,7 +22,7 @@ public class BookingController {
     private final BookingRepository bookingRepository;
     private final BookingService bookingService;
 
-    public BookingController(BookingRepository bookingRepository, BookingService bookingService){
+    public BookingController(BookingRepository bookingRepository, BookingService bookingService) { 
         this.bookingRepository = bookingRepository;
         this.bookingService = bookingService;
     }
@@ -50,7 +50,7 @@ public class BookingController {
         log.info("Requesting to delete booking: {}", id);
         Optional<Booking> booking = bookingRepository.findById(id);
         if (booking.isPresent()) {
-            bookingRepository.deleteById(id);
+            bookingService.cancelBooking(booking.get());
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
