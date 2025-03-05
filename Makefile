@@ -6,7 +6,7 @@ lint:
 ui:
 	cd src/main/client && npm run dev
 
-server:server
+server:
 	mvn spring-boot:run
 
 all:

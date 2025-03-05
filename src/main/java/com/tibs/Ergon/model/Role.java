@@ -14,7 +14,6 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +22,5 @@ public class Role {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private RoleEnum name;
-
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
 }
 

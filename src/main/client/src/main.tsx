@@ -2,16 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Root from "./routes/Root";
 import ErrorPage from "./components/ErrorPage";
 import Dashboard from "./routes/Dashboard";
 import History
  from "./routes/History";
 import Notifications from "./routes/Notifications";
+import Profile from "./routes/Profile";
+import { AuthProvider } from "./provider/AuthProvider.tsx";
+import { PrivateRoutes } from "./components/PrivateRoutes";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <PrivateRoutes />,
     children: [
       {
         path: "/",
@@ -26,6 +28,10 @@ const router = createBrowserRouter([
         element: <Notifications />,
       },
       {
+        path: "/profile",
+        element: <Profile />,
+      },
+      {
         path: "*",
         element: <ErrorPage />,
       },
@@ -34,6 +40,8 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <AuthProvider>
     <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>,
 );

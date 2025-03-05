@@ -77,6 +77,7 @@ class Initializer implements CommandLineRunner {
 
             userRepository.save(user);
 
+
         } catch (IOException e) {
             logger.error(e.getMessage());
         }

@@ -1,4 +1,5 @@
 package com.tibs.Ergon.model;
+import com.tibs.Ergon.enums.RoleEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,13 +37,7 @@ public class User  {
     private String profilePicture;
     private boolean enabled;
     private boolean tokenExpired;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name="user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name ="role_id")
-    )   
-        private Collection<Role> roles;
+    private RoleEnum role;
 
         @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
         private List<Booking> bookings;

@@ -51,6 +51,7 @@ public class AuthController {
     @PostMapping("/registration")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest registrationRequest) {
         try {
+            System.out.println(registrationRequest.toString());
             User user = userDetailsService.registerUser(registrationRequest);
             return ResponseEntity.ok().body(user.getUsername());
         } catch (RuntimeException e) {

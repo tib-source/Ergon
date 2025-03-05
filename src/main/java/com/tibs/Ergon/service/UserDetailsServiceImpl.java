@@ -1,11 +1,10 @@
 package com.tibs.Ergon.service;
 
+import com.tibs.Ergon.enums.RoleEnum;
 import com.tibs.Ergon.expception.RoleNotFound;
 import com.tibs.Ergon.expception.UserAlreadyExists;
 import com.tibs.Ergon.expception.UserNotFound;
-import com.tibs.Ergon.model.Role;
 import com.tibs.Ergon.model.User;
-import com.tibs.Ergon.repository.RoleRepository;
 import com.tibs.Ergon.repository.UserRepository;
 import com.tibs.Ergon.request.UserRegistrationRequest;
 import jakarta.transaction.Transactional;
@@ -25,12 +24,10 @@ import java.util.Collection;
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    public UserDetailsServiceImpl(RoleRepository roleRepository, PasswordEncoder passwordEncoder, UserRepository userRepository) {
-        this.roleRepository = roleRepository;
+    public UserDetailsServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
@@ -39,14 +36,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.isEnabled(), user.isTokenExpired(), true, true,getGrantedAuthorities(user.getRoles()));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true,getGrantedAuthorities(user.getRole()));
     }
 
-    private Collection<GrantedAuthority> getGrantedAuthorities(Collection<Role> roles) {
+    private Collection<GrantedAuthority> getGrantedAuthorities(RoleEnum role) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.toString()));
-        }
+        authorities.add(new SimpleGrantedAuthority(role.toString()));
         return authorities;
     }
 
@@ -61,9 +56,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .firstName(newUser.getFirstName())
                 .lastName(newUser.getLastName())
                 .email(newUser.getEmail())
+                .username(newUser.getUsername())
                 .password(passwordEncoder.encode(newUser.getPassword()))
+                .enabled(true)
                 .build();
-        user.getRoles().add(roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFound::new));
+
+        user.setRole(RoleEnum.ROLE_USER);
 
         userRepository.save(user);
 

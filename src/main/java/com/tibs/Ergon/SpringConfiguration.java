@@ -34,7 +34,6 @@ public class SpringConfiguration implements WebMvcConfigurer{
                     @Override
                     public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
                         Resource resource = super.resolveResource(request, requestPath, locations, chain);
-                        
 
                         System.out.println(requestPath);
                         if (Objects.nonNull(resource)) {
