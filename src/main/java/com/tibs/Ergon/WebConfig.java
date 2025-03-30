@@ -17,7 +17,8 @@ public class WebConfig {
                 registry.addMapping("/api/**") // Mapping all endpoints
                         .allowedOrigins("*") // Allow all origins
                         .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow specific methods (optional)
-                        .allowedHeaders("*"); // Allow all headers (optional)
+                        .allowedHeaders("*") // Allow all headers (optional)
+                        .exposedHeaders("Authorization");
             }
         };
     }

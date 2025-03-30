@@ -2,39 +2,39 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 :root {
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Montserrat", "Saira", sans-serif;
-  --primary-bg: #181833;
-  --bright: #794bff;
-  --gray-light: #acacacfc;
-  --super-light: #dddddd37;
-  --button: #464667;
-  --error-light: #fee5e5;
-  --error-dark: #cd0000;
-  --pending-light: #d6f6f4;
-  --pending-dark: #168e86;
-  --accent: #57c2d1;
-  --success: #61d295;
-  --white: #ffffff;
-  --active: #373771;
-  --sidebar: 400px;
-  --request-created: #FFEB80;      /* Soft Gold - Warm and inviting */
-  --request-approved: #6BCB77;     /* Mint Green - Positive and fresh */
-  --request-rejected: #FF6B6B;     /* Soft Red - Noticeable but not harsh */
-  --outstanding-return: #FFB347;   /* Warm Orange - Attention-grabbing but soft */
-  --return-completed: #6A9DFE;     /* Soft Blue - Calm and reassuring */
-  --upcoming-return: #A3C4F3;      /* Light Sky Blue - Subtle but clear */
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", "Saira", sans-serif;
+    --primary-bg: #181833;
+    --bright: #794bff;
+    --gray-light: #acacacfc;
+    --super-light: #dddddd37;
+    --button: #464667;
+    --error-light: #fee5e5;
+    --error-dark: #cd0000;
+    --pending-light: #d6f6f4;
+    --pending-dark: #168e86;
+    --accent: #57c2d1;
+    --success: #61d295;
+    --white: #ffffff;
+    --active: #373771;
+    --sidebar: 400px;
+    --request-created: #FFEB80; /* Soft Gold - Warm and inviting */
+    --request-approved: #6BCB77; /* Mint Green - Positive and fresh */
+    --request-rejected: #FF6B6B; /* Soft Red - Noticeable but not harsh */
+    --outstanding-return: #FFB347; /* Warm Orange - Attention-grabbing but soft */
+    --return-completed: #6A9DFE; /* Soft Blue - Calm and reassuring */
+    --upcoming-return: #A3C4F3; /* Light Sky Blue - Subtle but clear */
 }
 
 body {
-  position: relative;
+    position: relative;
 }

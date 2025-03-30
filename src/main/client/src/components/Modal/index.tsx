@@ -4,6 +4,7 @@ export interface ModalProps {
   open: boolean;
   children?: React.ReactNode;
 }
+
 const Modal = ({ open, children }: ModalProps) => {
   return (
     <div style={{ display: open ? "block" : "none" }}>

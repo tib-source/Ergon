@@ -1,7 +1,7 @@
-package com.tibs.Ergon.web;
+package com.tibs.Ergon.controller;
 
-import com.tibs.Ergon.repository.BookingRepository;
 import com.tibs.Ergon.model.Booking;
+import com.tibs.Ergon.repository.BookingRepository;
 import com.tibs.Ergon.request.BookingRequest;
 import com.tibs.Ergon.service.BookingService;
 import jakarta.validation.Valid;
@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
@@ -22,18 +23,18 @@ public class BookingController {
     private final BookingRepository bookingRepository;
     private final BookingService bookingService;
 
-    public BookingController(BookingRepository bookingRepository, BookingService bookingService) { 
+    public BookingController(BookingRepository bookingRepository, BookingService bookingService) {
         this.bookingRepository = bookingRepository;
         this.bookingService = bookingService;
     }
 
     @GetMapping("")
-    public Collection<Booking> bookings(){
+    public Collection<Booking> bookings() {
         return bookingRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getBooking(@PathVariable Long id){
+    public ResponseEntity<?> getBooking(@PathVariable Long id) {
         Optional<Booking> found = bookingRepository.findById(id);
         return found.map(response -> ResponseEntity.ok().body(response)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -46,7 +47,7 @@ public class BookingController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBooking(@PathVariable Long id){
+    public ResponseEntity<?> deleteBooking(@PathVariable Long id) {
         log.info("Requesting to delete booking: {}", id);
         Optional<Booking> booking = bookingRepository.findById(id);
         if (booking.isPresent()) {
@@ -57,7 +58,7 @@ public class BookingController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Booking> updateBooking(@Valid @RequestBody Booking booking){
+    public ResponseEntity<Booking> updateBooking(@Valid @RequestBody Booking booking) {
         log.info("Requesting to update Booking: {}", booking);
         Booking update = bookingRepository.save(booking);
         return ResponseEntity.ok().body(update);

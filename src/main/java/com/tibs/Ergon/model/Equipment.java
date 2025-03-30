@@ -2,11 +2,8 @@ package com.tibs.Ergon.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
+
 import java.time.LocalDate;
 
 @Data
@@ -21,7 +18,7 @@ public class Equipment {
     private Long id;
     @NonNull
     private String name;
-//    @Enumerated(EnumType.STRING)
+    //    @Enumerated(EnumType.STRING)
     private String type;
     private String location;
     private String status;

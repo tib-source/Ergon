@@ -1,11 +1,11 @@
 package com.tibs.Ergon;
 
 import com.tibs.Ergon.enums.EquipmentStatusEnum;
+import com.tibs.Ergon.enums.RoleEnum;
 import com.tibs.Ergon.model.Equipment;
 import com.tibs.Ergon.model.User;
 import com.tibs.Ergon.repository.EquipmentRepository;
 import com.tibs.Ergon.repository.UserRepository;
-
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -31,6 +32,8 @@ class Initializer implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private String getValidStringValue(CSVRecord record, String key) {
 
@@ -71,11 +74,17 @@ class Initializer implements CommandLineRunner {
             User user = User.builder()
                     .firstName("John")
                     .lastName("Doe")
-                    .username("jdoe")
-                    .email("j.doe@example.com")
+                    .username("admin")
+                    .password(passwordEncoder.encode("password"))
+                    .role(RoleEnum.ROLE_ADMIN)
+                    .email("John.doe@gmail.com")
+                    .profilePicture("test")
+                    .dob(LocalDate.of(1990, 1, 1))
+                    .enabled(true)
                     .build();
 
             userRepository.save(user);
+
 
         } catch (IOException e) {
             logger.error(e.getMessage());

@@ -1,4 +1,4 @@
-package com.tibs.Ergon.web;
+package com.tibs.Ergon.controller;
 
 import com.tibs.Ergon.model.User;
 import com.tibs.Ergon.request.AuthRequest;
@@ -6,6 +6,8 @@ import com.tibs.Ergon.request.UserRegistrationRequest;
 import com.tibs.Ergon.response.AuthResponse;
 import com.tibs.Ergon.security.JwtUtil;
 import com.tibs.Ergon.service.UserDetailsServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
 
+    private final static Logger log = LoggerFactory.getLogger(AuthController.class);
 
     private final AuthenticationManager authenticationManager;
 
@@ -35,12 +38,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequest authRequest) {
-        try{
+        try {
+            log.info("Attempting to authenticate user: %s" + authRequest.getUsername());
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
         } catch (BadCredentialsException e) {
-            return ResponseEntity.badRequest().body("Bad credentials");
+            return ResponseEntity.badRequest().body("Incorrect username or password");
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
@@ -51,6 +55,7 @@ public class AuthController {
     @PostMapping("/registration")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest registrationRequest) {
         try {
+            log.info(registrationRequest.toString());
             User user = userDetailsService.registerUser(registrationRequest);
             return ResponseEntity.ok().body(user.getUsername());
         } catch (RuntimeException e) {

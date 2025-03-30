@@ -1,14 +1,16 @@
 package com.tibs.Ergon.service;
 
+import com.tibs.Ergon.enums.RoleEnum;
 import com.tibs.Ergon.expception.RoleNotFound;
 import com.tibs.Ergon.expception.UserAlreadyExists;
 import com.tibs.Ergon.expception.UserNotFound;
-import com.tibs.Ergon.model.Role;
 import com.tibs.Ergon.model.User;
-import com.tibs.Ergon.repository.RoleRepository;
 import com.tibs.Ergon.repository.UserRepository;
 import com.tibs.Ergon.request.UserRegistrationRequest;
+import com.tibs.Ergon.request.UserUpdateRequest;
+import com.tibs.Ergon.response.UserInfoResponse;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,37 +18,35 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Collection;
-
 
 
 @Service("userDetailsService")
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final ImageService imageService;
 
-    public UserDetailsServiceImpl(RoleRepository roleRepository, PasswordEncoder passwordEncoder, UserRepository userRepository) {
-        this.roleRepository = roleRepository;
+    public UserDetailsServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository, ImageService imageService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.imageService = imageService;
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.isEnabled(), user.isTokenExpired(), true, true,getGrantedAuthorities(user.getRoles()));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, getGrantedAuthorities(user.getRole()));
     }
 
-    private Collection<GrantedAuthority> getGrantedAuthorities(Collection<Role> roles) {
+    private Collection<GrantedAuthority> getGrantedAuthorities(RoleEnum role) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.toString()));
-        }
+        authorities.add(new SimpleGrantedAuthority(role.toString()));
         return authorities;
     }
 
@@ -61,12 +61,48 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .firstName(newUser.getFirstName())
                 .lastName(newUser.getLastName())
                 .email(newUser.getEmail())
+                .username(newUser.getUsername())
                 .password(passwordEncoder.encode(newUser.getPassword()))
+                .enabled(true)
                 .build();
-        user.getRoles().add(roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFound::new));
+
+        user.setRole(RoleEnum.ROLE_USER);
 
         userRepository.save(user);
 
         return user;
+    }
+
+    public User updateUser(String username, UserUpdateRequest updateDetails) {
+        User user = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
+
+        if (updateDetails.getProfilePicture() != null && !updateDetails.getProfilePicture().isEmpty()) {
+            if (!updateDetails.getProfilePicture().equals(user.getProfilePicture())) {
+                String uploaded = imageService.saveImage(updateDetails.getProfilePicture(), user.getUsername() + "_avatar");
+                updateDetails.setProfilePicture(uploaded);
+            }
+
+        } else {
+            updateDetails.setProfilePicture(user.getProfilePicture());
+        }
+
+        BeanUtils.copyProperties(updateDetails, user);
+
+
+        return userRepository.save(user);
+
+    }
+
+    public UserInfoResponse getUserInfoByUsername(String username) throws UserNotFound {
+        User user = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
+        return UserInfoResponse.builder()
+                .id(user.getId())
+                .dob(user.getDob())
+                .profilePicture(user.getProfilePicture())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .username(user.getUsername())
+                .build();
     }
 }

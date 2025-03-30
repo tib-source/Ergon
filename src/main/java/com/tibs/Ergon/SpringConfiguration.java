@@ -1,8 +1,6 @@
 package com.tibs.Ergon;
 
-import java.util.List;
-import java.util.Objects;
-
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -10,10 +8,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.resource.ResourceResolverChain;
 
-import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Objects;
 
 @Configuration
-public class SpringConfiguration implements WebMvcConfigurer{
+public class SpringConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         this.serveDirectory(registry, "/", "classpath:/static/");
@@ -34,7 +33,6 @@ public class SpringConfiguration implements WebMvcConfigurer{
                     @Override
                     public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
                         Resource resource = super.resolveResource(request, requestPath, locations, chain);
-                        
 
                         System.out.println(requestPath);
                         if (Objects.nonNull(resource)) {

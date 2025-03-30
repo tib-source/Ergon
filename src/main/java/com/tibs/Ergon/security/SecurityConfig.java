@@ -25,19 +25,21 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
         http.authorizeHttpRequests(
-                        authorize -> {
-                            // Restrict access to admin and user pages based on roles
-                            authorize.requestMatchers("/**").permitAll();
-                            // All other requests require authentication
-                            authorize.anyRequest().permitAll();
-                        }
-                ).sessionManagement(sessionManagement ->
-                     sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                 );
+                authorize -> {
+                    // Restrict access to admin and user pages based on roles
+                    authorize.requestMatchers("/api/auth/*").permitAll();
+                    authorize.requestMatchers("/images/*").permitAll();
 
-                http.addFilterBefore(jwtAuthFilter,UsernamePasswordAuthenticationFilter.class);
+                    // All other requests require authentication
+                    authorize.anyRequest().authenticated();
+                }
+        ).sessionManagement(sessionManagement ->
+                sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        );
 
-                return http.csrf(AbstractHttpConfigurer::disable)
+        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 

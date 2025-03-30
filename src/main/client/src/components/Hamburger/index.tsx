@@ -6,6 +6,7 @@ interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
+
 export const Hamburger = ({ open, setOpen }: Props) => {
   const width = 30;
   return (

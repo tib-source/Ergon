@@ -1,47 +1,56 @@
 import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import "../../components/styling/dashboard.css";
-import Env from "../../Env.ts";
-import { Equipment } from "../../types.spec.ts";
 import Table from "../../components/Table";
 import Loading from "../../components/Loader";
 import BookingModal from "../../components/BookingModal";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useAuthorizedClient } from "../../hooks/useAuthorizedClient/useAuthorizedClient.tsx";
+import { Equipment } from "../../types.spec.ts";
 
 const Dashboard = () => {
-  const [loading, setLoading] = useState(true);
-  const data = useRef<Equipment[]>([]);
+  const queryClient = useQueryClient();
+  const client = useAuthorizedClient();
   const [content, setContent] = useState<Equipment[]>([]);
   const [bookingModal, setBookingModal] = useState<boolean>(false);
   const [currentEquipment, setCurrentEquipment] = useState<number>(1);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${Env.BASE_URL}/equipments`);
-      const equipment = await response.json();
-      data.current = equipment;
-      setContent(equipment); // Directly set content with fetched data
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false); // Hide loading indicator
-    }
+
+  interface GetEquipments {
+    data: Equipment[];
+  }
+
+  const getEquipments = async () => {
+    return client.get("/equipments");
   };
 
+
+  const { isPending, data, isSuccess } = useQuery({
+    queryKey: ["equipments"], queryFn: getEquipments
+  });
+
   useEffect(() => {
-    if (loading) {
-      setTimeout(fetchData, 500);
+    if (isSuccess) {
+      setContent(data.data);
     }
-  }, [loading]);
+  }, [isSuccess, data]);
 
   const searchBar = useRef<HTMLInputElement>(null);
 
   function handleSearch(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
+    const originalData: GetEquipments | undefined = queryClient.getQueryData(["equipments"]);
+    if (!originalData) {
+      return;
+    }
     const searchTerm = searchBar.current?.value;
     if (searchTerm === "" || searchTerm === undefined) {
-      setContent(data.current);
+      setContent(originalData.data);
     } else {
-      const searchResult = data.current.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      const searchResult = originalData.data.filter((item) => {
+          console.log(item);
+          return item.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+        }
       );
       setContent(searchResult);
     }
@@ -50,6 +59,9 @@ const Dashboard = () => {
   const handleFilter = (e: ChangeEvent<HTMLSelectElement>, type: string) => {
     let statusFilter = "";
     let typeFilter = "";
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const { data }: GetEquipments | undefined = queryClient.getQueryData(["equipments"]);
 
     if (type == "type") {
       typeFilter = e.target.value;
@@ -58,7 +70,7 @@ const Dashboard = () => {
     }
 
     setContent(() => {
-      return data.current.filter((item) => {
+      return data.filter((item: Equipment) => {
         return (
           item.status
             .toLowerCase()
@@ -74,7 +86,7 @@ const Dashboard = () => {
     setBookingModal(true);
   };
 
-  
+
   return (
     <div className="dashboard">
       <h1 className="dashboard__title">Equipment List</h1>
@@ -82,7 +94,7 @@ const Dashboard = () => {
         <section className="equipment__filter__input">
           <section className="input__container search">
             <input
-              disabled={loading}
+              disabled={isPending}
               className="input__field"
               type="text"
               name="searchInput"
@@ -91,7 +103,7 @@ const Dashboard = () => {
               ref={searchBar}
             />
             <button
-              disabled={loading}
+              disabled={isPending}
               onClick={handleSearch}
               className="styled__button"
               id="search_button"
@@ -104,7 +116,7 @@ const Dashboard = () => {
               <p>Filter:</p>
             </div>
             <select
-              disabled={loading}
+              disabled={isPending}
               onChange={(e) => handleFilter(e, "status")}
               name="status"
               id="filter__status"
@@ -119,7 +131,7 @@ const Dashboard = () => {
             </select>
 
             <select
-              disabled={loading}
+              disabled={isPending}
               onChange={(e) => handleFilter(e, "type")}
               name="type"
               id="filter__type"
@@ -148,19 +160,19 @@ const Dashboard = () => {
         {/*</button>*/}
         {/*) }*/}
       </form>
-      { bookingModal &&
+      {bookingModal &&
         <BookingModal
-        equipmentList={content}
-        current={currentEquipment}
-        toggleModal={() => setBookingModal(!bookingModal)}
-        open={bookingModal}
-        refresh={setLoading}
-      /> }
+          equipmentList={content}
+          current={currentEquipment}
+          toggleModal={() => setBookingModal(!bookingModal)}
+          open={bookingModal}
+          refresh={() => queryClient.invalidateQueries({ queryKey: ["equipments"] })}
+        />}
 
-      {loading ? (
+      {isPending ? (
         <Loading />
       ) : (
-        <Table openModal={openBookingModal}  content={content} />
+        <Table openModal={openBookingModal} content={content} />
       )}
     </div>
   );

@@ -1,13 +1,10 @@
 package com.tibs.Ergon.model;
+
+import com.tibs.Ergon.enums.RoleEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -20,7 +17,7 @@ import java.util.List;
         @UniqueConstraint(columnNames = "email"),
 
 })
-public class User  {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,14 +33,8 @@ public class User  {
     private String profilePicture;
     private boolean enabled;
     private boolean tokenExpired;
+    private RoleEnum role;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name="user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name ="role_id")
-    )   
-        private Collection<Role> roles;
-
-        @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-        private List<Booking> bookings;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Booking> bookings;
 }

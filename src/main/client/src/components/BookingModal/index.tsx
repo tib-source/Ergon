@@ -1,7 +1,9 @@
 import Modal, { ModalProps } from "../Modal";
-import { Equipment } from "../../types.spec.ts";
-import Env from "../../Env.ts";
-import { Dispatch, FormEventHandler, SetStateAction, useEffect } from "react";
+import { Equipment } from "../../types.spec.ts"; /**/
+import { Dispatch, FormEvent, SetStateAction, useEffect, useRef } from "react";
+import { useAuthorizedClient } from "../../hooks/useAuthorizedClient/useAuthorizedClient.tsx";
+import { useMutation } from "@tanstack/react-query";
+import Loading from "../Loader";
 
 interface BookingModalProps extends ModalProps {
   equipmentList: Equipment[];
@@ -11,64 +13,81 @@ interface BookingModalProps extends ModalProps {
 }
 
 const BookingModal = ({
-  open,
-  equipmentList,
-  toggleModal,
-  current,
-  refresh,
-}: BookingModalProps) => {
+                        open,
+                        equipmentList,
+                        toggleModal,
+                        current,
+                        refresh
+                      }: BookingModalProps) => {
+  const client = useAuthorizedClient();
+  const equipmentValue = useRef<HTMLSelectElement>(null);
+  const fromDateValue = useRef<HTMLInputElement>(null);
+  const untilDateValue = useRef<HTMLInputElement>(null);
+  const reason = useRef<HTMLInputElement>(null);
 
-  useEffect(()=>{
-    const today = new Date().toISOString().split('T')[0]
-    const fromDateElement = document.getElementById("fromDate")
-    if (fromDateElement ) {
-    fromDateElement.value = today;
-    fromDateElement?.setAttribute('min', today) 
-    }}, [])
-  const handleBooking: FormEventHandler = (e) => {
-    e.preventDefault()
-    const form = e.target as HTMLFormElement
-
-    const equipmentValue = (form.elements.namedItem('equipment') as HTMLSelectElement).value;
-    const fromDateValue = (form.elements.namedItem('fromDate') as HTMLInputElement).value;
-    const untilDateValue = (form.elements.namedItem('untilDate') as HTMLInputElement).value;
-    const reason = (form.elements.namedItem('reason') as HTMLInputElement).value;
-
-
-    const jsonPayload = { 
-      equipmentId : equipmentValue,
-      from : fromDateValue, 
-      to : untilDateValue, 
-      userId : 1, // TODO: Get the user id from the session
-      reason
+  useEffect(() => {
+    const today = new Date().toISOString().split("T")[0];
+    const fromDateElement = fromDateValue.current;
+    if (fromDateElement) {
+      fromDateElement.value = today;
+      fromDateElement?.setAttribute("min", today);
     }
-    sendBookingRequest(jsonPayload);
-    toggleModal();
-    refresh(true)
-  }
+  }, []);
 
-  const sendBookingRequest = (data: object) => {
-    fetch(Env.BASE_URL + "/bookings", {
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      body: JSON.stringify(data),
-      // TODO: CREATE THAT TOASTIFY NOTIFICATION THINGIE WHEN THIS ERRORS OUT :P
-    }).then(async (res) => console.log(await res.json()));
+  const handleBooking = () => {
+    const jsonPayload = {
+      equipmentId: equipmentValue.current?.value,
+      from: fromDateValue.current?.value,
+      to: untilDateValue.current?.value,
+      reason: reason.current?.value
+    };
+
+    console.log(jsonPayload);
+    return sendBookingRequest(jsonPayload);
   };
 
+  const { mutate, isPending, isError, error } = useMutation({
+      mutationFn: handleBooking,
+      onSuccess: () => {
+        toggleModal();
+        refresh(true);
+      }
+
+    }
+  );
+
+  const handleFormSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    mutate();
+  };
+  const sendBookingRequest = (data: object) => {
+    return client.post(
+      "/bookings",
+      JSON.stringify(data),
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+  };
+
+  if (isPending) {
+    return <Modal open={open}>
+      <Loading />
+    </Modal>;
+  }
 
 
   return (
     <Modal open={open}>
       <h1 className="modal__title">Book Equipment</h1>
-      <form className="modal__content" onSubmit={handleBooking}>
+      <form className="modal__content" onSubmit={handleFormSubmit}>
         <div className="input__container full_width">
           <div className="input__label">
             <p>Item :</p>
           </div>
-          <select className="input__field " defaultValue={current || 1} name="equipment" required>
+          <select className="input__field " ref={equipmentValue} defaultValue={current || 1} name="equipment" required>
             {equipmentList.map((equipment) => (
               <option key={equipment.id} value={equipment.id}>
                 {" "}
@@ -82,14 +101,15 @@ const BookingModal = ({
             <div className="input__label">
               <p>From:</p>
             </div>
-            <input type="date" className="input__field" id="fromDate" name="fromDate" required/>
+            <input type="date" className="input__field" id="fromDate" ref={fromDateValue} name="fromDate" required />
           </div>
 
           <div className="input__container">
             <div className="input__label">
               <p>Until:</p>
             </div>
-            <input type="date" className="input__field" id="untilDate" name="untillDate" required />
+            <input type="date" className="input__field" id="untilDate" ref={untilDateValue} name="untillDate"
+                   required />
           </div>
         </section>
 
@@ -102,7 +122,13 @@ const BookingModal = ({
             type="text"
             name="reason"
             id="bookingReason"
+            ref={reason}
           />
+          {isError &&
+            <div className="input__error">
+              <p>{error?.response.data.message || "Failed to Book Equipment"}</p>
+            </div>
+          }
         </div>
 
         <section className="modal__buttons full_width">

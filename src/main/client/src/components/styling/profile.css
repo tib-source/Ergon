@@ -1,0 +1,39 @@
+
+.profile {
+    width: 100%;
+
+    .profile__submit {
+        margin-top: 2rem;
+    }
+
+    span {
+        color: var(--error-dark);
+        margin-top: 1rem;
+    }
+}
+
+.profile__image {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+
+
+    img {
+        overflow: hidden;
+        object-fit: cover;
+        border-radius: 50%;
+        width: 150px;
+        aspect-ratio: 1;
+        box-shadow: 0 0 .2rem var(--gray-light);
+    }
+}
+
+
+section {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
