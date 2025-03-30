@@ -4,8 +4,8 @@ import Root from "../routes/Root";
 
 export const  PrivateRoutes = () => {
   const { isAuthenticated } = useAuth()
-
-  return isAuthenticated
-    ? <Root />
+  console.log(isAuthenticated)
+  return isAuthenticated ?
+    <Root />
     : <Navigate to="/login" />;
 }

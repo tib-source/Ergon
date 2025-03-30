@@ -18,7 +18,7 @@ function parseJwt (token: string): JwtToken {
 export const useJwtToken = () => {
   const token = localStorage.getItem("token");
   if (!token) {
-    return null;
+    return { parsedToken: null, token: null };
   }
 
   return { parsedToken: parseJwt(token), token: token };

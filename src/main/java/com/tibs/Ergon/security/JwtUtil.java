@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,8 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil{
-    private static final SecretKey secret = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    private static final String SECRET = "ThisIsALongSecretKeyThisIsALongSecretKey";
+    private static final SecretKeySpec secret = new SecretKeySpec(SECRET.getBytes(), SignatureAlgorithm.HS256.getJcaName());
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

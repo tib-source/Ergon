@@ -3,6 +3,9 @@ import com.tibs.Ergon.enums.NotificationTypeEnum;
 import com.tibs.Ergon.expception.BookingNotFound;
 import com.tibs.Ergon.expception.EquipmentNotAvailable;
 import com.tibs.Ergon.request.GeneralBookingRequest;
+import com.tibs.Ergon.util.UserUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +18,11 @@ import com.tibs.Ergon.model.User;
 import com.tibs.Ergon.repository.UserRepository;
 import com.tibs.Ergon.request.BookingRequest;
 
+import java.time.LocalDate;
+
 @Service
 public class BookingService {
+    public static final Logger log = LoggerFactory.getLogger(BookingService.class);
 
     @Autowired
     BookingRepository bookingRepo; 
@@ -32,9 +38,12 @@ public class BookingService {
 
     @Transactional
     public Booking createBooking(BookingRequest request){
+        log.info("Incoming Booking request {}", request.toString());
         Equipment equipment = equipmentService.findById(request.getEquipmentId());
-        User user = userRepo.findById(request.getUserId()).orElseThrow(UserNotFound::new);
-        if(equipmentService.isAvailable(equipment)){ 
+        String authorizedUser = UserUtil.userName();
+        User user = userRepo.findByUsername(authorizedUser).orElseThrow(UserNotFound::new);
+        this.validateBookingRequest(request);
+        if(equipmentService.isAvailable(equipment)){
             Booking newBooking =  Booking.builder()
             .equipment(equipment)
             .booked_from(request.getFrom())
@@ -68,6 +77,13 @@ public class BookingService {
         User user = userRepo.findById(request.getUserId()).orElseThrow(UserNotFound::new);
         // TODO: FINISH THIS FUNCTION
         // TODO: Booking should have approved status and User should be notified
+    }
+
+
+    private void validateBookingRequest(BookingRequest request){
+       if ( request.getTo().isBefore(LocalDate.now())|| request.getFrom().isAfter(request.getTo()) || request.getFrom().isEqual(request.getTo())) {
+           throw new RuntimeException("Invalid dates provided");
+       }
     }
 
 }

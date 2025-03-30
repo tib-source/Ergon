@@ -9,3 +9,18 @@ export interface Equipment {
   quantity: number;
   [key: string]: number | string | object;
 }
+
+
+export interface UserObject {
+  firstName: string;
+  lastName: string;
+  email: string;
+  username: string;
+  dob: string;
+  profilePicture: string;
+}
+
+
+export interface ApiResponse<T> {
+  data: T;
+}

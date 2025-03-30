@@ -1,0 +1,82 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.auth__split {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50vw;
+    height: 100vh;
+    background-color: var(--primary-bg);
+    z-index: -99;
+}
+
+
+.auth {
+    border: 1px solid var(--gray-light);
+    background-color: var(--white);
+    border-radius: 1rem;
+    padding: 2rem 3em;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    overflow: hidden;
+
+    h1 {
+        text-transform: capitalize;
+        margin: 1rem 0;
+    }
+
+
+    a{
+        text-align: center;
+    }
+
+
+    button{
+        margin: 0.5rem   0;
+    }
+}
+
+
+.login{
+    width: 320px;
+    gap: 1.5rem;
+    a {
+        padding: 0;
+    }
+}
+
+.register{
+
+
+    section{
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+
+    }
+
+
+
+    .title{
+        display: flex;
+        justify-content: space-between;
+
+
+
+
+    }
+
+}
+
+
+.floating{
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+}

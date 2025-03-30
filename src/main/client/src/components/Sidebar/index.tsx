@@ -1,42 +1,27 @@
 import profilePic from "../../assets/profile.jpeg";
-import Env from "../../Env";
-import useNotifications from "../../hooks/useNotifications";
 import "../styling/navigation.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../provider/AuthProvider.tsx";
+import { useUserInfo } from "../../hooks/useUserInfo.tsx";
+import { useUserRole } from "../../hooks/useUserRole.tsx";
 
-type UserObject = {
-  name: string;
-  profilePic: string;
-  isAdmin: boolean;
-};
 
 const Sidebar = () => {
   const [notificationCount, setNotificationCount] = useState(0);
+  const { logout } = useAuth();
+  const { data: user  } =  useUserInfo()
+  const isAdmin = useUserRole()
+  // const notifications = useNotifications(1);
 
-  const [user, setUser] = useState<UserObject>({
-    isAdmin: false,
-    name: "",
-    profilePic: "",
-  });
+  // useEffect(() => {
+  //   fetch(`${Env.BASE_URL}/notifications/unread/1`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setNotificationCount(data.length);
+  //     });
+  // }, [notifications]);
 
-  const notifications = useNotifications(1);
-
-  useEffect(() => {
-    fetch(`${Env.BASE_URL}/notifications/unread/1`)
-      .then((response) => response.json())
-      .then((data) => {
-        setNotificationCount(data.length);
-      });
-  }, [notifications]);
-
-  useEffect(() => {
-    setUser({
-      name: "Tibebe Demissie",
-      profilePic: profilePic,
-      isAdmin: true,
-    });
-  }, []);
   const renderAdminPages = (isAdmin: boolean) => {
     if (isAdmin) {
       return (
@@ -68,11 +53,11 @@ const Sidebar = () => {
       <div className="navigation">
         <div className="navigation__profile">
           <img
-            src={user.profilePic}
+            src={profilePic }
             className="navigation__pic"
             alt="Profile Picture"
           />
-          {user.name}
+          {user?.firstName + " " + user?.lastName}
         </div>
 
         <div className="navigation__pages">
@@ -96,7 +81,7 @@ const Sidebar = () => {
             Notifications
             { notificationCount > 0 && <span className="notification__count">{notificationCount}</span>}
           </NavLink>
-          {renderAdminPages(user.isAdmin)}
+          {renderAdminPages(isAdmin)}
           <NavLink
             className={({ isActive }) => (isActive ? "active" : "")}
             to={"/profile"}
@@ -105,7 +90,7 @@ const Sidebar = () => {
           </NavLink>
         </div>
 
-        <button> Logout</button>
+        <button onClick={logout}> Logout</button>
       </div>
     </>
   );

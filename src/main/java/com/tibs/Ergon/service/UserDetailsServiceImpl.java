@@ -7,6 +7,7 @@ import com.tibs.Ergon.expception.UserNotFound;
 import com.tibs.Ergon.model.User;
 import com.tibs.Ergon.repository.UserRepository;
 import com.tibs.Ergon.request.UserRegistrationRequest;
+import com.tibs.Ergon.response.UserInfoResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -66,5 +67,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userRepository.save(user);
 
         return user;
+    }
+
+
+    public UserInfoResponse getUserInfoByUsername(String username) throws UserNotFound {
+        User user = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
+        return UserInfoResponse.builder()
+                .id(user.getId())
+                .dob(user.getDob())
+                .profilePicture(user.getProfilePicture())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .username(user.getUsername())
+                .build();
     }
 }

@@ -315,8 +315,11 @@
     border: 1px solid var(--gray-light);
     border-radius: 0.25rem;
   }
-
   .input__error {
     color: red;
+
+    p{
+      text-align: center;
+    }
   }
 }
