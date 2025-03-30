@@ -3,6 +3,7 @@
     padding: .5rem;
     border-radius: 4px;
 }
+
 .tab-button {
     border: none;
     color: black;
@@ -21,9 +22,10 @@
     background-color: white;
 }
 
-.tab-content{
+.tab-content {
     padding: 1rem 4rem;
 }
+
 .active {
     background-color: var(--primary-bg);
     color: white;

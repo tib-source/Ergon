@@ -32,29 +32,30 @@ body {
     }
 
 
-    a{
+    a {
         text-align: center;
     }
 
 
-    button{
-        margin: 0.5rem   0;
+    button {
+        margin: 0.5rem 0;
     }
 }
 
 
-.login{
+.login {
     width: 320px;
     gap: 1.5rem;
+
     a {
         padding: 0;
     }
 }
 
-.register{
+.register {
 
 
-    section{
+    section {
         display: grid;
         gap: 1rem;
         grid-template-columns: 1fr 1fr;
@@ -62,12 +63,9 @@ body {
     }
 
 
-
-    .title{
+    .title {
         display: flex;
         justify-content: space-between;
-
-
 
 
     }
@@ -75,7 +73,7 @@ body {
 }
 
 
-.floating{
+.floating {
     position: absolute;
     top: 3rem;
     right: 3rem;

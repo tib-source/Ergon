@@ -9,8 +9,8 @@ import { useAuth } from "../../hooks/UseAuth.tsx";
 const Sidebar = () => {
   const [notificationCount, setNotificationCount] = useState(0);
   const { logout } = useAuth();
-  const { data: user  } =  useUserInfo()
-  const isAdmin = useUserRole()
+  const { data: user } = useUserInfo();
+  const isAdmin = useUserRole();
   // const notifications = useNotifications(1);
 
   // useEffect(() => {
@@ -52,7 +52,7 @@ const Sidebar = () => {
       <div className="navigation">
         <div className="navigation__profile">
           <img
-            src={ user?.profilePicture }
+            src={user?.profilePicture}
             className="navigation__pic"
             alt="Profile Picture"
           />
@@ -78,7 +78,7 @@ const Sidebar = () => {
             onClick={() => setNotificationCount(0)}
           >
             Notifications
-            { notificationCount > 0 && <span className="notification__count">{notificationCount}</span>}
+            {notificationCount > 0 && <span className="notification__count">{notificationCount}</span>}
           </NavLink>
           {renderAdminPages(isAdmin)}
           <NavLink

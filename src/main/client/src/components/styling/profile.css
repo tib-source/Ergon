@@ -1,19 +1,18 @@
 
-
-.profile{
+.profile {
     width: 100%;
 
-    .profile__submit{
+    .profile__submit {
         margin-top: 2rem;
     }
 
-    span{
+    span {
         color: var(--error-dark);
         margin-top: 1rem;
     }
 }
 
-.profile__image{
+.profile__image {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -21,7 +20,7 @@
     padding: 1rem;
 
 
-    img{
+    img {
         overflow: hidden;
         object-fit: cover;
         border-radius: 50%;
@@ -32,7 +31,7 @@
 }
 
 
-section{
+section {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;

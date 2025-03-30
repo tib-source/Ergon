@@ -7,6 +7,7 @@ export interface Equipment {
   comment: string;
   type: string;
   quantity: number;
+
   [key: string]: number | string | object;
 }
 

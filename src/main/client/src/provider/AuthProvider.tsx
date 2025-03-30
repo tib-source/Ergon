@@ -14,8 +14,8 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const jwtToken = useJwtToken()
-  let auth = false
+  const jwtToken = useJwtToken();
+  let auth = false;
   const nowSeconds = Math.floor(Date.now() / 1000);
 
   if (jwtToken.parsedToken) {
@@ -27,15 +27,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const login = () => setIsAuthenticated(true);
   const logout = () => {
-    setIsAuthenticated(false)
+    setIsAuthenticated(false);
     localStorage.removeItem("token");
-  }
+  };
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 

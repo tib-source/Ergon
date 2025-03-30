@@ -9,7 +9,7 @@ const Loading = () => {
         <div
           className="rect"
           style={{
-            animationDelay: `${(version - 1) * (durationSec / 12)}s`,
+            animationDelay: `${(version - 1) * (durationSec / 12)}s`
           }}
           key={version}
         ></div>

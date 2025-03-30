@@ -9,35 +9,36 @@ import { Equipment } from "../../types.spec.ts";
 
 const Dashboard = () => {
   const queryClient = useQueryClient();
-  const client = useAuthorizedClient()
+  const client = useAuthorizedClient();
   const [content, setContent] = useState<Equipment[]>([]);
   const [bookingModal, setBookingModal] = useState<boolean>(false);
   const [currentEquipment, setCurrentEquipment] = useState<number>(1);
 
 
   interface GetEquipments {
-    data : Equipment[];
+    data: Equipment[];
   }
 
   const getEquipments = async () => {
     return client.get("/equipments");
-  }
+  };
 
 
-  const { isPending, data, isSuccess} =  useQuery({
-    queryKey: ["equipments"], queryFn: getEquipments})
+  const { isPending, data, isSuccess } = useQuery({
+    queryKey: ["equipments"], queryFn: getEquipments
+  });
 
   useEffect(() => {
-    if(isSuccess){
-      setContent(data.data)
+    if (isSuccess) {
+      setContent(data.data);
     }
-  },[isSuccess, data])
+  }, [isSuccess, data]);
 
   const searchBar = useRef<HTMLInputElement>(null);
 
-  function handleSearch(e: MouseEvent<HTMLButtonElement> ) {
+  function handleSearch(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    const originalData: GetEquipments | undefined = queryClient.getQueryData(["equipments"])
+    const originalData: GetEquipments | undefined = queryClient.getQueryData(["equipments"]);
     if (!originalData) {
       return;
     }
@@ -46,7 +47,7 @@ const Dashboard = () => {
       setContent(originalData.data);
     } else {
       const searchResult = originalData.data.filter((item) => {
-          console.log(item)
+          console.log(item);
           return item.name.toLowerCase().includes(searchTerm.toLowerCase());
 
         }
@@ -60,7 +61,7 @@ const Dashboard = () => {
     let typeFilter = "";
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    const { data }: GetEquipments | undefined = queryClient.getQueryData(["equipments"])
+    const { data }: GetEquipments | undefined = queryClient.getQueryData(["equipments"]);
 
     if (type == "type") {
       typeFilter = e.target.value;
@@ -69,7 +70,7 @@ const Dashboard = () => {
     }
 
     setContent(() => {
-      return data.filter((item : Equipment) => {
+      return data.filter((item: Equipment) => {
         return (
           item.status
             .toLowerCase()
@@ -85,7 +86,7 @@ const Dashboard = () => {
     setBookingModal(true);
   };
 
-  
+
   return (
     <div className="dashboard">
       <h1 className="dashboard__title">Equipment List</h1>
@@ -159,19 +160,19 @@ const Dashboard = () => {
         {/*</button>*/}
         {/*) }*/}
       </form>
-      { bookingModal &&
+      {bookingModal &&
         <BookingModal
-        equipmentList={content}
-        current={currentEquipment}
-        toggleModal={() => setBookingModal(!bookingModal)}
-        open={bookingModal}
-        refresh={()=> queryClient.invalidateQueries({queryKey: ["equipments"]})}
-      /> }
+          equipmentList={content}
+          current={currentEquipment}
+          toggleModal={() => setBookingModal(!bookingModal)}
+          open={bookingModal}
+          refresh={() => queryClient.invalidateQueries({ queryKey: ["equipments"] })}
+        />}
 
       {isPending ? (
         <Loading />
       ) : (
-        <Table openModal={openBookingModal}  content={content}/>
+        <Table openModal={openBookingModal} content={content} />
       )}
     </div>
   );

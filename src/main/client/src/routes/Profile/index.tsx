@@ -10,20 +10,20 @@ export default function Profile() {
   const client = useAuthorizedClient();
   const queryClient = useQueryClient();
   const uploadButton = useRef<HTMLInputElement>(null);
-  const userInfo = useUserInfo().data
+  const userInfo = useUserInfo().data;
   const [avatar, setAvatar] = useState<string | undefined>(userInfo?.profilePicture);
 
   const { isPending, isError, error, mutate } = useMutation({
     mutationFn: (userData: Partial<UserObject>) => {
       return client.put(`/users/${userInfo?.username}`, userData);
     },
-    onSuccess:()=> queryClient.invalidateQueries({ queryKey: ["userInfo"]})
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["userInfo"] })
 
-});
+  });
 
-  useEffect(()=>{
-    setAvatar(userInfo?.profilePicture)
-  }, [userInfo?.profilePicture])
+  useEffect(() => {
+    setAvatar(userInfo?.profilePicture);
+  }, [userInfo?.profilePicture]);
 
   const getFromDataAfterSubmit: FormEventHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,14 +32,14 @@ export default function Profile() {
     let updateUserData: Partial<UserObject> = {
       firstName: (formElements.namedItem("first_name") as HTMLInputElement).value,
       lastName: (formElements.namedItem("last_name") as HTMLInputElement).value,
-      dob: (formElements.namedItem("dob") as HTMLInputElement).value,
+      dob: (formElements.namedItem("dob") as HTMLInputElement).value
     };
 
-    if ( userInfo?.profilePicture != avatar){
+    if (userInfo?.profilePicture != avatar) {
       updateUserData = {
         ...updateUserData,
         profilePicture: avatar
-      }
+      };
     }
 
     mutate(updateUserData);

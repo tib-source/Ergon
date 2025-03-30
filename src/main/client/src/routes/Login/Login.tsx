@@ -11,15 +11,15 @@ export const Login = () => {
   const username = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const client = useErgonClient();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { isAuthenticated, login} = useAuth()
+  const { isAuthenticated, login } = useAuth();
 
   useEffect(() => {
-    if(isAuthenticated) {
-      navigate("/")
+    if (isAuthenticated) {
+      navigate("/");
     }
-  }, [isAuthenticated, navigate])
+  }, [isAuthenticated, navigate]);
 
   const loginUser = async () => {
     const user = username.current?.value;
@@ -30,57 +30,58 @@ export const Login = () => {
       password: pass
     });
 
-  }
+  };
 
-  const {mutate, isError, isPending } = useMutation({
+  const { mutate, isError, isPending } = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
       localStorage.setItem("token", data.data.token);
-      login()
-      navigate("/")
+      login();
+      navigate("/");
     }
-  })
+  });
 
   const handleLogin = () => {
-    mutate()
-  }
+    mutate();
+  };
   return (
     <>
       <div className="auth__split"></div>
       {isPending ? <Loading /> :
-      <div className="auth login">
-        <h1>Login</h1>
-        <div className="input__container">
-          <div className="input__label">
-            <p>Username</p>
-          </div>
-          <input className="input__field" type="text" name="username" ref={username} autoComplete="username"
-                 maxLength={150} required
-                 id="id_username" />
-        </div>
-
-
-        <div className="input__container">
-          <div className="input__label">
-            <p>Password</p>
-          </div>
-          <input className="input__field" type="password" name="password" ref={password} autoComplete="current-password"
-                 required
-                 id="id_password" />
-          {isError &&
-            <div className="input__error">
-              <p>Password or Username is wrong</p>
+        <div className="auth login">
+          <h1>Login</h1>
+          <div className="input__container">
+            <div className="input__label">
+              <p>Username</p>
             </div>
-          }
+            <input className="input__field" type="text" name="username" ref={username} autoComplete="username"
+                   maxLength={150} required
+                   id="id_username" />
+          </div>
 
-        </div>
 
-        <div style={{ display: "grid" }}>
-          <button onClick={handleLogin} className="styled__button" type="submit"> Login</button>
-        </div>
-        <Link className="styled__button floating" to="/register">Register</Link>
-      </div> }
+          <div className="input__container">
+            <div className="input__label">
+              <p>Password</p>
+            </div>
+            <input className="input__field" type="password" name="password" ref={password}
+                   autoComplete="current-password"
+                   required
+                   id="id_password" />
+            {isError &&
+              <div className="input__error">
+                <p>Password or Username is wrong</p>
+              </div>
+            }
+
+          </div>
+
+          <div style={{ display: "grid" }}>
+            <button onClick={handleLogin} className="styled__button" type="submit"> Login</button>
+          </div>
+          <Link className="styled__button floating" to="/register">Register</Link>
+        </div>}
     </>
 
-  )
-}
+  );
+};

@@ -2,9 +2,9 @@ import { MouseEvent, useCallback, useEffect, useRef, useState } from "react";
 import { Equipment } from "../../types.spec.ts";
 
 const Table = ({
-  content,
-  openModal,
-}: {
+                 content,
+                 openModal
+               }: {
   content: Equipment[];
   openModal: (id: number) => void;
 }) => {
@@ -15,7 +15,7 @@ const Table = ({
     "Type",
     "Location",
     "Status",
-    "Comment",
+    "Comment"
   ];
 
   const [processed, setProcessed] = useState(content);
@@ -31,7 +31,7 @@ const Table = ({
           if (a[row] > b[row]) return -1;
           else if (a[row] < b[row]) return 1;
           else return 0;
-        }),
+        })
       );
     } else {
       setProcessed(() =>
@@ -39,7 +39,7 @@ const Table = ({
           if (a[row] < b[row]) return -1;
           else if (a[row] > b[row]) return 1;
           else return 0;
-        }),
+        })
       );
     }
   }, [content]);
@@ -67,58 +67,58 @@ const Table = ({
 
   useEffect(() => {
     setProcessed([...content]);
-    sortTable('ID', "des")
+    sortTable("ID", "des");
   }, [content, sortTable]);
   return (
     <table id="dashboard_table">
       <thead>
-        <tr>
-          {rows.map((row, index) => (
-            <th key={index}>
-              <button
-                ref={(el) =>
-                  (buttonRefs.current[index] = el as HTMLButtonElement)
-                }
-                onClick={(e) => handleSort(e, row)}
-                className="table__row"
-              >
-                {row}
-              </button>
-            </th>
-          ))}
+      <tr>
+        {rows.map((row, index) => (
+          <th key={index}>
+            <button
+              ref={(el) =>
+                (buttonRefs.current[index] = el as HTMLButtonElement)
+              }
+              onClick={(e) => handleSort(e, row)}
+              className="table__row"
+            >
+              {row}
+            </button>
+          </th>
+        ))}
 
-          <th>Action</th>
-        </tr>
+        <th>Action</th>
+      </tr>
       </thead>
       <tbody id="table_content">
-        {processed.length === 0 && (
-          <tr>
-            <td className="empty"> No Results Found</td>
-          </tr>
-        )}
-        {processed.map((row: Equipment, index: number) => (
-          <tr key={index}>
-            <td>{row.id}</td>
-            <td>{row.name}</td>
-            <td>{row.quantity}</td>
-            <td>{row.type}</td>
-            <td>{row.location}</td>
-            <td>
+      {processed.length === 0 && (
+        <tr>
+          <td className="empty"> No Results Found</td>
+        </tr>
+      )}
+      {processed.map((row: Equipment, index: number) => (
+        <tr key={index}>
+          <td>{row.id}</td>
+          <td>{row.name}</td>
+          <td>{row.quantity}</td>
+          <td>{row.type}</td>
+          <td>{row.location}</td>
+          <td>
               <span className={`status status__${row.status.toLowerCase()}`}>
                 {row.status}
               </span>
-            </td>
-            <td>{row.comment == "nan" ? "" : row.comment}</td>
-            <td>
-              <button
-                onClick={() => openModal(row.id)}
-                className="styled__button"
-              >
-                Book
-              </button>
-            </td>
-          </tr>
-        ))}
+          </td>
+          <td>{row.comment == "nan" ? "" : row.comment}</td>
+          <td>
+            <button
+              onClick={() => openModal(row.id)}
+              className="styled__button"
+            >
+              Book
+            </button>
+          </td>
+        </tr>
+      ))}
       </tbody>
     </table>
   );
