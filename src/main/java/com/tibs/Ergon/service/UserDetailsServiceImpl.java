@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 
-
 @Service("userDetailsService")
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -42,7 +41,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true,getGrantedAuthorities(user.getRole()));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, getGrantedAuthorities(user.getRole()));
     }
 
     private Collection<GrantedAuthority> getGrantedAuthorities(RoleEnum role) {
@@ -74,16 +73,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return user;
     }
 
-    public User updateUser(String username, UserUpdateRequest updateDetails){
+    public User updateUser(String username, UserUpdateRequest updateDetails) {
         User user = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
 
-        if (updateDetails.getProfilePicture() != null && !updateDetails.getProfilePicture().isEmpty()){
-            if (!updateDetails.getProfilePicture().equals(user.getProfilePicture())){
+        if (updateDetails.getProfilePicture() != null && !updateDetails.getProfilePicture().isEmpty()) {
+            if (!updateDetails.getProfilePicture().equals(user.getProfilePicture())) {
                 String uploaded = imageService.saveImage(updateDetails.getProfilePicture(), user.getUsername() + "_avatar");
                 updateDetails.setProfilePicture(uploaded);
             }
 
-        }else{
+        } else {
             updateDetails.setProfilePicture(user.getProfilePicture());
         }
 
@@ -93,6 +92,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userRepository.save(user);
 
     }
+
     public UserInfoResponse getUserInfoByUsername(String username) throws UserNotFound {
         User user = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
         return UserInfoResponse.builder()

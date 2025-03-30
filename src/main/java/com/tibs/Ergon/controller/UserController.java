@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class UserController {
 
     }
 
-//    @PreAuthorize(value = "ADMIN")
+    //    @PreAuthorize(value = "ADMIN")
     @GetMapping("")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok(userRepository.findAll());
@@ -45,14 +46,14 @@ public class UserController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id){
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         log.info("Requesting to delete User: {}", id);
         userRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<User> updateUser(@Valid @RequestBody UserUpdateRequest updateRequest){
+    public ResponseEntity<User> updateUser(@Valid @RequestBody UserUpdateRequest updateRequest) {
         log.info("Requesting to update User: {}", updateRequest);
         String requestUser = UserUtil.userName();
         User updated = userDetailsService.updateUser(requestUser, updateRequest);

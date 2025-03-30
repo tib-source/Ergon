@@ -1,34 +1,30 @@
 package com.tibs.Ergon.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.tibs.Ergon.service.NotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
 @RestController
 @RequestMapping("/api/notifications")
 public class NotificationController {
-    
+
     private static final Logger logging = LoggerFactory.getLogger(NotificationController.class);
-    
+
     @Autowired
     public NotificationService notificationService;
 
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<?> getNotifications(@PathVariable Long id){
+    public ResponseEntity<?> getNotifications(@PathVariable Long id) {
         return ResponseEntity.ok(notificationService.getNotifications(id));
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<?> markAsRead(@PathVariable Long id){
+    public ResponseEntity<?> markAsRead(@PathVariable Long id) {
         notificationService.markAsRead(id);
         return ResponseEntity.ok().build();
     }
@@ -42,14 +38,14 @@ public class NotificationController {
     }
 
     @PostMapping("/check-bookings")
-    public ResponseEntity<?> checkBookings(){
+    public ResponseEntity<?> checkBookings() {
         logging.info("Checking bookings and sending notifications");
         notificationService.checkBookingsAndNotify();
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/unread/{id}")
-    public ResponseEntity<?> getUnreadNotification(@PathVariable Long id){
+    public ResponseEntity<?> getUnreadNotification(@PathVariable Long id) {
         return ResponseEntity.ok(notificationService.getUnreadNotifications(id));
     }
 }

@@ -37,7 +37,7 @@ public class ImageService {
         try {
             imageByte = Base64.decode(base64Data);
 
-        }catch (DecoderException e){
+        } catch (DecoderException e) {
             throw new ImageUploadFailedException();
         }
 
@@ -60,7 +60,7 @@ public class ImageService {
 
         try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
             outputStream.write(imageByte);
-        } catch (IOException e){
+        } catch (IOException e) {
             log.error("Failed to save image: {}", filePath, e);
             throw new ImageUploadFailedException();
         }
