@@ -2,9 +2,9 @@ import profilePic from "../../assets/profile.jpeg";
 import "../styling/navigation.css";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../../provider/AuthProvider.tsx";
 import { useUserInfo } from "../../hooks/useUserInfo.tsx";
 import { useUserRole } from "../../hooks/useUserRole.tsx";
+import { useAuth } from "../../hooks/UseAuth.tsx";
 
 
 const Sidebar = () => {

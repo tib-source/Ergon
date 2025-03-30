@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import { useJwtToken } from "../hooks/useJwtToken.tsx";
 
 
@@ -39,4 +39,3 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 }
 
 
-export const useAuth = () : AuthContextType  => useContext(AuthContext) as AuthContextType;

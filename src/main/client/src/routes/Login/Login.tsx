@@ -4,7 +4,8 @@ import { useEffect, useRef } from "react";
 import { useErgonClient } from "../../hooks/useErgonClient/useErgonClient.tsx";
 import { useMutation } from "@tanstack/react-query";
 import Loading from "../../components/Loader";
-import { useAuth } from "../../provider/AuthProvider.tsx";
+
+import { useAuth } from "../../hooks/UseAuth.tsx";
 
 export const Login = () => {
   const username = useRef<HTMLInputElement>(null);
