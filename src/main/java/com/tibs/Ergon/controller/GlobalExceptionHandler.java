@@ -1,4 +1,4 @@
-package com.tibs.Ergon.web;
+package com.tibs.Ergon.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -8,8 +8,7 @@ import java.time.LocalDate;
 
 @NonNull
 @Data
-public class UserUpadeRequest {
-    private String username;
+public class UserUpdateRequest {
     private String firstName;
     private String lastName;
     private LocalDate dob;

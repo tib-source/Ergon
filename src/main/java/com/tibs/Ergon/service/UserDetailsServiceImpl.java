@@ -7,8 +7,10 @@ import com.tibs.Ergon.expception.UserNotFound;
 import com.tibs.Ergon.model.User;
 import com.tibs.Ergon.repository.UserRepository;
 import com.tibs.Ergon.request.UserRegistrationRequest;
+import com.tibs.Ergon.request.UserUpdateRequest;
 import com.tibs.Ergon.response.UserInfoResponse;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -27,10 +30,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final ImageService imageService;
 
-    public UserDetailsServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public UserDetailsServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository, ImageService imageService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.imageService = imageService;
     }
 
 
@@ -69,7 +74,25 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return user;
     }
 
+    public User updateUser(String username, UserUpdateRequest updateDetails){
+        User user = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
 
+        if (updateDetails.getProfilePicture() != null && !updateDetails.getProfilePicture().isEmpty()){
+            if (!updateDetails.getProfilePicture().equals(user.getProfilePicture())){
+                String uploaded = imageService.saveImage(updateDetails.getProfilePicture(), user.getUsername() + "_avatar");
+                updateDetails.setProfilePicture(uploaded);
+            }
+
+        }else{
+            updateDetails.setProfilePicture(user.getProfilePicture());
+        }
+
+        BeanUtils.copyProperties(updateDetails, user);
+
+
+        return userRepository.save(user);
+
+    }
     public UserInfoResponse getUserInfoByUsername(String username) throws UserNotFound {
         User user = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
         return UserInfoResponse.builder()

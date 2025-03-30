@@ -1,4 +1,4 @@
-import React, { FormEvent, FormEventHandler, useRef, useState } from "react";
+import React, { FormEvent, FormEventHandler, useEffect, useRef, useState } from "react";
 import "../../components/styling/profile.css";
 import { useUserInfo } from "../../hooks/useUserInfo.tsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -21,19 +21,28 @@ export default function Profile() {
 
 });
 
+  useEffect(()=>{
+    setAvatar(userInfo?.profilePicture)
+  }, [userInfo?.profilePicture])
+
   const getFromDataAfterSubmit: FormEventHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formElements = e.currentTarget.elements as HTMLFormControlsCollection;
 
-    const userData = {
+    let updateUserData: Partial<UserObject> = {
       firstName: (formElements.namedItem("first_name") as HTMLInputElement).value,
       lastName: (formElements.namedItem("last_name") as HTMLInputElement).value,
-      username: (formElements.namedItem("username") as HTMLInputElement).value,
       dob: (formElements.namedItem("dob") as HTMLInputElement).value,
-      profilePicture: avatar
     };
 
-    mutate(userData);
+    if ( userInfo?.profilePicture != avatar){
+      updateUserData = {
+        ...updateUserData,
+        profilePicture: avatar
+      }
+    }
+
+    mutate(updateUserData);
 
   };
 
@@ -78,6 +87,23 @@ export default function Profile() {
             <section>
               <div className="input__container">
                 <div className="input__label">
+                  <p>User Name</p>
+                </div>
+                <input className="input__field" type="text" name="username"
+                       defaultValue={userInfo?.username} autoCapitalize="none"
+                       autoComplete="username" maxLength={150} required id="id_username" disabled={true} />
+              </div>
+
+              <div className="input__container">
+                <div className="input__label">
+                  <p>Date of Birth: </p>
+                </div>
+                <input className="input__field" type="date" name="dob" defaultValue={userInfo?.dob} />
+              </div>
+            </section>
+            <section>
+              <div className="input__container">
+                <div className="input__label">
                   <p>First Name</p>
                 </div>
                 <input type="text" className="input__field" name="first_name"
@@ -92,23 +118,7 @@ export default function Profile() {
                        defaultValue={userInfo?.lastName} maxLength={150} id="id_last_name" />
               </div>
             </section>
-            <section>
-              <div className="input__container">
-                <div className="input__label">
-                  <p>User Name</p>
-                </div>
-                <input className="input__field" type="text" name="username"
-                       defaultValue={userInfo?.username} autoCapitalize="none"
-                       autoComplete="username" maxLength={150} required id="id_username" />
-              </div>
 
-              <div className="input__container">
-                <div className="input__label">
-                  <p>Account Type: </p>
-                </div>
-                <input className="input__field" type="date" name="dob" defaultValue={userInfo?.dob} />
-              </div>
-            </section>
           </div>
           {isError && (
             <section>

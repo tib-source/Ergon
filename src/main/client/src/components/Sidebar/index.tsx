@@ -1,4 +1,3 @@
-import profilePic from "../../assets/profile.jpeg";
 import "../styling/navigation.css";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -53,7 +52,7 @@ const Sidebar = () => {
       <div className="navigation">
         <div className="navigation__profile">
           <img
-            src={profilePic }
+            src={ user?.profilePicture }
             className="navigation__pic"
             alt="Profile Picture"
           />

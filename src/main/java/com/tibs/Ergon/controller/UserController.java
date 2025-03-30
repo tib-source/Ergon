@@ -1,10 +1,9 @@
-package com.tibs.Ergon.web;
+package com.tibs.Ergon.controller;
 
 
-import com.tibs.Ergon.expception.UserNotFound;
 import com.tibs.Ergon.model.User;
 import com.tibs.Ergon.repository.UserRepository;
-import com.tibs.Ergon.request.UserUpadeRequest;
+import com.tibs.Ergon.request.UserUpdateRequest;
 import com.tibs.Ergon.response.UserInfoResponse;
 import com.tibs.Ergon.service.UserDetailsServiceImpl;
 import com.tibs.Ergon.util.UserUtil;
@@ -52,19 +51,11 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@Valid @RequestBody UserUpadeRequest updateRequest){
+    @PutMapping("/{username}")
+    public ResponseEntity<User> updateUser(@Valid @RequestBody UserUpdateRequest updateRequest){
         log.info("Requesting to update User: {}", updateRequest);
         String requestUser = UserUtil.userName();
-        User user = userRepository.findByUsername(requestUser).orElseThrow(UserNotFound::new);
-        user.setUsername(updateRequest.getUsername());
-        user.setFirstName(updateRequest.getFirstName());
-        user.setLastName(updateRequest.getLastName());
-        user.setDob(updateRequest.getDob());
-        user.setProfilePicture(updateRequest.getProfilePicture());
-
-        User updated = userRepository.save(user);
-
+        User updated = userDetailsService.updateUser(requestUser, updateRequest);
         return ResponseEntity.ok().body(updated);
     }
 }

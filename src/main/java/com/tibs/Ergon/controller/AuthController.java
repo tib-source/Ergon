@@ -1,4 +1,4 @@
-package com.tibs.Ergon.web;
+package com.tibs.Ergon.controller;
 
 import com.tibs.Ergon.model.User;
 import com.tibs.Ergon.request.AuthRequest;
