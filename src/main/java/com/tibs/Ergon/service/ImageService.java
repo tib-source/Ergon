@@ -19,7 +19,7 @@ public class ImageService {
 
     private final static Logger log = LoggerFactory.getLogger(ImageService.class);
 
-    @Value("${image.upload.directory}")
+    @Value("${image.upload.directory:${user.home}/.ergon/uploads}")
     private String imageUploadDirectory;
 
     @Value("${server.address}")

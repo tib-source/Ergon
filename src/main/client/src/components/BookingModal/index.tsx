@@ -4,6 +4,7 @@ import { Dispatch, FormEvent, SetStateAction, useEffect, useRef } from "react";
 import { useAuthorizedClient } from "../../hooks/useAuthorizedClient/useAuthorizedClient.tsx";
 import { useMutation } from "@tanstack/react-query";
 import Loading from "../Loader";
+import axios from "axios";
 
 interface BookingModalProps extends ModalProps {
   equipmentList: Equipment[];
@@ -42,7 +43,6 @@ const BookingModal = ({
       reason: reason.current?.value
     };
 
-    console.log(jsonPayload);
     return sendBookingRequest(jsonPayload);
   };
 
@@ -124,9 +124,9 @@ const BookingModal = ({
             id="bookingReason"
             ref={reason}
           />
-          {isError &&
+          { isError && axios.isAxiosError(error) &&
             <div className="input__error">
-              <p>{error?.response.data.message || "Failed to Book Equipment"}</p>
+              <p>{error?.response?.data.message || "Failed to Book Equipment"}</p>
             </div>
           }
         </div>
