@@ -15,6 +15,7 @@ env:
   JAVA_MAJOR_VERSION: '17.0.8'
   NODE_MAJOR_VERSION: '20.14.0'
 
+
 jobs:
   build:
 
@@ -24,32 +25,32 @@ jobs:
       packages: write
 
     steps:
-    - name: 'Setup :: Checkout'
-      uses: 'actions/checkout@v4'
+      - name: 'Setup :: Checkout'
+        uses: 'actions/checkout@v4'
 
-    - name: Make mvnw executable
-      run: chmod +x mvnw
+      - name: Make mvnw executable
+        run: chmod +x mvnw
 
-    - name: 'Setup :: Determine Java and Node versions'
-      run: |
-        echo "JAVA_DISTRO=$(cat .tool-versions | grep java | awk '{ print $2 }' | awk -F- '{ print $1 }')" >> $GITHUB_ENV
-        echo "JAVA_MAJOR_VERSION=$(cat .tool-versions | grep java | awk '{ print $2 }' | awk -F- '{ print $2 }' | awk -F. '{ print $1 }')" >> $GITHUB_ENV
-        echo "NODE_MAJOR_VERSION=$(cat .tool-versions | grep nodejs | awk '{ print $2 }' | awk -F. '{ print $1 }')" >> $GITHUB_ENV
-    - name: 'Setup :: Java'
-      uses: 'actions/setup-java@v3'
-      with:
-        distribution: $JAVA_DISTRO
-        java-version: $JAVA_MAJOR_VERSION
-        cache: 'maven'
+      - name: 'Setup :: Determine Java and Node versions'
+        run: |
+          echo "JAVA_DISTRO=$(cat .tool-versions | grep java | awk '{ print $2 }' | awk -F- '{ print $1 }')" >> $GITHUB_ENV
+          echo "JAVA_MAJOR_VERSION=$(cat .tool-versions | grep java | awk '{ print $2 }' | awk -F- '{ print $2 }' | awk -F. '{ print $1 }')" >> $GITHUB_ENV
+          echo "NODE_MAJOR_VERSION=$(cat .tool-versions | grep nodejs | awk '{ print $2 }' | awk -F. '{ print $1 }')" >> $GITHUB_ENV
+
+      - name: 'Setup :: Java'
+        uses: 'actions/setup-java@v3'
+        with:
+          distribution: 'microsoft'
+          java-version: '17.0.8'
+          cache: 'maven'
 
 
-    - name: 'Setup :: Node'
-      uses: 'actions/setup-node@v3'
-      with:
-        node-version: $NODE_MAJOR_VERSION
-        cache: 'npm'
-        cache-dependency-path: 'src/main/client/package-lock.json'
+      - name: 'Setup :: Node'
+        uses: 'actions/setup-node@v3'
+        with:
+          node-version: '20.14.0'
+          cache: 'npm'
+          cache-dependency-path: 'src/main/client/package-lock.json'
 
-    - name: 'Application :: Build'
-      run: ./mvnw clean package -DskipTests
-
+      - name: 'Application :: Build'
+        run: ./mvnw package -DskipTests
