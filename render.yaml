@@ -1,0 +1,26 @@
+services:
+  - type: web
+    plan: free
+    name: Ergon
+    runtime: docker
+    repo: https://github.com/tib-source/Ergon.git
+    dockerContext: .
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: ergon-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        value: postgres
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: postgres
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+
+databases:
+  - name: ergon-db
+    databaseName: ergon
+    user: postgres
+    plan: free
+    postgresMajorVersion: "13"
