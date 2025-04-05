@@ -69,4 +69,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ergon:latest
+          tags: tibss/ergon:latest
