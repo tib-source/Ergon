@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:13
+    restart: unless-stopped
+    volumes:
+      - postgres-data-dev:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: ergon
+  app:
+    build: .
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/ergon"
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+
+volumes:
+  postgres-data-dev:
+    driver: local

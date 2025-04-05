@@ -28,10 +28,11 @@ public class SecurityConfig {
                 authorize -> {
                     // Restrict access to admin and user pages based on roles
                     authorize.requestMatchers("/api/auth/*").permitAll();
+                    authorize.requestMatchers("/api/*").authenticated();
                     authorize.requestMatchers("/images/*").permitAll();
 
                     // All other requests require authentication
-                    authorize.anyRequest().authenticated();
+                    authorize.anyRequest().permitAll();
                 }
         ).sessionManagement(sessionManagement ->
                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

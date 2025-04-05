@@ -33,24 +33,27 @@ jobs:
 
     - name: 'Setup :: Determine Java and Node versions'
       run: |
-        echo "JAVA_DISTRO=$(cat .tool-versions | grep java | awk '{ print $2 }' | awk -F- '{ print $1 }')" >> $GITHUB_ENV
-        echo "JAVA_MAJOR_VERSION=$(cat .tool-versions | grep java | awk '{ print $2 }' | awk -F- '{ print $2 }' | awk -F. '{ print $1 }')" >> $GITHUB_ENV
-        echo "NODE_MAJOR_VERSION=$(cat .tool-versions | grep nodejs | awk '{ print $2 }' | awk -F. '{ print $1 }')" >> $GITHUB_ENV
+        echo "JAVA_DISTRO=$(cat .tool-versions | grep java | awk '{ print $2 }' | awk -F- '{ print $1 }')" >> $JAVA_DISTRO
+        echo "JAVA_MAJOR_VERSION=$(cat .tool-versions | grep java | awk '{ print $2 }' | awk -F- '{ print $2 }' | awk -F. '{ print $1 }')" >> $JAVA_MAJOR_VERSION
+        echo "NODE_MAJOR_VERSION=$(cat .tool-versions | grep nodejs | awk '{ print $2 }' | awk -F. '{ print $1 }')" >> $NODE_MAJOR_VERSION
 
     - name: 'Setup :: Java'
       uses: 'actions/setup-java@v3'
       with:
-        distribution: 'microsoft'
-        java-version: '17.0.8'
+        distribution: $JAVA_DISTRO
+        java-version: $JAVA_MAJOR_VERSION
         cache: 'maven'
 
 
     - name: 'Setup :: Node'
       uses: 'actions/setup-node@v3'
       with:
-        node-version: '20.14.0'
+        node-version: $NODE_MAJOR_VERSION
         cache: 'npm'
         cache-dependency-path: 'src/main/client/package-lock.json'
 
     - name: 'Application :: Build'
-      run: ./mvnw package -DskipTests
+      run: ./mvnw clean package -DskipTests
+
+    - name: 'Docker :: Image Build'
+      run:

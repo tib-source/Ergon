@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuthorizedClient } from "../../hooks/useAuthorizedClient/useAuthorizedClient.tsx";
 import { UserObject } from "../../types.spec.ts";
 import Loading from "../../components/Loader";
+import axios from "axios";
 
 export default function Profile() {
   const client = useAuthorizedClient();
@@ -120,9 +121,9 @@ export default function Profile() {
             </section>
 
           </div>
-          {isError && (
+          {isError && axios.isAxiosError(error) && (
             <section>
-              <span style={{ color: "var(--error-dark)" }}>{error?.response.data.message}</span>
+              <span style={{ color: "var(--error-dark)" }}>{error?.response?.data.message}</span>
             </section>
           )}
           <div className="profile__submit">
