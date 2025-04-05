@@ -55,5 +55,3 @@ jobs:
     - name: 'Application :: Build'
       run: ./mvnw clean package -DskipTests
 
-    - name: 'Docker :: Image Build'
-      run:
