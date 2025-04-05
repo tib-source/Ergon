@@ -1,11 +1,11 @@
 services:
   - type: web
+    runtime: docker
+    image:
+      url: tibss/ergon:latest
     plan: free
     name: Ergon
-    runtime: docker
     repo: https://github.com/tib-source/Ergon.git
-    dockerContext: .
-    dockerfilePath: Dockerfile
     envVars:
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
