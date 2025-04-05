@@ -41,8 +41,7 @@ public class SpringConfiguration implements WebMvcConfigurer {
                     @Override
                     public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
                         // Log the requested path for debugging
-                        System.out.println("Requested path: " + requestPath);
-
+                        logger.debug("Requested path: {}", requestPath);
                         Resource resource = super.resolveResource(request, requestPath, locations, chain);
 
                         if (resource != null) {
