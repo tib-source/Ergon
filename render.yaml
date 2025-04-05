@@ -5,6 +5,9 @@ services:
     runtime: docker
     image:
       url: "tibss/ergon:latest"
+      creds:
+        fromRegistryCreds:
+          name: docker-creds
     envVars:
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
