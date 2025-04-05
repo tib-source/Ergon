@@ -40,8 +40,6 @@ public class SpringConfiguration implements WebMvcConfigurer {
                 .addResolver(new PathResourceResolver() {
                     @Override
                     public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
-                        // Log the requested path for debugging
-                        logger.debug("Requested path: {}", requestPath);
                         Resource resource = super.resolveResource(request, requestPath, locations, chain);
 
                         if (resource != null) {
