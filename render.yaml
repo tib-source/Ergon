@@ -2,7 +2,7 @@ services:
   - type: web
     runtime: docker
     image:
-      url: tibss/ergon:latest
+      url: "tibss/ergon:latest"
     plan: free
     name: Ergon
     repo: https://github.com/tib-source/Ergon.git
