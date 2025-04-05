@@ -4,20 +4,24 @@ services:
     image: postgres:13
     restart: unless-stopped
     volumes:
-      - postgres-data-dev:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
       POSTGRES_DB: ergon
-  app:
+  ergon:
     build: .
     environment:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/ergon"
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
     ports:
       - '8080:8080'
     depends_on:
       - db
 
+
 volumes:
-  postgres-data-dev:
-    driver: local
+  pgdata:
