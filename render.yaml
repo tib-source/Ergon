@@ -12,15 +12,15 @@ services:
           name: ergon-db
           property: connectionString
       - key: SPRING_DATASOURCE_USERNAME
-        value: postgres
+        sync: false
       - key: SPRING_DATASOURCE_PASSWORD
-        value: postgres
+        sync: false
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: update
 
 databases:
   - name: ergon-db
     databaseName: ergon
-    user: postgres
+    user: ergon_user
     plan: free
     postgresMajorVersion: "13"

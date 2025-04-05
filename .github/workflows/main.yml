@@ -15,7 +15,6 @@ env:
   JAVA_MAJOR_VERSION: '17.0.8'
   NODE_MAJOR_VERSION: '20.14.0'
 
-
 jobs:
   build:
 
