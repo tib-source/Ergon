@@ -2,9 +2,9 @@ services:
   - type: web
     plan: free
     name: Ergon
-    runtime: docker
+    runtime: image
     image:
-      url: "tibss/ergon:latest"
+      url: "docker.io/tibss/ergon:latest"
       creds:
         fromRegistryCreds:
           name: docker-creds
