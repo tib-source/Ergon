@@ -26,7 +26,7 @@ services:
       - key: DATABASE_USERNAME
         fromDatabase:
           name: ergon-db
-          property: username
+          property: user
       - key: DATABASE_PASSWORD
         fromDatabase:
           name: ergon-db
@@ -34,7 +34,7 @@ services:
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: ergon-db
-          property: username
+          property: user
       - key: SPRING_DATASOURCE_PASSWORD
         fromDatabase:
           name: ergon-db
