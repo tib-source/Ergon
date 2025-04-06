@@ -4,7 +4,7 @@ services:
     name: Ergon
     runtime: docker
     image:
-      url: "tibss/ergon:latest"
+      url: "docker.io/tibss/ergon:latest"
       creds:
         fromRegistryCreds:
           name: docker-creds
