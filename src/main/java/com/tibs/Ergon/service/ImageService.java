@@ -22,11 +22,6 @@ public class ImageService {
     @Value("${image.upload.directory:${user.home}/.ergon/uploads}")
     private String imageUploadDirectory;
 
-    @Value("${server.address}")
-    private String serverAddress;
-
-    @Value("${server.port}")
-    private String serverPort;
 
 
     public String saveImage(String base64Image, String fileName) {
@@ -65,9 +60,6 @@ public class ImageService {
             throw new ImageUploadFailedException();
         }
 
-        // Construct and return the URL
-        String address = serverAddress != null ? serverAddress : "http://localhost";
-        String port = serverPort != null ? serverPort : "8080";
-        return "http://" + address + ":" + port + "/images/" + fileName + ".jpg";
+        return "/images/" + fileName + ".jpg";
     }
 }
