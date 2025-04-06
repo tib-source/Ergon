@@ -14,9 +14,13 @@ services:
           name: ergon-db
           property: connectionString
       - key: SPRING_DATASOURCE_USERNAME
-        sync: false
+        fromDatabase:
+          name: ergon-db
+          property: username
       - key: SPRING_DATASOURCE_PASSWORD
-        sync: false
+        fromDatabase:
+          name: ergon-db
+          property: password
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: update
 
