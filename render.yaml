@@ -10,13 +10,31 @@ services:
           name: docker-creds
     envVars:
       - key: SPRING_DATASOURCE_URL
+        value: "jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}?user=${DATABASE_USERNAME}&password=${DATABASE_PASSWORD}&sslmode=require"
+      - key: DATABASE_HOST
         fromDatabase:
           name: ergon-db
-          property: connectionString
+          property: host
+      - key: DATABASE_PORT
+        fromDatabase:
+          name: ergon-db
+          property: port
+      - key: DATABASE_NAME
+        fromDatabase:
+          name: ergon-db
+          property: database
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: ergon-db
+          property: username
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: ergon-db
+          property: password
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: ergon-db
-          property: user
+          property: username
       - key: SPRING_DATASOURCE_PASSWORD
         fromDatabase:
           name: ergon-db
