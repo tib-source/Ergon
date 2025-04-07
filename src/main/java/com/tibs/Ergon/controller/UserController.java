@@ -54,8 +54,8 @@ public class UserController {
 
     @PutMapping("/{username}")
     public ResponseEntity<User> updateUser(@Valid @RequestBody UserUpdateRequest updateRequest) {
-        log.info("Requesting to update User: {}", updateRequest);
         String requestUser = UserUtil.userName();
+        log.info("Requesting to update User: {}", requestUser);
         User updated = userDetailsService.updateUser(requestUser, updateRequest);
         return ResponseEntity.ok().body(updated);
     }

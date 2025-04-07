@@ -18,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 
@@ -51,6 +50,14 @@ class Initializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+
+        // if there is any data in the database already, that means it has been initialised
+        // could have used liquibase or something of that sort here but that's so much effort
+        // that this hacky solution :^)
+        if (userRepository.count() != 0){
+            return;
+        }
+
         logger.info("Initializing data - reading from inventory.csv ...");
         try (
                 BufferedReader br = new BufferedReader(new InputStreamReader(new ClassPathResource("inventory.csv").getInputStream()))
@@ -86,7 +93,7 @@ class Initializer implements CommandLineRunner {
             userRepository.save(user);
 
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
         }
     }
