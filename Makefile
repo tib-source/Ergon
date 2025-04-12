@@ -9,6 +9,9 @@ ui:
 server:
 	./mvnw spring-boot:run -Dspring-boot.run.profiles=local
 
+server-prod:
+	./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
+
 all:
 	make ui
 	make server
