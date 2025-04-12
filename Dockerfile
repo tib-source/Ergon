@@ -11,4 +11,4 @@ COPY target/*.jar app.jar
 # Expose the port
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","-Dimage.upload.directory=/app/uploads", "app.jar"]
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=prod", "-Dimage.upload.directory=/app/uploads", "app.jar"]

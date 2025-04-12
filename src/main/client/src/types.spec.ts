@@ -20,8 +20,3 @@ export interface UserObject {
   dob: string;
   profilePicture: string;
 }
-
-
-export interface ApiResponse<T> {
-  data: T;
-}

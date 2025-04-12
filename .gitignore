@@ -33,3 +33,5 @@ lint/
 .vscode/
 
 **DS_Store
+/src/main/client/vite.config.d.ts
+/src/main/client/vite.config.js
