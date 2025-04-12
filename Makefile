@@ -7,7 +7,7 @@ ui:
 	cd src/main/client && npm run dev
 
 server:
-	./mvnw spring-boot:run -P local
+	./mvnw spring-boot:run -Dspring-boot.run.profiles=local
 
 all:
 	make ui
