@@ -53,7 +53,7 @@ jobs:
           cache-dependency-path: 'src/main/client/package-lock.json'
 
       - name: 'Application :: Build'
-        run: ./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
+        run: ./mvnw clean package -Dspring-boot.run.profiles=prod
 
       - name: List JAR files (for verification)
         run: ls -la target/*.jar
