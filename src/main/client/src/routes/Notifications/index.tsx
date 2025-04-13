@@ -47,9 +47,9 @@ const Notifications = () => {
   };
 
   // convert notification type to css variable name, e.g. REQUEST_CREATED -> --request-created
-  const typeToCssVar = (type: string) => {
-    return `--${type.toLowerCase().replace(/_/g, "-")}`;
-  };
+  // const typeToCssVar = (type: string) => {
+  //   return `--${type.toLowerCase().replace(/_/g, "-")}`;
+  // };
 
   const iconForType = (type: string) => {
     switch (type) {
