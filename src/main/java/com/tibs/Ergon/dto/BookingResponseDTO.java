@@ -1,6 +1,9 @@
 package com.tibs.Ergon.dto;
 
 import java.time.LocalDate;
+
+import com.tibs.Ergon.enums.BookingStatusEnum;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,8 +13,7 @@ public class BookingResponseDTO {
     private Long id;
     private LocalDate bookedFrom;
     private LocalDate bookedTo;
-    private Boolean approved;
-    private Boolean returned;
+    private BookingStatusEnum status;
     private String reason;
     private Long userId;
     private String userName;

@@ -4,6 +4,7 @@ import com.tibs.Ergon.model.Booking;
 import com.tibs.Ergon.repository.BookingRepository;
 import com.tibs.Ergon.request.BookingRequest;
 import com.tibs.Ergon.service.BookingService;
+import com.tibs.Ergon.util.UserUtil;
 import com.tibs.Ergon.dto.BookingResponseDTO;
 import com.tibs.Ergon.mapper.BookingMapper;
 import jakarta.validation.Valid;
@@ -45,6 +46,20 @@ public class BookingController {
     public ResponseEntity<?> getBooking(@PathVariable Long id) {
         Booking booking = this.bookingService.getBookingById(id);
         return ResponseEntity.ok(this.bookingMapper.toDTO(booking));
+    }
+
+    @PostMapping("/{id}/approve")
+    public ResponseEntity<?> approveBooking(@PathVariable Long id) {
+        String currentUser = UserUtil.userName();
+        bookingService.approveBooking(id, currentUser);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/reject")
+    public ResponseEntity<?> rejectBooking(@PathVariable Long id) {
+        String currentUser = UserUtil.userName();
+        bookingService.rejectBooking(id, currentUser);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("")

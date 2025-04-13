@@ -49,19 +49,19 @@ const Notifications = () => {
   const typeToCssClass = (type: string) => {
     switch (type) {
       case "REQUEST_CREATED":
-        return "bg-request-created";
+        return "blue-500";
       case "REQUEST_APPROVED":
-        return "bg-request-approved";
+        return "green-500";
       case "REQUEST_REJECTED":
-        return "bg-request-rejected";
+        return "red-500";
       case "OUTSTANDING_RETURN":
-        return "bg-outstanding-return";
+        return "orange-500";
       case "RETURN_COMPLETED":
-        return "bg-return-completed";
+        return "green-500";
       case "UPCOMING_RETURN":
-        return "bg-upcoming-return";
+        return "blue-500";
       default:
-        return "bg-gray-200";
+        return "purple-500";
     }
   };
 
@@ -85,11 +85,11 @@ const Notifications = () => {
   };
 
   const styleNotification = (notification: Notification) => {
-    const style = notification.read ? "card-grid-item-read" : "";
+    const style = notification.read && "card-grid-item-read" ;
     const colorClass = typeToCssClass(notification.type);
 
     return (
-      <Card className={`border-l-4 border-l-red-500 ${colorClass} ${style}`} key={notification.id}>
+      <Card className={`border-l-4 border-l-${colorClass}  ${style}`} key={notification.id}>
         <CardContent className="flex items-start gap-4">
           <div className="rounded-full">
             {iconForType(notification.type)}

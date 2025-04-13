@@ -25,7 +25,8 @@ export interface UserObject {
 
 
 export interface Booking {
-  id: string;
+  id: number;
+  userId: number;
   userName: string;
   equipment: string;
   bookedTo: string;

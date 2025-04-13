@@ -2,11 +2,7 @@ import { ColumnDef } from "@/types.spec.ts";
 
 export const approvalsColumns: ColumnDef[] = [
   {
-    header: "ID",
-    accessor: "id",
-  },
-  {
-    header: "Requester",
+    header: "User",
     accessor: "userName",
   },
   {
@@ -21,4 +17,8 @@ export const approvalsColumns: ColumnDef[] = [
     header: "To",
     accessor: "bookedTo",
   },
+  {
+    header: "Comment",
+    accessor: "reason",
+  }
 ]

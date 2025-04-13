@@ -112,7 +112,7 @@ function Table<TData extends Record<string, any>>({
         {processed.map((rowData, index) => (
           <tr key={index}>
             {rows.map((row, cellIndex) => (
-              <td key={cellIndex}>
+              <td key={cellIndex} >
                 {row.cell ? row.cell : rowData[row.accessor]}
               </td>
             ))}
