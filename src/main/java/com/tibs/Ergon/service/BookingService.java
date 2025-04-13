@@ -86,4 +86,8 @@ public class BookingService {
         }
     }
 
+    public Booking getBookingById(Long id) {
+        return bookingRepo.findById(id).orElseThrow(BookingNotFound::new);
+    }
+
 }

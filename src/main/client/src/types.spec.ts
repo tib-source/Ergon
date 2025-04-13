@@ -1,3 +1,5 @@
+import { ReactElement } from "react";
+
 export interface Equipment {
   id: number;
   name: string;
@@ -24,12 +26,18 @@ export interface UserObject {
 
 export interface Booking {
   id: string;
-  equipment: {
-    id: string;
-    name: string;
-  };
-  booked_from: string;
+  userName: string;
+  equipment: string;
+  bookedTo: string;
+  bookedFrom: string;
   status: string;
   returned: boolean;
   approved: boolean;
+}
+
+
+export interface ColumnDef{
+  accessor: string;
+  header: string;
+  cell?: ReactElement;
 }

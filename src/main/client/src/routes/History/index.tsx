@@ -2,47 +2,30 @@ import { Key, useEffect, useState } from "react";
 import TableCard from "../../components/TableCard";
 import TableCardContainer from "../../components/TableCardContainer";
 import "../../components/styling/history.css";
-import { Tab, Tabs } from "../../components/Tabs";
+import { Tab, Tabs } from "@/components/Tabs";
 import Loader from "../../components/Loader";
 import Loading from "../../components/Loader";
 import { useAuthorizedClient } from "../../hooks/useAuthorizedClient/useAuthorizedClient.tsx";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Booking } from "@/types.spec.ts";
+import { useBookingList } from "@/hooks/useBookingList.tsx";
 
 const History: React.FC = () => {
 
   const rows = ["ID", "Name", "Request Date", "Action"];
-
-  interface Booking {
-    id: string;
-    equipment: {
-      id: string;
-      name: string;
-    };
-    booked_from: string;
-    status: string;
-    returned: boolean;
-    approved: boolean;
-  }
-
   const [filtered, setFiltered] = useState<Booking[]>([]);
-  const [data, setData] = useState<Booking[]>([]);
   const [currentTab, setCurrentTab] = useState("Pending");
   const client = useAuthorizedClient();
   const tabRows = ["Pending", "Approved", "Returned"];
   const queryClient = useQueryClient();
-  const { isPending, data: bookingList, isSuccess } = useQuery(
-    {
-      queryKey: ["bookings", "history"],
-      queryFn: () => client.get("/bookings")
-    }
-  );
+  const [data, setData] = useState<Booking[]>([]);
+  const { isPending, isSuccess, data: response } = useBookingList();
 
   useEffect(() => {
     if (isSuccess) {
-      setData(bookingList.data);
+      setData(response.data);
     }
-  }, [bookingList, isSuccess]);
-
+  }, [isSuccess, response]);
 
   useEffect(() => {
 
@@ -84,7 +67,7 @@ const History: React.FC = () => {
 
                 )}
                 {filtered.map((booking: Booking, index: Key) => (
-                  <TableCard key={index} rows={[booking.id, booking.equipment.name, booking.booked_from]}>
+                  <TableCard key={index} rows={[booking.id, booking.equipment, booking.bookedFrom]}>
                     <td>
                       {
                         currentTab === "Pending" ? (

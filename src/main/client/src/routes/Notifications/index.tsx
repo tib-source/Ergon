@@ -46,10 +46,24 @@ const Notifications = () => {
     });
   };
 
-  // convert notification type to css variable name, e.g. REQUEST_CREATED -> --request-created
-  // const typeToCssVar = (type: string) => {
-  //   return `--${type.toLowerCase().replace(/_/g, "-")}`;
-  // };
+  const typeToCssClass = (type: string) => {
+    switch (type) {
+      case "REQUEST_CREATED":
+        return "bg-request-created";
+      case "REQUEST_APPROVED":
+        return "bg-request-approved";
+      case "REQUEST_REJECTED":
+        return "bg-request-rejected";
+      case "OUTSTANDING_RETURN":
+        return "bg-outstanding-return";
+      case "RETURN_COMPLETED":
+        return "bg-return-completed";
+      case "UPCOMING_RETURN":
+        return "bg-upcoming-return";
+      default:
+        return "bg-gray-200";
+    }
+  };
 
   const iconForType = (type: string) => {
     switch (type) {
@@ -71,26 +85,13 @@ const Notifications = () => {
   };
 
   const styleNotification = (notification: Notification) => {
-    let style = "";
-    if (notification.read) {
-      style += " card-grid-item-read";
-    }
-    return (
-      // <Card className={style} style={{ backgroundColor: `var(${typeToCssVar(notification.type)})` }}
-      //       key={notification.id}>
-      //   <div className="notification__content">
-      //     {iconForType(notification.type)}
-      //     <span>{notification.message}</span>
-      //   </div>
-      //   {!notification.read && <Check className="notification__tick" onClick={() => markAsRead(notification.id)} />}
-      // </Card>
+    const style = notification.read ? "card-grid-item-read" : "";
+    const colorClass = typeToCssClass(notification.type);
 
-      <Card
-        className={`border-l-4 border-l-red-500 ${style}`}
-        key={notification.id}
-      >
+    return (
+      <Card className={`border-l-4 border-l-red-500 ${colorClass} ${style}`} key={notification.id}>
         <CardContent className="flex items-start gap-4">
-          <div className="bg-red-100rounded-full">
+          <div className="rounded-full">
             {iconForType(notification.type)}
           </div>
           <div className="flex-1">
