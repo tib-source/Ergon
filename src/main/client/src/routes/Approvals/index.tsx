@@ -3,7 +3,7 @@ import { useBookingList } from "@/hooks/useBookingList.tsx";
 import { approvalsColumns } from "@/routes/Approvals/approvalsColumns.tsx";
 import Loading from "@/components/Loader";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, DivideSquare, XCircle } from "lucide-react";
+import { CheckCircle, XCircle } from "lucide-react";
 import { useAuthorizedClient } from "@/hooks/useAuthorizedClient/useAuthorizedClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
