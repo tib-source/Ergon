@@ -20,3 +20,16 @@ export interface UserObject {
   dob: string;
   profilePicture: string;
 }
+
+
+export interface Booking {
+  id: string;
+  equipment: {
+    id: string;
+    name: string;
+  };
+  booked_from: string;
+  status: string;
+  returned: boolean;
+  approved: boolean;
+}
