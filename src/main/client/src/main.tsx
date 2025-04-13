@@ -11,6 +11,7 @@ import { AuthProvider } from "./provider/AuthProvider.tsx";
 import { PrivateRoutes } from "./components/PrivateRoutes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Login } from "./routes/Login/Login.tsx";
+import { Approvals } from "@/routes/Approvals";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/history",
         element: <History />
+      },
+      {
+        path: "/approvals",
+        element: <Approvals />
       },
       {
         path: "/notifications",

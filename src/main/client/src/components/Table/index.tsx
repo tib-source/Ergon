@@ -1,66 +1,64 @@
-import { MouseEvent, useCallback, useEffect, useRef, useState } from "react";
-import { Equipment } from "../../types.spec.ts";
+import React, {
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { ColumnDef } from "@/types.spec.ts";
 
-const Table = ({
-                 content,
-                 openModal
-               }: {
-  content: Equipment[];
-  openModal: (id: number) => void;
-}) => {
-  const rows = [
-    "ID",
-    "Name",
-    "Quantity",
-    "Type",
-    "Location",
-    "Status",
-    "Comment"
-  ];
+function Table<TData extends Record<string, any>>({
+  rows,
+  content,
+  children,
+}: {
+  content: TData[];
+  rows: ColumnDef[];
+  openModal?: (id: number) => void;
+  children?: ((rowData: TData) => React.ReactNode) | React.ReactElement<{ rowData: TData }>;
+}) {
+  const [processed, setProcessed] = useState<TData[]>(content);
+  const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
-  const [processed, setProcessed] = useState(content);
-
-  const buttonRefs = useRef<Array<HTMLButtonElement>>([]);
-
-
-  const sortTable = useCallback((row: string, direction: string): void => {
-    row = row.toLowerCase();
-    if (direction === "asc") {
-      setProcessed(
-        [...content].sort((a: Equipment, b: Equipment) => {
-          if (a[row] > b[row]) return -1;
-          else if (a[row] < b[row]) return 1;
-          else return 0;
-        })
-      );
-    } else {
-      setProcessed(() =>
-        [...content].sort((a, b) => {
-          if (a[row] < b[row]) return -1;
-          else if (a[row] > b[row]) return 1;
-          else return 0;
-        })
-      );
-    }
-  }, [content]);
+  const sortTable = useCallback(
+    (row: string, direction: string): void => {
+      if (direction === "asc") {
+        setProcessed(
+          [...content].sort((a: TData, b: TData) => {
+            if (a[row] > b[row]) return -1;
+            else if (a[row] < b[row]) return 1;
+            else return 0;
+          }),
+        );
+      } else {
+        setProcessed(() =>
+          [...content].sort((a: TData, b: TData) => {
+            if (a[row] < b[row]) return -1;
+            else if (a[row] > b[row]) return 1;
+            else return 0;
+          }),
+        );
+      }
+    },
+    [content],
+  );
 
   const resetButtons = (current: HTMLButtonElement) => {
-    buttonRefs.current.map((button) => {
-      if (button !== current) {
+    buttonRefs.current.forEach((button) => {
+      if (button && button !== current) {
         button.removeAttribute("data-dir");
       }
     });
   };
-  const handleSort = (event: MouseEvent<HTMLButtonElement>, row: string) => {
+
+  const handleSort = (event: MouseEvent<HTMLButtonElement>, row: ColumnDef) => {
     const curr = event.currentTarget;
-    resetButtons(event.currentTarget);
+    resetButtons(curr);
     if (curr.getAttribute("data-dir") === "desc") {
-      // Handle sorting
-      sortTable(row, "asc");
+      sortTable(row.accessor, "asc");
       curr.setAttribute("data-dir", "asc");
     } else {
-      // Handle sorting
-      sortTable(row, "desc");
+      sortTable(row.accessor, "desc");
       curr.setAttribute("data-dir", "desc");
     }
   };
@@ -69,59 +67,61 @@ const Table = ({
     setProcessed([...content]);
     sortTable("ID", "des");
   }, [content, sortTable]);
+
+  // Function to render action cell with row data
+  const renderActionCell = (rowData: TData) => {
+    if (!children) return null;
+
+    if (typeof children === "function") {
+      return children(rowData);
+    }
+
+    if (React.isValidElement(children)) {
+      return React.cloneElement(children, { rowData } as { rowData: TData });
+    }
+
+    return children;
+  };
+
   return (
     <table id="dashboard_table">
       <thead>
-      <tr>
-        {rows.map((row, index) => (
-          <th key={index}>
-            <button
-              ref={(el) =>
-                (buttonRefs.current[index] = el as HTMLButtonElement)
-              }
-              onClick={(e) => handleSort(e, row)}
-              className="table__row"
-            >
-              {row}
-            </button>
-          </th>
-        ))}
-
-        <th>Action</th>
-      </tr>
+        <tr>
+          {rows.map((row, index) => (
+            <th key={index}>
+              <button
+                ref={(el) => (buttonRefs.current[index] = el)}
+                onClick={(e) => handleSort(e, row)}
+                className="table__row"
+              >
+                {row.header}
+              </button>
+            </th>
+          ))}
+          {children && <th>Action</th>}
+        </tr>
       </thead>
       <tbody id="table_content">
-      {processed.length === 0 && (
-        <tr>
-          <td className="empty"> No Results Found</td>
-        </tr>
-      )}
-      {processed.map((row: Equipment, index: number) => (
-        <tr key={index}>
-          <td>{row.id}</td>
-          <td>{row.name}</td>
-          <td>{row.quantity}</td>
-          <td>{row.type}</td>
-          <td>{row.location}</td>
-          <td>
-              <span className={`status status__${row.status.toLowerCase()}`}>
-                {row.status}
-              </span>
-          </td>
-          <td>{row.comment == "nan" ? "" : row.comment}</td>
-          <td>
-            <button
-              onClick={() => openModal(row.id)}
-              className="styled__button"
-            >
-              Book
-            </button>
-          </td>
-        </tr>
-      ))}
+        {processed.length === 0 && (
+          <tr>
+            <td className="empty" colSpan={rows.length + (children ? 1 : 0)}>
+              No Results Found
+            </td>
+          </tr>
+        )}
+        {processed.map((rowData, index) => (
+          <tr key={index}>
+            {rows.map((row, cellIndex) => (
+              <td key={cellIndex} >
+                {row.cell ? row.cell : rowData[row.accessor]}
+              </td>
+            ))}
+            {children && <td>{renderActionCell(rowData)}</td>}
+          </tr>
+        ))}
       </tbody>
     </table>
   );
-};
+}
 
 export default Table;

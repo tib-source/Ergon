@@ -2,70 +2,55 @@ import { Key, useEffect, useState } from "react";
 import TableCard from "../../components/TableCard";
 import TableCardContainer from "../../components/TableCardContainer";
 import "../../components/styling/history.css";
-import { Tab, Tabs } from "../../components/Tabs";
+import { Tab, Tabs } from "@/components/Tabs";
 import Loader from "../../components/Loader";
 import Loading from "../../components/Loader";
 import { useAuthorizedClient } from "../../hooks/useAuthorizedClient/useAuthorizedClient.tsx";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Booking } from "@/types.spec.ts";
+import { useBookingList } from "@/hooks/useBookingList.tsx";
 
 const History: React.FC = () => {
 
   const rows = ["ID", "Name", "Request Date", "Action"];
-
-  interface Booking {
-    id: string;
-    equipment: {
-      id: string;
-      name: string;
-    };
-    booked_from: string;
-    status: string;
-    returned: boolean;
-    approved: boolean;
-  }
-
   const [filtered, setFiltered] = useState<Booking[]>([]);
-  const [data, setData] = useState<Booking[]>([]);
   const [currentTab, setCurrentTab] = useState("Pending");
   const client = useAuthorizedClient();
-  const tabRows = ["Pending", "Approved", "Returned"];
+  const tabRows = ["Pending", "Approved", "Returned", "Rejected"];
   const queryClient = useQueryClient();
-  const { isPending, data: bookingList, isSuccess } = useQuery(
-    {
-      queryKey: ["bookings", "history"],
-      queryFn: () => client.get("/bookings")
-    }
-  );
+  const [data, setData] = useState<Booking[]>([]);
+  const { isPending, isSuccess, data: response } = useBookingList();
 
   useEffect(() => {
     if (isSuccess) {
-      setData(bookingList.data);
+      setData(response.data);
     }
-  }, [bookingList, isSuccess]);
-
+  }, [isSuccess, response]);
 
   useEffect(() => {
 
     const filterData = (tabName: string) => {
       if (tabName === "Pending") {
-        setFiltered(data.filter(booking => !booking.approved));
+        setFiltered(data.filter(booking => booking.status === "PENDING"));
       } else if (tabName === "Approved") {
-        setFiltered(data.filter(booking => booking.approved));
+        setFiltered(data.filter(booking => booking.status === "APPROVED"));
+      } else if (tabName === "Returned") {
+        setFiltered(data.filter(booking => booking.status === "RETURNED"));
       } else {
-        setFiltered(data.filter(booking => booking.returned));
+        setFiltered(data.filter(booking => booking.status === "REJECTED"));
       }
     };
 
     filterData(currentTab);
   }, [data, currentTab]);
 
-  const cancelBooking = async (id: string) => {
+  const cancelBooking = async (id: number) => {
     return client.delete(`/bookings/${id}`);
   };
 
   const { mutate, isPending: cancelPending } = useMutation(
     {
-      mutationFn: (id: string) => cancelBooking(id),
+      mutationFn: (id: number) => cancelBooking(id),
       onSuccess: () => queryClient.invalidateQueries({ queryKey: ["bookings", "history"] })
     }
   );
@@ -84,7 +69,7 @@ const History: React.FC = () => {
 
                 )}
                 {filtered.map((booking: Booking, index: Key) => (
-                  <TableCard key={index} rows={[booking.id, booking.equipment.name, booking.booked_from]}>
+                  <TableCard key={index} rows={[booking.id.toString(), booking.equipment, booking.bookedFrom]}>
                     <td>
                       {
                         currentTab === "Pending" ? (

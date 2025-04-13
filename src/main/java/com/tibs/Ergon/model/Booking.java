@@ -1,6 +1,8 @@
 package com.tibs.Ergon.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.tibs.Ergon.enums.BookingStatusEnum;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,9 +22,10 @@ public class Booking {
     @NonNull
     private LocalDate booked_from;
     private LocalDate booked_to;
-    private Boolean approved;
+    private BookingStatusEnum status;
     private Boolean returned;
     private String reason;
+    private LocalDate returnedDate;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")

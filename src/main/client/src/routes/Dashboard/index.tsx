@@ -6,6 +6,7 @@ import BookingModal from "../../components/BookingModal";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuthorizedClient } from "../../hooks/useAuthorizedClient/useAuthorizedClient.tsx";
 import { Equipment } from "../../types.spec.ts";
+import { equipmentColumns } from "@/routes/Dashboard/equipmentColumns.tsx";
 
 const Dashboard = () => {
   const queryClient = useQueryClient();
@@ -172,7 +173,13 @@ const Dashboard = () => {
       {isPending ? (
         <Loading />
       ) : (
-        <Table openModal={openBookingModal} content={content} />
+        <Table rows={equipmentColumns} openModal={openBookingModal} content={content} >
+          {(rowData) => (
+            <button onClick={() => openBookingModal(rowData.id)} className="styled__button">
+              Book
+            </button>
+          )}
+        </Table>
       )}
     </div>
   );

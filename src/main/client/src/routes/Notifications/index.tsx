@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import useNotifications, { Notification } from "../../hooks/useNotifications";
 import Env from "../../Env";
-import CardGrid from "../../components/CardGrid";
-import Card from "../../components/Card";
-import { AlertCircle, Bell, Calendar, Check, CheckCircle, EyeClosed, RotateCcw, XCircle } from "lucide-react";
-
+import {
+  AlertCircle,
+  Bell,
+  Calendar,
+  Check,
+  CheckCircle,
+  EyeClosed,
+  RotateCcw,
+  XCircle,
+} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card.tsx";
+import CardGrid from "@/components/CardGrid";
 
 const Notifications = () => {
-
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const stream = useNotifications(1);
@@ -23,23 +30,39 @@ const Notifications = () => {
 
   const markAsRead = (id: number) => {
     fetch(`${Env.BASE_URL}/notifications/${id}`, {
-      method: "POST"
+      method: "POST",
     }).then((response) => {
       if (!response.ok) {
         throw new Error("Failed to mark notification as read");
       }
-      setNotifications(notifications.map((notification) => {
-        if (notification.id === id) {
-          return { ...notification, read: true };
-        }
-        return notification;
-      }));
+      setNotifications(
+        notifications.map((notification) => {
+          if (notification.id === id) {
+            return { ...notification, read: true };
+          }
+          return notification;
+        }),
+      );
     });
   };
 
-  // convert notification type to css variable name, e.g. REQUEST_CREATED -> --request-created
-  const typeToCssVar = (type: string) => {
-    return `--${type.toLowerCase().replace(/_/g, "-")}`;
+  const typeToCssClass = (type: string) => {
+    switch (type) {
+      case "REQUEST_CREATED":
+        return "blue-500";
+      case "REQUEST_APPROVED":
+        return "green-500";
+      case "REQUEST_REJECTED":
+        return "red-500";
+      case "OUTSTANDING_RETURN":
+        return "orange-500";
+      case "RETURN_COMPLETED":
+        return "green-500";
+      case "UPCOMING_RETURN":
+        return "blue-500";
+      default:
+        return "purple-500";
+    }
   };
 
   const iconForType = (type: string) => {
@@ -62,18 +85,35 @@ const Notifications = () => {
   };
 
   const styleNotification = (notification: Notification) => {
-    let style = "notification__item";
-    if (notification.read) {
-      style += " card-grid-item-read";
-    }
+    const style = notification.read && "card-grid-item-read" ;
+    const colorClass = typeToCssClass(notification.type);
+
     return (
-      <Card className={style} style={{ backgroundColor: `var(${typeToCssVar(notification.type)})` }}
-            key={notification.id}>
-        <div className="notification__content">
-          {iconForType(notification.type)}
-          <span>{notification.message}</span>
-        </div>
-        {!notification.read && <Check className="notification__tick" onClick={() => markAsRead(notification.id)} />}
+      <Card className={`border-l-4 border-l-${colorClass}  ${style}`} key={notification.id}>
+        <CardContent className="flex items-start gap-4">
+          <div className="rounded-full">
+            {iconForType(notification.type)}
+          </div>
+          <div className="flex-1">
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="font-medium">{notification.type}</p>
+                <p className="text-sm text-muted-foreground">
+                  {notification.message}
+                </p>
+                <span className="text-xs text-muted-foreground">5 min ago</span>
+              </div>
+              <div>
+                {!notification.read && (
+                  <Check
+                    className="notification__tick"
+                    onClick={() => markAsRead(notification.id)}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </CardContent>
       </Card>
     );
   };
@@ -90,14 +130,10 @@ const Notifications = () => {
             <EyeClosed />
           </Card>
         )}
-        {notifications.map((notification) => (
-          styleNotification(notification)
-        ))}
+        {notifications.map((notification) => styleNotification(notification))}
       </CardGrid>
     </div>
   );
 };
 
 export default Notifications;
-
-
