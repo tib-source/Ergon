@@ -46,10 +46,6 @@ body {
 .login {
     width: 320px;
     gap: 1.5rem;
-
-    a {
-        padding: 0;
-    }
 }
 
 .register {

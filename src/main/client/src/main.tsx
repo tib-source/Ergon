@@ -12,11 +12,16 @@ import { PrivateRoutes } from "./components/PrivateRoutes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Login } from "./routes/Login/Login.tsx";
 import { Approvals } from "@/routes/Approvals";
+import { Register } from "./routes/Register/Register.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />
+  },
+  {
+    path: "/register",
+    element: <Register/>
   },
   {
     path: "/",

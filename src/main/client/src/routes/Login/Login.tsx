@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import Loading from "../../components/Loader";
 
 import { useAuth } from "../../hooks/UseAuth.tsx";
+import axios from "axios";
 
 export const Login = () => {
   const username = useRef<HTMLInputElement>(null);
@@ -32,7 +33,7 @@ export const Login = () => {
 
   };
 
-  const { mutate, isError, isPending } = useMutation({
+  const { mutate, isError, isPending, error } = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
       localStorage.setItem("token", data.data.token);
@@ -47,9 +48,8 @@ export const Login = () => {
   return (
     <>
       <div className="auth__split"></div>
-      {isPending ? <Loading /> :
+      {isPending ? <div className="auth register"><Loading /></div> :
         <div className="auth login">
-          <h1>Login</h1>
           <div className="input__container">
             <div className="input__label">
               <p>Username</p>
@@ -59,7 +59,6 @@ export const Login = () => {
                    id="id_username" />
           </div>
 
-
           <div className="input__container">
             <div className="input__label">
               <p>Password</p>
@@ -68,12 +67,11 @@ export const Login = () => {
                    autoComplete="current-password"
                    required
                    id="id_password" />
-            {isError &&
-              <div className="input__error">
-                <p>Password or Username is wrong</p>
-              </div>
-            }
-
+          { isError && axios.isAxiosError(error) &&
+            <div className="input__error">
+              <p>{error?.response?.data.message || "Password or Username is wrong"}</p>
+            </div>
+          }
           </div>
 
           <div style={{ display: "grid" }}>
@@ -82,6 +80,5 @@ export const Login = () => {
           <Link className="styled__button floating" to="/register">Register</Link>
         </div>}
     </>
-
   );
 };
